@@ -1,0 +1,168 @@
+---
+title: "Packaging Design"
+description: "Dit playbook beschrijft het volledige interne proces voor het ontwerpen van verpakkingen (Packaging Design) bij Oase Creative. Deze dienst is relatief"
+icon: "box"
+---
+
+
+## Overzicht
+Dit playbook beschrijft het volledige interne proces voor het ontwerpen van verpakkingen (Packaging Design) bij Oase Creative. Deze dienst is relatief eenvoudig qua workflow, maar vereist hoge nauwkeurigheid en consistente kwaliteitscontrole. Het ontwerp moet volledig aansluiten op de branding van de klant, en correct worden opgemaakt voor drukwerk.
+---
+
+# Stap 1: Intakeformulier Ontvangen via Slack
+Wanneer een klant het Packaging Design formulier invult, komt dit binnen in Slack.
+De projectmanager opent het formulier en controleert alle ingevoerde informatie.
+
+### Wat moet het intakeformulier bevatten:
+- Type verpakking (doos, sleeve, pouch, label, insert)
+- Afmetingen of aangeleverde **dielines** (snijtemplate)
+- Branding materiaal (logo’s, kleuren, typografie)
+- Teksten die op de verpakking komen
+- Plaatsing van waarschuwingen / iconen / wettelijke informatie
+- Inspiratievoorbeelden of moodboards
+- Doel van het product / doelgroep
+- Eventuele productspecificaties
+<Warning>
+Als er **geen dieline** is aangeleverd, stopt het proces totdat deze geleverd wordt door de klant of printer.
+</Warning>
+
+---
+
+# Stap 2: Controleren van Assets
+Alle aangeleverde bestanden moeten worden gecontroleerd voordat het ontwerp start.
+
+### Checklist voor assetcontrole:
+- Dieline (PDF / AI) aanwezig en technisch correct?
+- Logo’s in vectorformaat? (SVG / EPS / AI)
+- Kleurcodes beschikbaar?
+- Typografie beschikbaar?
+- Tekst aangeleverd in bewerkbare vorm?
+- Foto’s in voldoende resolutie?
+- Referenties duidelijk?
+- Zijn er wettelijke eisen voor het product?
+<Tip>
+> Tip: Maak een interne map “/Input van klant” in Google Drive om alles te verzamelen.
+</Tip>
+
+---
+
+# Stap 3: Start van het Ontwerp
+Wanneer alle input aanwezig is, kan de designer beginnen.
+
+### Workflow ontwerp:
+1. Dieline openen in Illustrator
+2. Lagenstructuur netjes opzetten (Template / Artwork / Tekst / Iconen)
+3. Branding toepassen (kleur, fonts, logo’s)
+4. Compositie bepalen op basis van:
+- USP’s
+- Productinformatie
+- Front panel / backside / side panels
+5. Wettelijke teksten plaatsen (indien van toepassing)
+6. Veiligheidsmarges respecteren (bleed / cutting area)
+7. Eerste concept opmaken
+
+### Technische richtlijnen:
+- Werk **100% in vector** waar mogelijk
+- Gebruik CMYK voor drukopmaak
+- Stel snij-lijnen en denk-lijnen correct in
+- Let op leesbaarheid (minimale lettergrootte)
+- Zorg voor juiste bleed (3–5 mm)
+---
+
+# Stap 4: Eerste Oplevering aan Klant
+Wanneer het eerste ontwerp klaar is, levert de projectmanager het concept aan de klant.
+
+### Aanlevering bevat:
+- Voorbeeld PDF (screen proof)
+- Een mock-up (optioneel maar aanbevolen)
+- Korte toelichting: kleuren, fonts, compositie, rationale
+
+### Bestandsnamen:
+```
+[KLANTNAAM]_Packaging_Concept_v1.pdf
+[KLANTNAAM]_Mockup_v1.jpg
+```
+---
+
+# Stap 5: Revisierondes
+Elke packaging opdracht bevat standaard **2 revisierondes**.
+
+### Revisieproces:
+1. Klant geeft feedback
+2. Designer verwerkt revisies
+3. Update wordt opnieuw naar klant gestuurd
+4. Bij goedkeuring → verder naar finalisatie
+5. Bij extra revisies → meerwerk bespreken
+
+### Revisie-checklist:
+- Zijn alle wijzigingen consistent doorgevoerd?
+- Zijn kleuren en fonts onveranderd gebleven?
+- Is de compositie verbeterd, niet verslechterd?
+- Zijn teksten nog correct na verplaatsing?
+---
+
+# Stap 6: Final Delivery (Drukbestanden)
+Wanneer de klant akkoord geeft, worden de drukbestanden voorbereid.
+
+### Best practice drukopmaak:
+- Alles in CMYK
+- Logo’s en tekst: vector
+- Rasterfoto’s minimaal 300 DPI
+- Snijlijnen op aparte laag
+- Afloop / bleed correct
+- Geen verborgen objecten
+- Overprint instellingen controleren
+- Fonts outlined / of bijgevoegd
+- Final check op spelfouten
+
+### Bestanden die worden opgeleverd:
+- **Drukwerk PDF** (Press Ready)
+- **Open bestand (.AI)**
+- **Mock-up JPEG/PNG**
+- **Kopie van alle assets in final folder**
+
+### Bestandsstructuur:
+```
+/Packaging Design
+/Input
+/Concept
+/Revisions
+/Final
+- Print Ready PDF
+- AI Source File
+- Mockups
+```
+---
+
+# Stap 7: Uploaden naar Google Drive
+Upload de final files in de projectmap:
+- /Input
+- /Concept
+- /Revisions
+- /Final
+- /Mockups
+
+### Slack update:
+“Packaging design voor [Klantnaam] is afgerond. Final files staan in Google Drive.”
+---
+
+# Best Practices
+- Gebruik altijd vector logo’s — nooit screenshots of PNG’s schalen.
+- Houd rekening met vouwlijnen en overlappingen.
+- Check producten vooraf (gewicht, vorm, positie van etiketten).
+- Gebruik meerdere mock-ups (flat, 3D, in-hand).
+- Communiceer duidelijk bij ontbrekende info.
+- Gebruik kleurmanagement-profielen voor CMYK.
+- Maak altijd een interne preflight voor drukwerk.
+---
+
+# Samenvatting Workflow
+1. Intakeformulier via Slack
+2. Controle op assets
+3. Ontwerpfase
+4. Eerste concept opleveren
+5. Revisies (max 2 rondes)
+6. Final drukbestanden exporteren
+7. Upload naar Drive
+8. Final delivery naar klant
+> Belangrijk: Communiceer elke stap in Slack zodat het team op de hoogte blijft.
