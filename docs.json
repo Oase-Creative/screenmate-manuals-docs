@@ -33,13 +33,19 @@
         "language": "en",
         "pages": [
           "manuals/en/onecable/index",
-          "manuals/en/onecable/installation",
           "manuals/en/onecable/drivers",
           "manuals/en/onecable/display-settings",
           "manuals/en/onecable/controls",
           "manuals/en/onecable/troubleshooting",
           "manuals/en/onecable/safety",
-          "manuals/en/onecable/downloads"
+          "manuals/en/onecable/downloads",
+          {
+            "group": "Installation",
+            "pages": [
+              "manuals/en/onecable/installation-windows",
+              "manuals/en/onecable/installation-mac"
+            ]
+          }
         ]
       }
     ]
