@@ -1,27 +1,118 @@
 ---
 title: "Drivers"
-description: "Drivers installeren voor Windows"
+description: "Driver installatie voor Windows en MacOS"
 icon: "computer"
 ---
 
-## Driver Installatie (Windows)
+## Driver installatie voor Windows
 
-Als u de USB-A methode gebruikt, of als het beeld niet direct verschijnt, moet u mogelijk een driver installeren.
+### Windows 10 of hoger
 
-<Steps>
-  <Step title="Stap 1: Download Driver">
-    Gebruik de meegeleverde USB-stick of scan de QR-code om de driver te downloaden.
-    
-    <div className="w-48">
-      <img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/oneCable%20qr%20code%20driver%20install.png" alt="QR Code Driver" className="rounded-lg border border-gray-200" />
-    </div>
-  </Step>
-  <Step title="Stap 2: Installatie">
-    Open het installatiebestand en volg de instructies op het scherm.
-    <img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/Driver%20installatie%20voor%20Windows.png" alt="Driver Installatie Windows" className="rounded-lg border border-gray-200" />
-  </Step>
-  <Step title="Stap 3: Herstarten">
-    Herstart uw computer na de installatie om de wijzigingen toe te passen.
-  </Step>
-</Steps>
+De benodigde stuurprogramma's worden automatisch geïnstalleerd zodra je de Screenmate aansluit via een USB-C- of USB-A-kabel.
+
+Zorg ervoor dat je laptop verbonden is met internet. Na een succesvolle installatie wordt aangeraden om je laptop opnieuw op te starten voordat je de Screenmate gebruikt.
+
+<img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/Driver%20installatie%20voor%20Windows.png" alt="Driver Installatie Windows" className="rounded-lg border border-gray-200" />
+
+### Handmatige installatie (indien nodig)
+
+Wordt het stuurprogramma niet automatisch geïnstalleerd?
+
+Volg dan deze stappen:
+
+1. Steek de meegeleverde USB-stick in je laptop en open de map 'DRIVERS'.
+2. Ga naar de map die overeenkomt met jouw Windows-versie.
+3. Dubbelklik op het installatiebestand en volg de instructies op het scherm.
+4. Start je laptop opnieuw op na installatie.
+5. Sluit de Screenmate aan, deze is nu klaar voor gebruik.
+
+### Download Drivers
+
+Download de juiste driver voor uw besturingssysteem. U kunt de driver ook vinden op de meegeleverde USB-stick.
+
+<div className="space-y-3 mt-4">
+  <div>
+    <p className="font-semibold mb-2">Windows 10 & 11:</p>
+    <a 
+      href="https://storage.screenmate.com/drivers/onecable/RacerDisplayDriver-2024.9.13-MultiLang.exe" 
+      download
+      className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-dark transition-colors"
+    >
+      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+      Download voor Windows 10/11
+    </a>
+  </div>
+  
+  <div>
+    <p className="font-semibold mb-2">Windows 7 & 8:</p>
+    <a 
+      href="https://storage.screenmate.com/drivers/onecable/RacerDisplayDriver_win7_beta_20221109_EN.exe" 
+      download
+      className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-dark transition-colors"
+    >
+      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+      Download voor Windows 7/8
+    </a>
+  </div>
+</div>
+
+<Note className="mt-4">
+  **Let op:** Vervang `https://storage.screenmate.com` met uw eigen storage bucket URL wanneer de drivers zijn geüpload.
+</Note>
+
+## Driver installatie voor MacOS
+
+MacOS:
+
+1. Steek de meegeleverde USB-stick in je Mac. De map 'Drivers' verschijnt automatisch op het bureaublad.
+2. Open de map 'Drivers' en navigeer naar de map 'macOS'.
+3. Ga naar Systeemvoorkeuren > Beveiliging en privacy > Schermopname.
+4. Klik op 'Ontgrendelen' (hiervoor is je Apple ID en wachtwoord nodig) en vink 'UsbDisplay' aan.
+5. Na een succesvolle installatie start je de Mac opnieuw op.
+6. Sluit de Screenmate aan – deze is nu klaar voor gebruik.
+
+### Download Driver voor macOS
+
+<div className="space-y-3 mt-4">
+  <div>
+    <p className="font-semibold mb-2">macOS:</p>
+    <a 
+      href="https://storage.screenmate.com/drivers/onecable/RacerUSB_1.0_Installer-2024-10-25.pkg" 
+      download
+      className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-dark transition-colors"
+    >
+      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+      Download voor macOS
+    </a>
+  </div>
+</div>
+
+Werkt de installatie niet, bekijk dan de volgende sectie.
+
+## Als het stuurprogramma niet werkt
+
+volg dan deze stappen op je MacBook:
+
+1. Ga naar "Systeeminstellingen" > "Privacy en beveiliging" > "Schermopname"
+2. Klik op het "+"-symbool (zoals weergegeven in de afbeelding) om het stuurprogramma toe te voegen. Staat 'UsbDisplay' al in de lijst? Ga dan direct verder met stap 5.
+3. Klik op Programma's > RacerUSB > usbDisplay en kies Openen.
+4. Volg de instructies op het scherm om het stuurprogramma te installeren.
+5. Na een succesvolle installatie start je de laptop opnieuw op.
+6. Sluit de Screenmate aan op de laptop, deze is nu klaar voor gebruik.
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/niet%20werk%20MacBook%20-%20p1.png" alt="MacBook melding" className="rounded-lg border border-gray-200" />
+  <img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/niet%20werk%20MacBook%20-%20p2.png" alt="MacBook instellingen" className="rounded-lg border border-gray-200" />
+  <img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/niet%20werk%20MacBook%20-%20p3.png" alt="MacBook toestemming" className="rounded-lg border border-gray-200" />
+</div>
+
+<Note>
+Scan de QR-Code voor in het boekje om de driver te installeren indien je het stuurprogramma niet kunt openen.
+</Note>
 
