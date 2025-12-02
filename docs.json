@@ -14,13 +14,19 @@
         "language": "nl",
         "pages": [
           "manuals/nl/onecable/index",
-          "manuals/nl/onecable/installation",
           "manuals/nl/onecable/drivers",
           "manuals/nl/onecable/display-settings",
           "manuals/nl/onecable/controls",
           "manuals/nl/onecable/troubleshooting",
           "manuals/nl/onecable/safety",
-          "manuals/nl/onecable/downloads"
+          "manuals/nl/onecable/downloads",
+          {
+            "group": "Installatie",
+            "pages": [
+              "manuals/nl/onecable/installation-windows",
+              "manuals/nl/onecable/installation-mac"
+            ]
+          }
         ]
       },
       {
