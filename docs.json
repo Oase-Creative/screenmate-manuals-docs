@@ -21,7 +21,7 @@
           "manuals/nl/onecable/safety",
           "manuals/nl/onecable/downloads",
           {
-            "group": "Installatie",
+            "group": "Installatie Instructies",
             "pages": [
               "manuals/nl/onecable/installation-windows",
               "manuals/nl/onecable/installation-mac"
@@ -40,7 +40,7 @@
           "manuals/en/onecable/safety",
           "manuals/en/onecable/downloads",
           {
-            "group": "Installation",
+            "group": "Installation Instructions",
             "pages": [
               "manuals/en/onecable/installation-windows",
               "manuals/en/onecable/installation-mac"
