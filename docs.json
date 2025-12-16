@@ -14,6 +14,7 @@
         "language": "nl",
         "pages": [
           "manuals/nl/onecable/index",
+          "manuals/nl/onecable/installation",
           "manuals/nl/onecable/drivers",
           "manuals/nl/onecable/display-settings",
           "manuals/nl/onecable/controls",
@@ -33,6 +34,7 @@
         "language": "en",
         "pages": [
           "manuals/en/onecable/index",
+          "manuals/en/onecable/installation",
           "manuals/en/onecable/drivers",
           "manuals/en/onecable/display-settings",
           "manuals/en/onecable/controls",
