@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 220" role="img" aria-label="USB-C, USB 3.0, HDMI and USB-A 2.0 port identification">
+  <style>
+    .stroke { fill: none; stroke: #f5f5f5; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .fill   { fill: #f5f5f5; }
+    .label  { font: 600 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #f5f5f5; text-anchor: middle; }
+    .sub    { font: 500 13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #555; text-anchor: middle; }
+    .ss     { font: italic 700 36px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #f5f5f5; }
+  </style>
+
+  <!-- USB-C port -->
+  <g transform="translate(110,60)">
+    <rect x="-55" y="-15" width="110" height="30" rx="15" ry="15" class="stroke"/>
+    <rect x="-40" y="-7" width="80" height="14" rx="7" ry="7" fill="#f5f5f5"/>
+    <rect x="-32" y="-3" width="64" height="6" rx="3" ry="3" fill="#fff"/>
+  </g>
+  <text x="110" y="140" class="label">USB-C</text>
+
+  <!-- USB 3.0 (SuperSpeed) -->
+  <g transform="translate(330,60)">
+    <!-- SS lettermark -->
+    <text x="-95" y="12" class="ss">SS</text>
+    <!-- trident stem -->
+    <line x1="-22" y1="0" x2="78" y2="0" class="stroke" stroke-width="5"/>
+    <!-- arrowhead -->
+    <polygon class="fill" points="98,0 74,-12 74,12"/>
+    <!-- upper branch with circle -->
+    <polyline class="stroke" stroke-width="5" points="-4,0 14,-18 38,-18"/>
+    <circle cx="46" cy="-18" r="8" class="stroke" stroke-width="5"/>
+    <!-- lower branch with square -->
+    <polyline class="stroke" stroke-width="5" points="-4,0 14,18 44,18"/>
+    <rect x="42" y="11" width="14" height="14" class="fill"/>
+    <!-- triangle on stem -->
+    <polygon class="fill" points="22,-7 22,7 32,0"/>
+  </g>
+  <text x="330" y="140" class="label">USB 3.0</text>
+  <text x="330" y="160" class="sub">(met HDMI adapter)</text>
+
+  <!-- HDMI port -->
+  <g transform="translate(550,60)">
+    <path d="M -55 -10 L -40 -20 L 40 -20 L 55 -10 L 55 10 L 40 20 L -40 20 L -55 10 Z" class="stroke"/>
+    <!-- pins -->
+    <g class="fill">
+      <rect x="-38" y="-8" width="3" height="6"/>
+      <rect x="-30" y="-8" width="3" height="6"/>
+      <rect x="-22" y="-8" width="3" height="6"/>
+      <rect x="-14" y="-8" width="3" height="6"/>
+      <rect x="-6" y="-8" width="3" height="6"/>
+      <rect x="2" y="-8" width="3" height="6"/>
+      <rect x="10" y="-8" width="3" height="6"/>
+      <rect x="18" y="-8" width="3" height="6"/>
+      <rect x="26" y="-8" width="3" height="6"/>
+      <rect x="34" y="-8" width="3" height="6"/>
+    </g>
+  </g>
+  <text x="550" y="140" class="label">HDMI</text>
+
+  <!-- USB-A 2.0 port -->
+  <g transform="translate(770,60)">
+    <rect x="-50" y="-18" width="100" height="36" class="stroke"/>
+    <rect x="-40" y="-2" width="80" height="14" fill="#f5f5f5"/>
+    <rect x="-32" y="2" width="14" height="6" fill="#fff"/>
+    <rect x="-10" y="2" width="14" height="6" fill="#fff"/>
+    <rect x="12" y="2" width="14" height="6" fill="#fff"/>
+  </g>
+  <text x="770" y="140" class="label">USB-A 2.0</text>
+</svg>

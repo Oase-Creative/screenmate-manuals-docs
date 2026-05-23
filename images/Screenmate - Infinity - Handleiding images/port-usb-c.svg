@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 64" role="img" aria-label="USB-C port">
+  <style>
+    .stroke { fill: none; stroke: #1a1a1a; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .fill   { fill: #1a1a1a; }
+    .lbl    { font: 600 18px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1a1a1a; }
+  </style>
+  <!-- USB-C connector outline: pill shape -->
+  <rect x="20" y="18" width="88" height="28" rx="14" class="stroke"/>
+  <!-- Inner connector tab -->
+  <rect x="32" y="28" width="64" height="8" rx="4" class="fill"/>
+</svg>
