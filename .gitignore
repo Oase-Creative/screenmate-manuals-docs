@@ -32,3 +32,22 @@ Thumbs.db
 # playbooks for docs/
 # *.zip
 
+# Local dev / agent scratch
+.claude/
+.playwright-mcp/
+tasks/
+
+# Source PDFs and intermediate extraction artifacts
+sources/
+Handleiding Screenmate v2.zip
+*.pdf
+
+# Loose root-level screenshots (dev artifacts, not site content)
+/dual-flip-index.png
+/dual-flip-install.png
+/expand14-osd.png
+/infinity-display.png
+/lite-index.png
+/manuals-index.png
+
+tmp_renders/

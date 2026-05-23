@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 128" role="img" aria-label="Mini HDMI port">
+  <style>
+    .stroke { fill: none; stroke: #f5f5f5; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .fill   { fill: #f5f5f5; }
+    .lbl    { font: 700 36px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #f5f5f5; letter-spacing: 1px; }
+  </style>
+  <path class="stroke" d="M 28 50 L 96 50 L 86 78 L 38 78 Z"/>
+  <rect x="44" y="58" width="36" height="6" class="fill"/>
+  <text x="120" y="76" class="lbl">HDMI</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Power Delivery port">
+  <style>
+    .stroke { fill: none; stroke: #1a1a1a; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .fill   { fill: #1a1a1a; }
+  </style>
+  <!-- Outer circle -->
+  <circle cx="64" cy="64" r="52" class="stroke"/>
+
+  <!-- Plug prongs -->
+  <line x1="50" y1="32" x2="50" y2="56" class="stroke"/>
+  <line x1="78" y1="32" x2="78" y2="56" class="stroke"/>
+
+  <!-- Plug body -->
+  <rect x="40" y="56" width="48" height="22" rx="3" class="fill"/>
+
+  <!-- Plug neck -->
+  <rect x="58" y="78" width="12" height="10" class="fill"/>
+
+  <!-- Cable -->
+  <path d="M64 88 C 64 100, 50 104, 40 108" class="stroke"/>
+</svg>
