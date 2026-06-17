@@ -25,17 +25,17 @@
             "pages": [
               "manuals/nl/onecable/index",
               "manuals/nl/onecable/installation",
-              "manuals/nl/onecable/display-settings",
-              "manuals/nl/onecable/controls",
-              "manuals/nl/onecable/troubleshooting",
-              "manuals/nl/onecable/safety",
               {
                 "group": "Installatie Instructies",
                 "pages": [
                   "manuals/nl/onecable/installation-windows",
                   "manuals/nl/onecable/installation-mac"
                 ]
-              }
+              },
+              "manuals/nl/onecable/display-settings",
+              "manuals/nl/onecable/controls",
+              "manuals/nl/onecable/troubleshooting",
+              "manuals/nl/onecable/safety"
             ]
           },
           {
@@ -192,17 +192,17 @@
             "pages": [
               "manuals/en/onecable/index",
               "manuals/en/onecable/installation",
-              "manuals/en/onecable/display-settings",
-              "manuals/en/onecable/controls",
-              "manuals/en/onecable/troubleshooting",
-              "manuals/en/onecable/safety",
               {
                 "group": "Installation Instructions",
                 "pages": [
                   "manuals/en/onecable/installation-windows",
                   "manuals/en/onecable/installation-mac"
                 ]
-              }
+              },
+              "manuals/en/onecable/display-settings",
+              "manuals/en/onecable/controls",
+              "manuals/en/onecable/troubleshooting",
+              "manuals/en/onecable/safety"
             ]
           },
           {
@@ -365,10 +365,10 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "chatgpt",
-     "claude"
-   ]
+      "copy",
+      "chatgpt",
+      "claude"
+    ]
   },
   "footer": {
     "socials": {

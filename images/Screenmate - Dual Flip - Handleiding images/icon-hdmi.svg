@@ -1,16 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 128" role="img" aria-label="Mini HDMI port">
   <style>
-    .stroke { fill: none; stroke: #1a1a1a; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
-    .fill   { fill: #1a1a1a; }
-    .lbl    { font: 700 36px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1a1a1a; letter-spacing: 1px; }
+    .lbl { font: 700 36px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1a1a1a; letter-spacing: 1px; }
   </style>
-  <!-- Mini HDMI connector silhouette (trapezoid) -->
-  <path class="stroke" d="M 28 50
-                          L 96 50
-                          L 86 78
-                          L 38 78 Z"/>
-  <!-- Inner contact slot -->
-  <rect x="44" y="58" width="36" height="6" class="fill"/>
-  <!-- HDMI label -->
-  <text x="120" y="76" class="lbl">HDMI</text>
+  <g transform="translate(64,64) scale(0.95)"><path d="M -52 -18 L 52 -18 L 45 7 L 39 7 L 35 16 L -31 16 L -35 7 L -41 7 Z" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><rect x="-42" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="-33" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="-24" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="-15" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="-6" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="3" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="12" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="21" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="30" y="-12" width="4" height="11" fill="#1a1a1a"/><rect x="39" y="-12" width="4" height="11" fill="#1a1a1a"/></g>
+  <text x="120" y="77" class="lbl">HDMI</text>
 </svg>
