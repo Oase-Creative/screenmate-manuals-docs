@@ -73,51 +73,27 @@
             ]
           },
           {
-            "tab": "Flip 14",
+            "tab": "Flip",
             "hidden": true,
             "pages": [
-              "manuals/nl/flip-14/index",
-              "manuals/nl/flip-14/installation",
-              "manuals/nl/flip-14/controls",
-              "manuals/nl/flip-14/display-settings",
-              "manuals/nl/flip-14/osd",
-              "manuals/nl/flip-14/safety"
+              "manuals/nl/flip/index",
+              "manuals/nl/flip/installation",
+              "manuals/nl/flip/controls",
+              "manuals/nl/flip/display-settings",
+              "manuals/nl/flip/osd",
+              "manuals/nl/flip/safety"
             ]
           },
           {
-            "tab": "Flip 15.6",
+            "tab": "Expand",
             "hidden": true,
             "pages": [
-              "manuals/nl/flip-15-6/index",
-              "manuals/nl/flip-15-6/installation",
-              "manuals/nl/flip-15-6/controls",
-              "manuals/nl/flip-15-6/display-settings",
-              "manuals/nl/flip-15-6/osd",
-              "manuals/nl/flip-15-6/safety"
-            ]
-          },
-          {
-            "tab": "Expand 14",
-            "hidden": true,
-            "pages": [
-              "manuals/nl/expand-14/index",
-              "manuals/nl/expand-14/installation",
-              "manuals/nl/expand-14/controls",
-              "manuals/nl/expand-14/display-settings",
-              "manuals/nl/expand-14/osd",
-              "manuals/nl/expand-14/safety"
-            ]
-          },
-          {
-            "tab": "Expand 15.6",
-            "hidden": true,
-            "pages": [
-              "manuals/nl/expand-15-6/index",
-              "manuals/nl/expand-15-6/installation",
-              "manuals/nl/expand-15-6/controls",
-              "manuals/nl/expand-15-6/display-settings",
-              "manuals/nl/expand-15-6/osd",
-              "manuals/nl/expand-15-6/safety"
+              "manuals/nl/expand/index",
+              "manuals/nl/expand/installation",
+              "manuals/nl/expand/controls",
+              "manuals/nl/expand/display-settings",
+              "manuals/nl/expand/osd",
+              "manuals/nl/expand/safety"
             ]
           },
           {
@@ -240,51 +216,27 @@
             ]
           },
           {
-            "tab": "Flip 14",
+            "tab": "Flip",
             "hidden": true,
             "pages": [
-              "manuals/en/flip-14/index",
-              "manuals/en/flip-14/installation",
-              "manuals/en/flip-14/controls",
-              "manuals/en/flip-14/display-settings",
-              "manuals/en/flip-14/osd",
-              "manuals/en/flip-14/safety"
+              "manuals/en/flip/index",
+              "manuals/en/flip/installation",
+              "manuals/en/flip/controls",
+              "manuals/en/flip/display-settings",
+              "manuals/en/flip/osd",
+              "manuals/en/flip/safety"
             ]
           },
           {
-            "tab": "Flip 15.6",
+            "tab": "Expand",
             "hidden": true,
             "pages": [
-              "manuals/en/flip-15-6/index",
-              "manuals/en/flip-15-6/installation",
-              "manuals/en/flip-15-6/controls",
-              "manuals/en/flip-15-6/display-settings",
-              "manuals/en/flip-15-6/osd",
-              "manuals/en/flip-15-6/safety"
-            ]
-          },
-          {
-            "tab": "Expand 14",
-            "hidden": true,
-            "pages": [
-              "manuals/en/expand-14/index",
-              "manuals/en/expand-14/installation",
-              "manuals/en/expand-14/controls",
-              "manuals/en/expand-14/display-settings",
-              "manuals/en/expand-14/osd",
-              "manuals/en/expand-14/safety"
-            ]
-          },
-          {
-            "tab": "Expand 15.6",
-            "hidden": true,
-            "pages": [
-              "manuals/en/expand-15-6/index",
-              "manuals/en/expand-15-6/installation",
-              "manuals/en/expand-15-6/controls",
-              "manuals/en/expand-15-6/display-settings",
-              "manuals/en/expand-15-6/osd",
-              "manuals/en/expand-15-6/safety"
+              "manuals/en/expand/index",
+              "manuals/en/expand/installation",
+              "manuals/en/expand/controls",
+              "manuals/en/expand/display-settings",
+              "manuals/en/expand/osd",
+              "manuals/en/expand/safety"
             ]
           },
           {
@@ -346,6 +298,16 @@
       }
     ]
   },
+  "redirects": [
+    { "source": "/manuals/nl/flip-14/:slug*", "destination": "/manuals/nl/flip/:slug*" },
+    { "source": "/manuals/nl/flip-15-6/:slug*", "destination": "/manuals/nl/flip/:slug*" },
+    { "source": "/manuals/en/flip-14/:slug*", "destination": "/manuals/en/flip/:slug*" },
+    { "source": "/manuals/en/flip-15-6/:slug*", "destination": "/manuals/en/flip/:slug*" },
+    { "source": "/manuals/nl/expand-14/:slug*", "destination": "/manuals/nl/expand/:slug*" },
+    { "source": "/manuals/nl/expand-15-6/:slug*", "destination": "/manuals/nl/expand/:slug*" },
+    { "source": "/manuals/en/expand-14/:slug*", "destination": "/manuals/en/expand/:slug*" },
+    { "source": "/manuals/en/expand-15-6/:slug*", "destination": "/manuals/en/expand/:slug*" }
+  ],
   "logo": {
     "light": "/images/screenmate-light-mode.png",
     "dark": "/images/screenmate-dark-mode.png",
