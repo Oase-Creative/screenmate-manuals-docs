@@ -23,132 +23,132 @@
             "tab": "OneCable",
             "hidden": true,
             "pages": [
-              "manuals/nl/onecable/index",
-              "manuals/nl/onecable/installation",
+              "nl/manuals/onecable/index",
+              "nl/manuals/onecable/installation",
               {
                 "group": "Installatie Instructies",
                 "pages": [
-                  "manuals/nl/onecable/installation-windows",
-                  "manuals/nl/onecable/installation-mac"
+                  "nl/manuals/onecable/installation-windows",
+                  "nl/manuals/onecable/installation-mac"
                 ]
               },
-              "manuals/nl/onecable/display-settings",
-              "manuals/nl/onecable/controls",
-              "manuals/nl/onecable/troubleshooting",
-              "manuals/nl/onecable/safety"
+              "nl/manuals/onecable/display-settings",
+              "nl/manuals/onecable/controls",
+              "nl/manuals/onecable/troubleshooting",
+              "nl/manuals/onecable/safety"
             ]
           },
           {
             "tab": "Lite",
             "hidden": true,
             "pages": [
-              "manuals/nl/lite/index",
-              "manuals/nl/lite/installation",
-              "manuals/nl/lite/controls",
-              "manuals/nl/lite/osd",
-              "manuals/nl/lite/safety"
+              "nl/manuals/lite/index",
+              "nl/manuals/lite/installation",
+              "nl/manuals/lite/controls",
+              "nl/manuals/lite/osd",
+              "nl/manuals/lite/safety"
             ]
           },
           {
             "tab": "Lite 144 Hz",
             "hidden": true,
             "pages": [
-              "manuals/nl/lite-144hz/index",
-              "manuals/nl/lite-144hz/installation",
-              "manuals/nl/lite-144hz/controls",
-              "manuals/nl/lite-144hz/osd",
-              "manuals/nl/lite-144hz/safety"
+              "nl/manuals/lite-144hz/index",
+              "nl/manuals/lite-144hz/installation",
+              "nl/manuals/lite-144hz/controls",
+              "nl/manuals/lite-144hz/osd",
+              "nl/manuals/lite-144hz/safety"
             ]
           },
           {
             "tab": "Dual Flip",
             "hidden": true,
             "pages": [
-              "manuals/nl/dual-flip/index",
-              "manuals/nl/dual-flip/installation",
-              "manuals/nl/dual-flip/controls",
-              "manuals/nl/dual-flip/display-settings",
-              "manuals/nl/dual-flip/osd",
-              "manuals/nl/dual-flip/safety"
+              "nl/manuals/dual-flip/index",
+              "nl/manuals/dual-flip/installation",
+              "nl/manuals/dual-flip/controls",
+              "nl/manuals/dual-flip/display-settings",
+              "nl/manuals/dual-flip/osd",
+              "nl/manuals/dual-flip/safety"
             ]
           },
           {
             "tab": "Flip",
             "hidden": true,
             "pages": [
-              "manuals/nl/flip/index",
-              "manuals/nl/flip/installation",
-              "manuals/nl/flip/controls",
-              "manuals/nl/flip/display-settings",
-              "manuals/nl/flip/osd",
-              "manuals/nl/flip/safety"
+              "nl/manuals/flip/index",
+              "nl/manuals/flip/installation",
+              "nl/manuals/flip/controls",
+              "nl/manuals/flip/display-settings",
+              "nl/manuals/flip/osd",
+              "nl/manuals/flip/safety"
             ]
           },
           {
             "tab": "Expand",
             "hidden": true,
             "pages": [
-              "manuals/nl/expand/index",
-              "manuals/nl/expand/installation",
-              "manuals/nl/expand/controls",
-              "manuals/nl/expand/display-settings",
-              "manuals/nl/expand/osd",
-              "manuals/nl/expand/safety"
+              "nl/manuals/expand/index",
+              "nl/manuals/expand/installation",
+              "nl/manuals/expand/controls",
+              "nl/manuals/expand/display-settings",
+              "nl/manuals/expand/osd",
+              "nl/manuals/expand/safety"
             ]
           },
           {
             "tab": "Infinity",
             "hidden": true,
             "pages": [
-              "manuals/nl/infinity/index",
-              "manuals/nl/infinity/installation",
-              "manuals/nl/infinity/controls",
-              "manuals/nl/infinity/display-settings",
-              "manuals/nl/infinity/safety"
+              "nl/manuals/infinity/index",
+              "nl/manuals/infinity/installation",
+              "nl/manuals/infinity/controls",
+              "nl/manuals/infinity/display-settings",
+              "nl/manuals/infinity/safety"
             ]
           },
           {
             "tab": "Infinity Lite",
             "hidden": true,
             "pages": [
-              "manuals/nl/infinity-lite/index",
-              "manuals/nl/infinity-lite/installation",
-              "manuals/nl/infinity-lite/controls",
-              "manuals/nl/infinity-lite/display-settings",
-              "manuals/nl/infinity-lite/safety"
+              "nl/manuals/infinity-lite/index",
+              "nl/manuals/infinity-lite/installation",
+              "nl/manuals/infinity-lite/controls",
+              "nl/manuals/infinity-lite/display-settings",
+              "nl/manuals/infinity-lite/safety"
             ]
           },
           {
             "tab": "One 4K",
             "hidden": true,
             "pages": [
-              "manuals/nl/one-4k/index",
-              "manuals/nl/one-4k/installation",
-              "manuals/nl/one-4k/controls",
-              "manuals/nl/one-4k/osd",
-              "manuals/nl/one-4k/safety"
+              "nl/manuals/one-4k/index",
+              "nl/manuals/one-4k/installation",
+              "nl/manuals/one-4k/controls",
+              "nl/manuals/one-4k/osd",
+              "nl/manuals/one-4k/safety"
             ]
           },
           {
             "tab": "One 4K OLED",
             "hidden": true,
             "pages": [
-              "manuals/nl/one-4k-oled/index",
-              "manuals/nl/one-4k-oled/installation",
-              "manuals/nl/one-4k-oled/controls",
-              "manuals/nl/one-4k-oled/osd",
-              "manuals/nl/one-4k-oled/safety"
+              "nl/manuals/one-4k-oled/index",
+              "nl/manuals/one-4k-oled/installation",
+              "nl/manuals/one-4k-oled/controls",
+              "nl/manuals/one-4k-oled/osd",
+              "nl/manuals/one-4k-oled/safety"
             ]
           },
           {
             "tab": "Panorama",
             "hidden": true,
             "pages": [
-              "manuals/nl/panorama/index",
-              "manuals/nl/panorama/installation",
-              "manuals/nl/panorama/controls",
-              "manuals/nl/panorama/osd",
-              "manuals/nl/panorama/safety"
+              "nl/manuals/panorama/index",
+              "nl/manuals/panorama/installation",
+              "nl/manuals/panorama/controls",
+              "nl/manuals/panorama/osd",
+              "nl/manuals/panorama/safety"
             ]
           }
         ]
@@ -166,132 +166,132 @@
             "tab": "OneCable",
             "hidden": true,
             "pages": [
-              "manuals/en/onecable/index",
-              "manuals/en/onecable/installation",
+              "en/manuals/onecable/index",
+              "en/manuals/onecable/installation",
               {
                 "group": "Installation Instructions",
                 "pages": [
-                  "manuals/en/onecable/installation-windows",
-                  "manuals/en/onecable/installation-mac"
+                  "en/manuals/onecable/installation-windows",
+                  "en/manuals/onecable/installation-mac"
                 ]
               },
-              "manuals/en/onecable/display-settings",
-              "manuals/en/onecable/controls",
-              "manuals/en/onecable/troubleshooting",
-              "manuals/en/onecable/safety"
+              "en/manuals/onecable/display-settings",
+              "en/manuals/onecable/controls",
+              "en/manuals/onecable/troubleshooting",
+              "en/manuals/onecable/safety"
             ]
           },
           {
             "tab": "Lite",
             "hidden": true,
             "pages": [
-              "manuals/en/lite/index",
-              "manuals/en/lite/installation",
-              "manuals/en/lite/controls",
-              "manuals/en/lite/osd",
-              "manuals/en/lite/safety"
+              "en/manuals/lite/index",
+              "en/manuals/lite/installation",
+              "en/manuals/lite/controls",
+              "en/manuals/lite/osd",
+              "en/manuals/lite/safety"
             ]
           },
           {
             "tab": "Lite 144 Hz",
             "hidden": true,
             "pages": [
-              "manuals/en/lite-144hz/index",
-              "manuals/en/lite-144hz/installation",
-              "manuals/en/lite-144hz/controls",
-              "manuals/en/lite-144hz/osd",
-              "manuals/en/lite-144hz/safety"
+              "en/manuals/lite-144hz/index",
+              "en/manuals/lite-144hz/installation",
+              "en/manuals/lite-144hz/controls",
+              "en/manuals/lite-144hz/osd",
+              "en/manuals/lite-144hz/safety"
             ]
           },
           {
             "tab": "Dual Flip",
             "hidden": true,
             "pages": [
-              "manuals/en/dual-flip/index",
-              "manuals/en/dual-flip/installation",
-              "manuals/en/dual-flip/controls",
-              "manuals/en/dual-flip/display-settings",
-              "manuals/en/dual-flip/osd",
-              "manuals/en/dual-flip/safety"
+              "en/manuals/dual-flip/index",
+              "en/manuals/dual-flip/installation",
+              "en/manuals/dual-flip/controls",
+              "en/manuals/dual-flip/display-settings",
+              "en/manuals/dual-flip/osd",
+              "en/manuals/dual-flip/safety"
             ]
           },
           {
             "tab": "Flip",
             "hidden": true,
             "pages": [
-              "manuals/en/flip/index",
-              "manuals/en/flip/installation",
-              "manuals/en/flip/controls",
-              "manuals/en/flip/display-settings",
-              "manuals/en/flip/osd",
-              "manuals/en/flip/safety"
+              "en/manuals/flip/index",
+              "en/manuals/flip/installation",
+              "en/manuals/flip/controls",
+              "en/manuals/flip/display-settings",
+              "en/manuals/flip/osd",
+              "en/manuals/flip/safety"
             ]
           },
           {
             "tab": "Expand",
             "hidden": true,
             "pages": [
-              "manuals/en/expand/index",
-              "manuals/en/expand/installation",
-              "manuals/en/expand/controls",
-              "manuals/en/expand/display-settings",
-              "manuals/en/expand/osd",
-              "manuals/en/expand/safety"
+              "en/manuals/expand/index",
+              "en/manuals/expand/installation",
+              "en/manuals/expand/controls",
+              "en/manuals/expand/display-settings",
+              "en/manuals/expand/osd",
+              "en/manuals/expand/safety"
             ]
           },
           {
             "tab": "Infinity",
             "hidden": true,
             "pages": [
-              "manuals/en/infinity/index",
-              "manuals/en/infinity/installation",
-              "manuals/en/infinity/controls",
-              "manuals/en/infinity/display-settings",
-              "manuals/en/infinity/safety"
+              "en/manuals/infinity/index",
+              "en/manuals/infinity/installation",
+              "en/manuals/infinity/controls",
+              "en/manuals/infinity/display-settings",
+              "en/manuals/infinity/safety"
             ]
           },
           {
             "tab": "Infinity Lite",
             "hidden": true,
             "pages": [
-              "manuals/en/infinity-lite/index",
-              "manuals/en/infinity-lite/installation",
-              "manuals/en/infinity-lite/controls",
-              "manuals/en/infinity-lite/display-settings",
-              "manuals/en/infinity-lite/safety"
+              "en/manuals/infinity-lite/index",
+              "en/manuals/infinity-lite/installation",
+              "en/manuals/infinity-lite/controls",
+              "en/manuals/infinity-lite/display-settings",
+              "en/manuals/infinity-lite/safety"
             ]
           },
           {
             "tab": "One 4K",
             "hidden": true,
             "pages": [
-              "manuals/en/one-4k/index",
-              "manuals/en/one-4k/installation",
-              "manuals/en/one-4k/controls",
-              "manuals/en/one-4k/osd",
-              "manuals/en/one-4k/safety"
+              "en/manuals/one-4k/index",
+              "en/manuals/one-4k/installation",
+              "en/manuals/one-4k/controls",
+              "en/manuals/one-4k/osd",
+              "en/manuals/one-4k/safety"
             ]
           },
           {
             "tab": "One 4K OLED",
             "hidden": true,
             "pages": [
-              "manuals/en/one-4k-oled/index",
-              "manuals/en/one-4k-oled/installation",
-              "manuals/en/one-4k-oled/controls",
-              "manuals/en/one-4k-oled/osd",
-              "manuals/en/one-4k-oled/safety"
+              "en/manuals/one-4k-oled/index",
+              "en/manuals/one-4k-oled/installation",
+              "en/manuals/one-4k-oled/controls",
+              "en/manuals/one-4k-oled/osd",
+              "en/manuals/one-4k-oled/safety"
             ]
           },
           {
             "tab": "Panorama",
             "hidden": true,
             "pages": [
-              "manuals/en/panorama/index",
-              "manuals/en/panorama/installation",
-              "manuals/en/panorama/controls",
-              "manuals/en/panorama/osd",
-              "manuals/en/panorama/safety"
+              "en/manuals/panorama/index",
+              "en/manuals/panorama/installation",
+              "en/manuals/panorama/controls",
+              "en/manuals/panorama/osd",
+              "en/manuals/panorama/safety"
             ]
           }
         ]
@@ -299,14 +299,16 @@
     ]
   },
   "redirects": [
-    { "source": "/manuals/nl/flip-14/:slug*", "destination": "/manuals/nl/flip/:slug*" },
-    { "source": "/manuals/nl/flip-15-6/:slug*", "destination": "/manuals/nl/flip/:slug*" },
-    { "source": "/manuals/en/flip-14/:slug*", "destination": "/manuals/en/flip/:slug*" },
-    { "source": "/manuals/en/flip-15-6/:slug*", "destination": "/manuals/en/flip/:slug*" },
-    { "source": "/manuals/nl/expand-14/:slug*", "destination": "/manuals/nl/expand/:slug*" },
-    { "source": "/manuals/nl/expand-15-6/:slug*", "destination": "/manuals/nl/expand/:slug*" },
-    { "source": "/manuals/en/expand-14/:slug*", "destination": "/manuals/en/expand/:slug*" },
-    { "source": "/manuals/en/expand-15-6/:slug*", "destination": "/manuals/en/expand/:slug*" }
+    { "source": "/manuals/nl/flip-14/:slug*",    "destination": "/nl/manuals/flip/:slug*" },
+    { "source": "/manuals/nl/flip-15-6/:slug*",  "destination": "/nl/manuals/flip/:slug*" },
+    { "source": "/manuals/en/flip-14/:slug*",    "destination": "/en/manuals/flip/:slug*" },
+    { "source": "/manuals/en/flip-15-6/:slug*",  "destination": "/en/manuals/flip/:slug*" },
+    { "source": "/manuals/nl/expand-14/:slug*",  "destination": "/nl/manuals/expand/:slug*" },
+    { "source": "/manuals/nl/expand-15-6/:slug*","destination": "/nl/manuals/expand/:slug*" },
+    { "source": "/manuals/en/expand-14/:slug*",  "destination": "/en/manuals/expand/:slug*" },
+    { "source": "/manuals/en/expand-15-6/:slug*","destination": "/en/manuals/expand/:slug*" },
+    { "source": "/manuals/en/:slug*",            "destination": "/en/manuals/:slug*" },
+    { "source": "/manuals/nl/:slug*",            "destination": "/nl/manuals/:slug*" }
   ],
   "logo": {
     "light": "/images/screenmate-light-mode.png",

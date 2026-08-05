@@ -68,7 +68,7 @@ When ready, add to `docs.json`:
         "language": "en",
         "pages": [
           "en/manuals-index",  // Add this as first page
-          "manuals/en/onecable/index",
+          "en/manuals/onecable/index",
           // ... rest of pages
         ]
       }

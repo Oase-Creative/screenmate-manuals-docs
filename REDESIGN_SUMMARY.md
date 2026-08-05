@@ -6,8 +6,8 @@
 - **Before**: Cluttered 2-column grid with low-quality images
 - **After**: Clean 3-column responsive grid (1 column on mobile, 3 on desktop) with high-quality rendered images
 - **Location**: 
-  - `manuals/nl/onecable/index.mdx`
-  - `manuals/en/onecable/index.mdx`
+  - `nl/manuals/onecable/index.mdx`
+  - `en/manuals/onecable/index.mdx`
 - **Features**:
   - Theme-aware images (Day Mode/Night Mode) that switch based on user's theme preference
   - Larger, more prominent images (h-48 instead of h-40)
@@ -18,8 +18,8 @@
 - **Before**: QR code only
 - **After**: Direct download links for all operating systems
 - **Location**: 
-  - `manuals/nl/onecable/drivers.mdx`
-  - `manuals/en/onecable/drivers.mdx`
+  - `nl/manuals/onecable/drivers.mdx`
+  - `en/manuals/onecable/drivers.mdx`
 - **Features**:
   - Download buttons for Windows 10/11, Windows 7/8, and macOS
   - Placeholder storage bucket URL: `https://storage.screenmate.com/drivers/onecable/`
@@ -30,21 +30,21 @@
 - **Before**: "Gebruik met 2 USB-kabels" (Use with 2 USB cables)
 - **After**: "Gebruik met 2 USB-A kabels" (Use with 2 USB-A cables)
 - **Location**: 
-  - `manuals/nl/onecable/installation.mdx`
-  - `manuals/en/onecable/installation.mdx`
+  - `nl/manuals/onecable/installation.mdx`
+  - `en/manuals/onecable/installation.mdx`
 
 ### 4. ✅ Added Video Placeholder
 - Added note in Display Settings section for future video
 - **Location**: 
-  - `manuals/nl/onecable/display-settings.mdx`
-  - `manuals/en/onecable/display-settings.mdx`
+  - `nl/manuals/onecable/display-settings.mdx`
+  - `en/manuals/onecable/display-settings.mdx`
 
 ### 5. ✅ Updated Technical Specifications
 - **Before**: Detailed technical specifications table
 - **After**: Key Features section with note that specs are being updated
 - **Location**: 
-  - `manuals/nl/onecable/index.mdx`
-  - `manuals/en/onecable/index.mdx`
+  - `nl/manuals/onecable/index.mdx`
+  - `en/manuals/onecable/index.mdx`
 - **Note**: Client will provide the most important features per model
 
 ### 6. ✅ Implemented Theme-Aware Images
@@ -56,16 +56,16 @@
 ## Files Modified
 
 ### Dutch Manuals
-- `manuals/nl/onecable/index.mdx` - Redesigned "In the Box", updated Key Features
-- `manuals/nl/onecable/installation.mdx` - Fixed step 5 (USB-A cables)
-- `manuals/nl/onecable/drivers.mdx` - Added download links, removed QR code
-- `manuals/nl/onecable/display-settings.mdx` - Added video placeholder
+- `nl/manuals/onecable/index.mdx` - Redesigned "In the Box", updated Key Features
+- `nl/manuals/onecable/installation.mdx` - Fixed step 5 (USB-A cables)
+- `nl/manuals/onecable/drivers.mdx` - Added download links, removed QR code
+- `nl/manuals/onecable/display-settings.mdx` - Added video placeholder
 
 ### English Manuals
-- `manuals/en/onecable/index.mdx` - Redesigned "In the Box", updated Key Features
-- `manuals/en/onecable/installation.mdx` - Fixed step 5 (USB-A cables)
-- `manuals/en/onecable/drivers.mdx` - Added download links, removed QR code
-- `manuals/en/onecable/display-settings.mdx` - Added video placeholder
+- `en/manuals/onecable/index.mdx` - Redesigned "In the Box", updated Key Features
+- `en/manuals/onecable/installation.mdx` - Fixed step 5 (USB-A cables)
+- `en/manuals/onecable/drivers.mdx` - Added download links, removed QR code
+- `en/manuals/onecable/display-settings.mdx` - Added video placeholder
 
 ### Components
 - `components/ThemeImage.jsx` - Created (not currently used, but available for future use)
@@ -74,17 +74,17 @@
 
 ### For Client
 1. **Upload drivers to storage bucket** and update URLs in:
-   - `manuals/nl/onecable/drivers.mdx` (line ~20-50)
-   - `manuals/en/onecable/drivers.mdx` (line ~20-50)
+   - `nl/manuals/onecable/drivers.mdx` (line ~20-50)
+   - `en/manuals/onecable/drivers.mdx` (line ~20-50)
    - Replace `https://storage.screenmate.com/drivers/onecable/` with actual bucket URL
 
 2. **Provide accurate technical specifications** or key features to replace placeholder in:
-   - `manuals/nl/onecable/index.mdx` (Key Features section)
-   - `manuals/en/onecable/index.mdx` (Key Features section)
+   - `nl/manuals/onecable/index.mdx` (Key Features section)
+   - `en/manuals/onecable/index.mdx` (Key Features section)
 
 3. **Provide display settings video** to replace placeholder in:
-   - `manuals/nl/onecable/display-settings.mdx`
-   - `manuals/en/onecable/display-settings.mdx`
+   - `nl/manuals/onecable/display-settings.mdx`
+   - `en/manuals/onecable/display-settings.mdx`
 
 4. **Extract original Dutch text from PDF** (`Screenmate - OneCable - Handleiding.pdf`) to ensure 100% text fidelity. The current text may need to be updated to match the original manual exactly.
 

@@ -32,24 +32,32 @@ screenmate-manuals-docs/
 │   ├── screenmate-dark-mode.png
 │   ├── favicon.png
 │   └── [Product] - [Manual Name] images/
-├── manuals/
-│   ├── en/
-│   │   └── [product-name]/
-│   │       ├── index.mdx        # Product intro, specs, what's in the box
-│   │       ├── installation.mdx
-│   │       ├── drivers.mdx
-│   │       ├── display-settings.mdx
-│   │       ├── controls.mdx
-│   │       ├── troubleshooting.mdx
-│   │       ├── safety.mdx
-│   │       └── downloads.mdx
-│   └── nl/
+├── style.css                    # Custom CSS (language-switcher flags)
+├── en/
+│   ├── manuals-index.mdx
+│   └── manuals/
+│       └── [product-name]/
+│           ├── index.mdx        # Product intro, specs, what's in the box
+│           ├── installation.mdx
+│           ├── drivers.mdx
+│           ├── display-settings.mdx
+│           ├── controls.mdx
+│           ├── troubleshooting.mdx
+│           ├── safety.mdx
+│           └── downloads.mdx
+├── nl/
+│   ├── manuals-index.mdx
+│   └── manuals/
 │       └── [product-name]/
 │           ├── index.mdx        # Dutch version
 │           ├── installation.mdx
 │           └── ...
 └── README.md
 ```
+
+> **Note:** Paths are **language-first** (`en/manuals/...`, `nl/manuals/...`). This is required for
+> Mintlify's language switcher to preserve the current page when toggling EN ↔ NL. Legacy
+> `/manuals/en/...` URLs (printed on QR codes) are permanently redirected in `docs.json`.
 
 ---
 
@@ -59,10 +67,10 @@ screenmate-manuals-docs/
 
 ```bash
 # Create English manual folder
-mkdir -p manuals/en/[product-name]
+mkdir -p en/manuals/[product-name]
 
 # Create Dutch manual folder
-mkdir -p manuals/nl/[product-name]
+mkdir -p nl/manuals/[product-name]
 
 # Create image folder for the product
 mkdir -p "images/[Product Name] - [Manual Name] images"
@@ -72,7 +80,7 @@ mkdir -p "images/[Product Name] - [Manual Name] images"
 
 Use this standard structure for **every product**:
 
-#### English Pages (`manuals/en/[product-name]/`)
+#### English Pages (`en/manuals/[product-name]/`)
 1. **index.mdx** - Introduction, what's in the box, key features, specs
 2. **installation.mdx** - Physical setup and connection instructions
 3. **drivers.mdx** - Driver installation (if needed)
@@ -82,7 +90,7 @@ Use this standard structure for **every product**:
 7. **safety.mdx** - Safety warnings and care instructions
 8. **downloads.mdx** - PDF manual and driver links
 
-#### Dutch Pages (`manuals/nl/[product-name]/`)
+#### Dutch Pages (`nl/manuals/[product-name]/`)
 Create the same structure with Dutch translations.
 
 ### Step 3: Update `docs.json`
@@ -96,18 +104,18 @@ Add the new product to the `navigation.languages` array:
       {
         "language": "nl",
         "pages": [
-          "manuals/nl/onecable/index",
-          "manuals/nl/onecable/installation",
-          "manuals/nl/onecable/drivers",
-          "manuals/nl/onecable/display-settings",
-          "manuals/nl/onecable/controls",
-          "manuals/nl/onecable/troubleshooting",
-          "manuals/nl/onecable/safety",
-          "manuals/nl/onecable/downloads",
+          "nl/manuals/onecable/index",
+          "nl/manuals/onecable/installation",
+          "nl/manuals/onecable/drivers",
+          "nl/manuals/onecable/display-settings",
+          "nl/manuals/onecable/controls",
+          "nl/manuals/onecable/troubleshooting",
+          "nl/manuals/onecable/safety",
+          "nl/manuals/onecable/downloads",
           
           // Add new product here
-          "manuals/nl/[new-product]/index",
-          "manuals/nl/[new-product]/installation",
+          "nl/manuals/[new-product]/index",
+          "nl/manuals/[new-product]/installation",
           // ... etc
         ]
       },
@@ -181,8 +189,8 @@ Check if all the following items are present in the package.
 
 Each product gets language-specific QR codes:
 
-- **Dutch QR Code**: `https://docs.screenmate.com/nl/manuals/nl/[product-name]/index`
-- **English QR Code**: `https://docs.screenmate.com/en/manuals/en/[product-name]/index`
+- **Dutch QR Code**: `https://manuals.screenmate.com/nl/manuals/[product-name]/index`
+- **English QR Code**: `https://manuals.screenmate.com/en/manuals/[product-name]/index`
 
 ### Recommended QR Code Setup
 - Generate QR codes using a service like [QR Code Generator](https://www.qr-code-generator.com/)
@@ -258,7 +266,7 @@ Changes pushed to `main` branch are automatically deployed via the Mintlify GitH
 
 ## 📋 Checklist for New Manuals
 
-- [ ] Create manual folders: `manuals/en/[product]/` and `manuals/nl/[product]/`
+- [ ] Create manual folders: `en/manuals/[product]/` and `nl/manuals/[product]/`
 - [ ] Create image folder: `images/[Product] - [Manual] images/`
 - [ ] Create all 8 standard pages (index, installation, drivers, etc.)
 - [ ] Add product to `docs.json` navigation for both languages
@@ -292,7 +300,7 @@ Consider adding a **landing page** that lists all available manuals:
   <Card
     title="OneCable Manual"
     icon="monitor"
-    href="/manuals/en/onecable/index"
+    href="/en/manuals/onecable/index"
   >
     Portable monitor with single-cable connectivity
   </Card>
@@ -300,7 +308,7 @@ Consider adding a **landing page** that lists all available manuals:
   <Card
     title="[Product 2] Manual"
     icon="laptop"
-    href="/manuals/en/[product-2]/index"
+    href="/en/manuals/[product-2]/index"
   >
     Description of product 2
   </Card>

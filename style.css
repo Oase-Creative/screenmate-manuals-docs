@@ -1,0 +1,42 @@
+/* ---------------------------------------------------------------------------
+ * Screenmate manuals — custom styles
+ *
+ * PURPOSE: restore country flags in Mintlify's language switcher.
+ * Mintlify's newer localization switcher renders the language names ("English",
+ * "Nederlands") as plain text with no flag icon. This file re-adds a round flag
+ * via a ::before pseudo-element on the documented switcher hooks:
+ *   #localization-select-trigger   — the closed/collapsed control in the navbar
+ *   #localization-select-item-<lang> — each option inside the open dropdown
+ *
+ * The flag artwork is inlined as base64 SVG data URIs (sourced from Mintlify's
+ * own flag set) so rendering does not depend on any external CDN staying up.
+ *
+ * FAIL-SAFE: the navbar trigger's ::before is declared ONLY inside the
+ * html[lang="nl"] / html[lang="en"] scoped rules — never in an unscoped base
+ * rule. The pseudo-element therefore gets no `content`, and so is never boxed
+ * at all, unless a flag image is also being applied. If Mintlify ever stops
+ * setting lang on <html>, the flag simply does not render; it cannot degrade
+ * into an empty grey circle. Keep the trigger selectors out of any unscoped
+ * rule when editing. The dropdown-item rules need no such guard: their
+ * background-image is unconditional.
+ *
+ * MAINTENANCE: these are DOM hooks belonging to the Mintlify platform, not our
+ * own markup. Re-check this file after every Mintlify platform update — if the
+ * switcher markup changes, the flags silently disappear (nothing breaks, they
+ * just stop rendering). Verify by opening the language dropdown in both light
+ * and dark theme.
+ * ------------------------------------------------------------------------- */
+
+#localization-select-item-nl > p::before,
+#localization-select-item-en > p::before,
+html[lang="nl"] #localization-select-trigger > span::before,
+html[lang="en"] #localization-select-trigger > span::before {
+  content: ""; display: inline-block;
+  width: 1rem; height: 1rem; margin-right: .4rem; vertical-align: -2px;
+  background-size: cover; background-position: center;
+  border-radius: 9999px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+}
+#localization-select-item-nl > p::before { background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ijg1LjUgMCAzNDIgMzQyIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMCAxMTRoNTEzdjExNEgweiIvPjxwYXRoIGZpbGw9IiNjZDFmMmEiIGQ9Ik0wIDBoNTEzdjExNEgweiIvPjxwYXRoIGZpbGw9IiMxZDQxODUiIGQ9Ik0wIDIyOGg1MTN2MTE0SDB6Ii8+PC9zdmc+"); }
+#localization-select-item-en > p::before { background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjU5Ljg1IDAgMzQyIDM0MiI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTAgMGg1MTN2MzQySDB6Ii8+PGcgZmlsbD0iI0Q4MDAyNyI+PHBhdGggZD0iTTAgMGg1MTN2MjYuM0gwek0wIDUyLjZoNTEzdjI2LjNIMHpNMCAxMDUuMmg1MTN2MjYuM0gwek0wIDE1Ny44aDUxM3YyNi4zSDB6TTAgMjEwLjVoNTEzdjI2LjNIMHpNMCAyNjMuMWg1MTN2MjYuM0gwek0wIDMxNS43aDUxM1YzNDJIMHoiLz48L2c+PHBhdGggZmlsbD0iIzJFNTJCMiIgZD0iTTAgMGgyNTYuNXYxODQuMUgweiIvPjxnIGZpbGw9IiNGRkYiPjxwYXRoIGQ9Im00Ny44IDEzOC45LTQtMTIuOC00LjQgMTIuOEgyNi4ybDEwLjcgNy43LTQgMTIuOCAxMC45LTcuOSAxMC42IDcuOS00LjEtMTIuOCAxMC45LTcuN3pNMTA0LjEgMTM4LjlsLTQuMS0xMi44LTQuMiAxMi44SDgyLjZsMTAuNyA3LjctNCAxMi44IDEwLjctNy45IDEwLjggNy45LTQtMTIuOCAxMC43LTcuN3pNMTYwLjYgMTM4LjlsLTQuMy0xMi44LTQgMTIuOGgtMTMuNWwxMSA3LjctNC4yIDEyLjggMTAuNy03LjkgMTEgNy45LTQuMi0xMi44IDEwLjctNy43ek0yMTYuOCAxMzguOWwtNC0xMi44LTQuMiAxMi44aC0xMy4zbDEwLjggNy43LTQgMTIuOCAxMC43LTcuOSAxMC44IDcuOS00LjMtMTIuOCAxMS03Ljd6TTEwMCA3NS4zbC00LjIgMTIuOEg4Mi42TDkzLjMgOTZsLTQgMTIuNiAxMC43LTcuOCAxMC44IDcuOC00LTEyLjYgMTAuNy03LjloLTEzLjR6TTQzLjggNzUuM2wtNC40IDEyLjhIMjYuMkwzNi45IDk2bC00IDEyLjYgMTAuOS03LjggMTAuNiA3LjhMNTAuMyA5NmwxMC45LTcuOUg0Ny44ek0xNTYuMyA3NS4zbC00IDEyLjhoLTEzLjVsMTEgNy45LTQuMiAxMi42IDEwLjctNy44IDExIDcuOC00LjItMTIuNiAxMC43LTcuOWgtMTMuMnpNMjEyLjggNzUuM2wtNC4yIDEyLjhoLTEzLjNsMTAuOCA3LjktNCAxMi42IDEwLjctNy44IDEwLjggNy44LTQuMy0xMi42IDExLTcuOWgtMTMuNXpNNDMuOCAyNC43bC00LjQgMTIuNkgyNi4ybDEwLjcgNy45LTQgMTIuN0w0My44IDUwbDEwLjYgNy45LTQuMS0xMi43IDEwLjktNy45SDQ3Ljh6TTEwMCAyNC43bC00LjIgMTIuNkg4Mi42bDEwLjcgNy45LTQgMTIuN0wxMDAgNTBsMTAuOCA3LjktNC0xMi43IDEwLjctNy45aC0xMy40ek0xNTYuMyAyNC43bC00IDEyLjZoLTEzLjVsMTEgNy45LTQuMiAxMi43IDEwLjctNy45IDExIDcuOS00LjItMTIuNyAxMC43LTcuOWgtMTMuMnpNMjEyLjggMjQuN2wtNC4yIDEyLjZoLTEzLjNsMTAuOCA3LjktNCAxMi43IDEwLjctNy45IDEwLjggNy45LTQuMy0xMi43IDExLTcuOWgtMTMuNXoiLz48L2c+PC9zdmc+"); }
+html[lang="nl"] #localization-select-trigger > span::before { background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ijg1LjUgMCAzNDIgMzQyIj48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMCAxMTRoNTEzdjExNEgweiIvPjxwYXRoIGZpbGw9IiNjZDFmMmEiIGQ9Ik0wIDBoNTEzdjExNEgweiIvPjxwYXRoIGZpbGw9IiMxZDQxODUiIGQ9Ik0wIDIyOGg1MTN2MTE0SDB6Ii8+PC9zdmc+"); }
+html[lang="en"] #localization-select-trigger > span::before { background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjU5Ljg1IDAgMzQyIDM0MiI+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTAgMGg1MTN2MzQySDB6Ii8+PGcgZmlsbD0iI0Q4MDAyNyI+PHBhdGggZD0iTTAgMGg1MTN2MjYuM0gwek0wIDUyLjZoNTEzdjI2LjNIMHpNMCAxMDUuMmg1MTN2MjYuM0gwek0wIDE1Ny44aDUxM3YyNi4zSDB6TTAgMjEwLjVoNTEzdjI2LjNIMHpNMCAyNjMuMWg1MTN2MjYuM0gwek0wIDMxNS43aDUxM1YzNDJIMHoiLz48L2c+PHBhdGggZmlsbD0iIzJFNTJCMiIgZD0iTTAgMGgyNTYuNXYxODQuMUgweiIvPjxnIGZpbGw9IiNGRkYiPjxwYXRoIGQ9Im00Ny44IDEzOC45LTQtMTIuOC00LjQgMTIuOEgyNi4ybDEwLjcgNy43LTQgMTIuOCAxMC45LTcuOSAxMC42IDcuOS00LjEtMTIuOCAxMC45LTcuN3pNMTA0LjEgMTM4LjlsLTQuMS0xMi44LTQuMiAxMi44SDgyLjZsMTAuNyA3LjctNCAxMi44IDEwLjctNy45IDEwLjggNy45LTQtMTIuOCAxMC43LTcuN3pNMTYwLjYgMTM4LjlsLTQuMy0xMi44LTQgMTIuOGgtMTMuNWwxMSA3LjctNC4yIDEyLjggMTAuNy03LjkgMTEgNy45LTQuMi0xMi44IDEwLjctNy43ek0yMTYuOCAxMzguOWwtNC0xMi44LTQuMiAxMi44aC0xMy4zbDEwLjggNy43LTQgMTIuOCAxMC43LTcuOSAxMC44IDcuOS00LjMtMTIuOCAxMS03Ljd6TTEwMCA3NS4zbC00LjIgMTIuOEg4Mi42TDkzLjMgOTZsLTQgMTIuNiAxMC43LTcuOCAxMC44IDcuOC00LTEyLjYgMTAuNy03LjloLTEzLjR6TTQzLjggNzUuM2wtNC40IDEyLjhIMjYuMkwzNi45IDk2bC00IDEyLjYgMTAuOS03LjggMTAuNiA3LjhMNTAuMyA5NmwxMC45LTcuOUg0Ny44ek0xNTYuMyA3NS4zbC00IDEyLjhoLTEzLjVsMTEgNy45LTQuMiAxMi42IDEwLjctNy44IDExIDcuOC00LjItMTIuNiAxMC43LTcuOWgtMTMuMnpNMjEyLjggNzUuM2wtNC4yIDEyLjhoLTEzLjNsMTAuOCA3LjktNCAxMi42IDEwLjctNy44IDEwLjggNy44LTQuMy0xMi42IDExLTcuOWgtMTMuNXpNNDMuOCAyNC43bC00LjQgMTIuNkgyNi4ybDEwLjcgNy45LTQgMTIuN0w0My44IDUwbDEwLjYgNy45LTQuMS0xMi43IDEwLjktNy45SDQ3Ljh6TTEwMCAyNC43bC00LjIgMTIuNkg4Mi42bDEwLjcgNy45LTQgMTIuN0wxMDAgNTBsMTAuOCA3LjktNC0xMi43IDEwLjctNy45aC0xMy40ek0xNTYuMyAyNC43bC00IDEyLjZoLTEzLjVsMTEgNy45LTQuMiAxMi43IDEwLjctNy45IDExIDcuOS00LjItMTIuNyAxMC43LTcuOWgtMTMuMnpNMjEyLjggMjQuN2wtNC4yIDEyLjZoLTEzLjNsMTAuOCA3LjktNCAxMi43IDEwLjctNy45IDEwLjggNy45LTQuMy0xMi43IDExLTcuOWgtMTMuNXoiLz48L2c+PC9zdmc+"); }
