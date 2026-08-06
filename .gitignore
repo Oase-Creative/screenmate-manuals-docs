@@ -41,6 +41,10 @@ tasks/
 sources/
 Handleiding Screenmate v2.zip
 *.pdf
+*.zip
+
+# Client asset drops (delivered by hand, not site content)
+newest feedback/
 
 # Loose root-level screenshots (dev artifacts, not site content)
 /dual-flip-index.png
@@ -49,5 +53,6 @@ Handleiding Screenmate v2.zip
 /infinity-display.png
 /lite-index.png
 /manuals-index.png
+/verify-shot.png
 
 tmp_renders/

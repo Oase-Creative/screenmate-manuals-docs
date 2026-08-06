@@ -1,0 +1,28 @@
+# Normalize line endings: store LF in the repo, check out native on each platform.
+# This ends the recurring CRLF/LF churn on the MDX files.
+* text=auto
+
+# Text formats (explicit, so nothing gets misdetected as binary)
+*.mdx text
+*.md text
+*.json text
+*.css text
+*.js text
+*.py text
+*.svg text
+*.txt text
+*.yml text
+*.yaml text
+
+# Binary assets — never diffed, never line-ending-normalized
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.mp4 binary
+*.exe binary
+*.pkg binary

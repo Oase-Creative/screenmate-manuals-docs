@@ -37,14 +37,13 @@ screenmate-manuals-docs/
 │   ├── manuals-index.mdx
 │   └── manuals/
 │       └── [product-name]/
-│           ├── index.mdx        # Product intro, specs, what's in the box
-│           ├── installation.mdx
-│           ├── drivers.mdx
-│           ├── display-settings.mdx
-│           ├── controls.mdx
-│           ├── troubleshooting.mdx
-│           ├── safety.mdx
-│           └── downloads.mdx
+│           ├── index.mdx        # Always: intro, render, in-the-box, specs
+│           ├── installation.mdx # Always: setup, drivers, connections
+│           ├── controls.mdx     # Always
+│           ├── safety.mdx       # Always
+│           ├── display-settings.mdx  # Conditional
+│           ├── osd.mdx               # Conditional
+│           └── troubleshooting.mdx   # Conditional
 ├── nl/
 │   ├── manuals-index.mdx
 │   └── manuals/
@@ -63,123 +62,135 @@ screenmate-manuals-docs/
 
 ## 🚀 Adding a New Product Manual
 
-### Step 1: Create the Manual Folders
+> **The authoritative procedure is the `screenmate-manual` skill**, which generates both
+> languages from the product's v2 Dutch booklet PDF in `sources/`; follow it with
+> `screenmate-dutch-fidelity` for the NL pass. What follows is a summary so this README
+> doesn't contradict the skill — not a second procedure to run by hand.
+
+### 1. Folders
+
+Paths are **language-first**:
 
 ```bash
-# Create English manual folder
-mkdir -p en/manuals/[product-name]
-
-# Create Dutch manual folder
-mkdir -p nl/manuals/[product-name]
-
-# Create image folder for the product
-mkdir -p "images/[Product Name] - [Manual Name] images"
+mkdir -p en/manuals/[product-slug] nl/manuals/[product-slug]
+mkdir -p "images/Screenmate - [Product] - Handleiding images"
 ```
 
-### Step 2: Create Manual Pages
+### 2. Pages — a conditional set, not a fixed eight
 
-Use this standard structure for **every product**:
+Always present:
 
-#### English Pages (`en/manuals/[product-name]/`)
-1. **index.mdx** - Introduction, what's in the box, key features, specs
-2. **installation.mdx** - Physical setup and connection instructions
-3. **drivers.mdx** - Driver installation (if needed)
-4. **display-settings.mdx** - OS-specific configuration (Windows, MacOS)
-5. **controls.mdx** - Physical buttons and OSD menu
-6. **troubleshooting.mdx** - Common issues and solutions
-7. **safety.mdx** - Safety warnings and care instructions
-8. **downloads.mdx** - PDF manual and driver links
+| Page | Contents |
+| :--- | :--- |
+| `index.mdx` | Intro, overview render, in-the-box, specifications |
+| `installation.mdx` | Physical setup, **driver installation**, connection options |
+| `controls.mdx` | Physical buttons and indicators |
+| `safety.mdx` | Safety warnings and care |
 
-#### Dutch Pages (`nl/manuals/[product-name]/`)
-Create the same structure with Dutch translations.
+Add only what the product actually has:
 
-### Step 3: Update `docs.json`
+| Page | Add when |
+| :--- | :--- |
+| `display-settings.mdx` | The product needs OS-level setup (screen arrangement, scaling, sound) |
+| `osd.mdx` | The product has an on-screen display menu |
+| `troubleshooting.mdx` | There is product-specific troubleshooting (currently OneCable only) |
 
-Add the new product to the `navigation.languages` array:
+There is **no `drivers.mdx` and no `downloads.mdx`.** Driver steps live inside
+`installation.mdx` — see `en/manuals/panorama/installation.mdx` for the pattern. Where a
+driver walkthrough is long enough to need its own pages, split it into
+`installation-windows.mdx` / `installation-mac.mdx` and nest them in a group under
+`installation` (see OneCable) rather than inventing a new page name.
+
+EN and NL must stay in **exact structural parity**: same file set, same order, both languages.
+
+### 3. Register in `docs.json`
+
+Navigation is **tab-based — one tab per product, always `hidden: true`**. Hidden keeps the
+product tab bar out of the UI, so a scanned QR code drops the customer straight into their
+manual with nothing else competing for attention. Add the same block to **both** the `nl`
+and the `en` language entry:
 
 ```json
 {
-  "navigation": {
-    "languages": [
-      {
-        "language": "nl",
-        "pages": [
-          "nl/manuals/onecable/index",
-          "nl/manuals/onecable/installation",
-          "nl/manuals/onecable/drivers",
-          "nl/manuals/onecable/display-settings",
-          "nl/manuals/onecable/controls",
-          "nl/manuals/onecable/troubleshooting",
-          "nl/manuals/onecable/safety",
-          "nl/manuals/onecable/downloads",
-          
-          // Add new product here
-          "nl/manuals/[new-product]/index",
-          "nl/manuals/[new-product]/installation",
-          // ... etc
-        ]
-      },
-      {
-        "language": "en",
-        "pages": [
-          // Same structure for English
-        ]
-      }
-    ]
-  }
+  "tab": "Panorama",
+  "hidden": true,
+  "pages": [
+    "nl/manuals/panorama/index",
+    "nl/manuals/panorama/installation",
+    "nl/manuals/panorama/controls",
+    "nl/manuals/panorama/osd",
+    "nl/manuals/panorama/safety"
+  ]
 }
 ```
 
-### Step 4: Page Template
+Then add a **text-only card** — `title` and `href`, nothing else — to both
+`en/manuals-index.mdx` and `nl/manuals-index.mdx`:
 
-Use this template for `index.mdx`:
+```mdx
+<Card
+  title="Panorama Manual"
+  href="/en/manuals/panorama/index"
+/>
+```
+
+Product renders belong on the product's own `index.mdx`, not on the listing cards.
+
+**Do not touch the `redirects` array** — those entries back QR codes already printed and in
+customers' hands. **Do not touch `style.css`** — it exists only to restore the
+language-switcher flags and is keyed to Mintlify's own DOM hooks.
+
+### 4. Generate the cross-language links
+
+```bash
+python scripts/generate_language_links.py
+```
+
+Nothing links EN ↔ NL until this runs — see [Cross-Language Links](#-cross-language-links) below.
+
+---
+
+## 🌐 Cross-Language Links
+
+Every product tab in `docs.json` is `hidden: true`. Hidden tabs give Mintlify's language
+switcher nothing to match on, so it cannot work out which Dutch page corresponds to the
+English one you're reading. Each page must therefore name its counterpart explicitly in
+frontmatter — an EN page carries `nl_link`, an NL page carries `en_link`:
 
 ```mdx
 ---
-title: "[Product Name] Manual"
-description: "Complete user guide for your [Product Name]"
-icon: "book-open"
+title: "Display Settings"
+nl_link: "/nl/manuals/onecable/display-settings"
 ---
-
-<Note>
-**Welcome!** This is your complete digital manual for the [Product Name]. Use the navigation menu on the left to jump to any section.
-</Note>
-
-## What is [Product Name]?
-
-[Brief product description - 2-3 sentences about what it does and who it's for]
-
-### Key Features
-
-- **Feature 1** - Description
-- **Feature 2** - Description
-- **Feature 3** - Description
-- **Feature 4** - Description
-- **Feature 5** - Description
-
-## In the Box
-
-Check if all the following items are present in the package.
-
-<div className="grid grid-cols-2 gap-4">
-  <div className="text-center">
-    <img className="h-40 object-contain mx-auto" src="/images/[Product] - [Manual] images/item1.png" alt="Item 1" />
-    <p className="font-semibold mt-2">Item Name</p>
-  </div>
-  <!-- Add more items -->
-</div>
-
-## Technical Specifications
-
-| Feature | Specification |
-| :--- | :--- |
-| **Screen Size** | 15.6 inch |
-| **Resolution** | 1920 x 1080 (Full HD) |
-| **Panel Type** | IPS |
-| **Weight** | ~800g |
-
-<Note>Specifications are subject to change. Please refer to the official product page for the most up-to-date information.</Note>
 ```
+
+With N languages that's N-1 keys on every page, which is why it's generated rather than
+hand-maintained:
+
+```bash
+# after adding/renaming/removing any manual page, or adding a language
+python scripts/generate_language_links.py
+
+# validate only — exits 1 if anything is missing, wrong, or out of parity (CI / pre-commit)
+python scripts/generate_language_links.py --check
+
+python scripts/generate_language_links.py --verbose   # per-file detail
+```
+
+Run it from the repo root (it refuses to run anywhere else). Python 3, stdlib only.
+
+What it does:
+
+- **Discovers languages** from the tree — any top-level `en`/`nl`/`pt-BR`-style directory
+  containing `manuals-index.mdx` or a `manuals/` folder. Adding a language folder is all
+  it takes; there's no list to update.
+- **Checks EN ↔ NL parity** and reports any page that exists in one language but not
+  another. Links to a missing counterpart are never written.
+- **Adds, corrects, and removes** `<lang>_link` keys, including stale ones pointing at a
+  language or page that no longer exists.
+- **Idempotent and non-destructive** — targeted line edits only, never a YAML
+  parse-and-redump, so key order, formatting and each file's CRLF/LF style survive
+  byte-for-byte. Nothing outside the language folders is touched.
 
 ---
 
@@ -207,16 +218,15 @@ Each product gets language-specific QR codes:
 - **Dark**: `#15803D`
 
 ### Navigation Structure
-- **Flat sidebar** (no tabs, no groups in current design)
-- Pages listed in logical order:
-  1. Introduction
-  2. Installation
-  3. Drivers
-  4. Display Settings
-  5. Controls
-  6. Troubleshooting
+- **One `hidden: true` tab per product**, mirrored in both language blocks
+- Pages in this order, skipping any the product doesn't have:
+  1. Introduction (`index`)
+  2. Installation (optionally grouping `installation-windows` / `installation-mac`)
+  3. Display Settings *(conditional)*
+  4. Controls
+  5. OSD menu *(conditional)*
+  6. Troubleshooting *(conditional)*
   7. Safety
-  8. Downloads
 
 ### Writing Style
 - **Clear & Concise**: Hardware users need quick answers
@@ -268,9 +278,12 @@ Changes pushed to `main` branch are automatically deployed via the Mintlify GitH
 
 - [ ] Create manual folders: `en/manuals/[product]/` and `nl/manuals/[product]/`
 - [ ] Create image folder: `images/[Product] - [Manual] images/`
-- [ ] Create all 8 standard pages (index, installation, drivers, etc.)
-- [ ] Add product to `docs.json` navigation for both languages
+- [ ] Create the 4 always-on pages (index, installation, controls, safety) + any conditional ones
+- [ ] Add a `hidden: true` product tab to `docs.json` for **both** languages
+- [ ] Add a text-only card to `en/manuals-index.mdx` and `nl/manuals-index.mdx`
 - [ ] Add product images to image folder
+- [ ] Run `python scripts/generate_language_links.py` (cross-language frontmatter links)
+- [ ] Confirm `python scripts/generate_language_links.py --check` exits clean
 - [ ] Test all pages locally with `mint dev`
 - [ ] Generate QR codes for both languages
 - [ ] Test QR codes on mobile devices
@@ -287,38 +300,14 @@ Changes pushed to `main` branch are automatically deployed via the Mintlify GitH
 
 ---
 
-## 🎯 Future Enhancements
+## 🎯 The Manuals Index
 
-### When You Have Multiple Products
+`en/manuals-index.mdx` and `nl/manuals-index.mdx` are the only non-hidden pages in the site.
+They list every product as a **text-only card** (`title` + `href`, no icon, no body copy) and serve as:
 
-Consider adding a **landing page** that lists all available manuals:
-
-```mdx
-# Screenmate Product Manuals
-
-<CardGroup cols={2}>
-  <Card
-    title="OneCable Manual"
-    icon="monitor"
-    href="/en/manuals/onecable/index"
-  >
-    Portable monitor with single-cable connectivity
-  </Card>
-  
-  <Card
-    title="[Product 2] Manual"
-    icon="laptop"
-    href="/en/manuals/[product-2]/index"
-  >
-    Description of product 2
-  </Card>
-</CardGroup>
-```
-
-This can serve as:
-- A general support page on screenmate.com
-- A fallback if users need to find a different product manual
-- But **QR codes should still link directly to specific product manuals**
+- A general support landing page to link from screenmate.com
+- A fallback for customers who need a different product's manual
+- **Not** the QR-code target — printed QR codes always point straight at a specific product manual
 
 ---
 
