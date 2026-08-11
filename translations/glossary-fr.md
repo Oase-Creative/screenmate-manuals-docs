@@ -300,7 +300,7 @@ A colon introducing prose gets `&nbsp;`. A colon inside a ratio, URL, time or id
 
 | Type | Locked format | Example |
 |---|---|---|
-| Decimal separator | **comma** | `15,6"`, `2,5 cm`, `3,5 mm`, `40,6 × 23,7 × 2,5 cm` |
+| Decimal separator | **comma** | `15,6"`, `2,5&nbsp;cm`, `3,5&nbsp;mm`, `40,6 × 23,7 × 2,5&nbsp;cm` |
 | Thousands, 4 digits | **no separator** | `1820 grammes`, `1750 grammes`, `1552 grammes`, `3000 grammes`, `1920 × 1080` — never `1.820`, never `1 820` |
 | Thousands, 5+ digits | **plain space** | `100 000:1` — French groups by three above four digits. Never `100,000` (English) and never `100.000` (German/Dutch). |
 | Number + unit symbol | non-breaking space | `45&nbsp;W`, `65&nbsp;W`, `10&nbsp;W`, `5&nbsp;V`, `2&nbsp;A`, `60&nbsp;Hz`, `144&nbsp;Hz`, `25&nbsp;ms`, `300&nbsp;cd/m²` |
@@ -690,7 +690,7 @@ Three values do change: `Grey` → `Gris`, `1820 grams` → `1820 grammes`, and
 | provided that … | `fourni que…` | `à condition que…` (+ subjunctive) |
 | such as | `comme par exemple` | `tel qu'un…` / `par exemple` |
 | as shown in image 2 | `comme montré dans image 2` | `comme illustré sur l'image&nbsp;2` |
-| in the following ways | `dans les manières suivantes` | `des manières suivantes` |
+| in the following ways | `dans les manières suivantes` | `de l'une des manières suivantes` *(shipped form — harmonised across onecable/infinity/flip/dual-flip/expand)* |
 | supports five connection scenarios | `supporte cinq scénarios` | `prend en charge cinq scénarios de connexion` |
 | does not deliver enough power | `ne délivre pas assez de puissance` | `ne fournit pas une puissance suffisante` |
 | the port does not deliver power | `le port ne délivre pas d'énergie` | `le port ne fournit pas d'alimentation` |

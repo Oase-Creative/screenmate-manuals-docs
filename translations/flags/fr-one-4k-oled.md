@@ -110,14 +110,15 @@ EN (verified programmatically), including the Dutch-derived `…%20Handleiding%2
    `prenant en charge le DisplayPort Alt Mode`, `Voyant d'état indiquant l'alimentation et l'état
    du signal.`, `dans l'OSD`, `de la luminosité` / `du volume`, `lorsque l'alimentation est
    raccordée`, `valider un réglage`, `pour l'enregistrer`, and the OSD-lock sentence, plus the
-   index closing sentence). Verified: every remaining difference between the two FR pages
-   corresponds to a real EN difference. **If either slug is re-edited, change both.**
+   index closing sentence). Corrected 2026-08-11 (Task 10, finding F4-5): the claim that
+   *every* remaining difference corresponds to a real EN difference was **false** for
+   `index.mdx:15`, where the byte-identical EN fragment `is a 15.6" 4K UHD portable monitor`
+   had been rendered two ways. Both slugs now read `écran portable 4K UHD de 15,6"`, and both
+   now use `prend en charge` for EN `supports` (F4-6). **If either slug is re-edited, change both.**
 
-2. **`cm` spacing is inconsistent across the shipped FR corpus.** `expand/index.mdx` writes
-   `2,5&nbsp;cm` while `dual-flip`, `flip`, `lite`, `lite-144hz`, `onecable` and `one-4k` all write
-   a plain space (`3,5 cm`). This page follows the majority form and its direct sibling `one-4k`
-   (`34,8 × 22,4 × 1,3 cm`). The glossary is itself ambiguous here — §4's decimal-separator row
-   shows `40,6 × 23,7 × 2,5 cm` with plain spaces, while §9.4 locks `3,5&nbsp;mm` for the
-   standalone headphone-jack term (which this page applies). **Not a defect introduced here**, but
-   a one-line glossary clarification would stop it recurring; the cheap fix is to normalise
-   `expand` to the majority form.
+2. **`cm` spacing — RESOLVED 2026-08-11 (Task 10, finding F1-04).** The corpus was split
+   between `2,5&nbsp;cm` (expand, infinity, panorama) and a plain space (`3,5 cm`) on the other
+   ten `Dimensions` rows. All ten were normalised to `&nbsp;cm` per §4.1 (number + unit symbol
+   takes a non-breaking space), and §4's decimal-separator example was corrected to match.
+   The §5.7 package-contents parentheticals (`(60 cm)`, `(90 cm)`, `(1,2 m)`) keep their plain
+   space: §5 term tables outrank §4 typography under the §0 precedence order.
