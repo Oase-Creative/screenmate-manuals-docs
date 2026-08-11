@@ -13,5 +13,5 @@ Raised: 3. Blocked: 0.
 
 ## Notes (not flags)
 
-- The MDX comment at `osd.mdx:27` (`{/* The PDF only documents controls … */}`) is not user-visible. NL translates it; glossary §7.7 only rules the `manuals-index.mdx` template comment must stay English. Followed the NL precedent and translated it. Trivially reversible if the orchestrator prefers English editorial comments across all languages.
+- The MDX comment at `osd.mdx:27` (`{/* The PDF only documents controls … */}`) is not user-visible. NL translates it, but glossary §7.7's rationale ("not user-visible — leave in English") is applied corpus-wide: **kept byte-identical to the EN source**, matching the de/one-4k-oled slug, which keeps its two `{/* TODO … */}` comments in English. Its em dash is EN-source text, not German body copy, so §3.6 does not apply to it.
 - `100 % sRGB`, `3840 × 2160` and `15,6"` diverge from the EN/NL source formatting by design (glossary §4, DIN 5008 unit spacing) — per glossary §11 this is **not** an nl↔de parity defect.
