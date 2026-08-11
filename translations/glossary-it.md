@@ -1090,6 +1090,79 @@ English only inside the body-copy gloss (§7.3) or an optional parenthetical (§
 | Learn about product warranties | Scopri le garanzie sui prodotti |
 | Scanning a QR code? | Hai scansionato un codice QR? |
 
+### 9.9 JSX-embedded user-visible strings
+
+**Why this table exists:** these strings render to the reader but live inside JSX elements, so
+they are invisible to a `^#` heading grep and to a frontmatter grep. They are the single easiest
+class of string to leave untranslated. Sweep them explicitly on every page.
+
+**Translate** these JSX slots: `<a>` link text · `<Tab title="…">` · `<Card title="…">` ·
+`<Card>` body text · `<p>` / `<div>` text children (image captions, package-contents labels) ·
+`<video>` fallback text · button labels.
+
+**Never translate:** `className` · `href` · `src` · `icon` · `alt` *(user-visible, but translated
+per page by the translator against the page's own context — not glossary-locked)* ·
+anything inside an MDX comment `{/* … */}` *(never rendered)*.
+
+#### Link and button text
+
+| English | Italian | Source |
+|---|---|---|
+| Download Windows Drivers | Scarica i driver per Windows | `onecable/installation-windows.mdx` `<a>` |
+| Download for macOS | Scarica per macOS | `onecable/installation-mac.mdx` `<a>` |
+
+#### Tab titles not already covered in §9.5
+
+| English | Italian |
+|---|---|
+| Expand 14" | Expand 14" |
+| Expand 15.6" | Expand 15,6" |
+| OneCable 14" | OneCable 14" |
+| OneCable 16" | OneCable 16" |
+| Flip 14" · Flip 15.6" | Flip 14" · Flip 15,6" |
+| Windows · macOS | Windows · macOS |
+
+#### Image captions and figure labels (`<p className="…">` children)
+
+| English | Italian | Source |
+|---|---|---|
+| Landscape view | Vista orizzontale | `infinity/installation.mdx` |
+| Portrait view | Vista verticale | `infinity/installation.mdx` |
+| Portrait & landscape combination | Combinazione verticale e orizzontale | `infinity/installation.mdx` |
+| Detached view | Vista separata | `infinity/installation.mdx` |
+| Place the screen on the single stand | Appoggia lo schermo sul supporto singolo | `infinity/installation.mdx` |
+| The stand supports 360° rotation | Il supporto ruota di 360° | `infinity/installation.mdx` |
+| USB-C · HDMI · USB-A · USB-A 2.0 | *(unchanged — connector names)* | `flip/`, `infinity/installation.mdx` port-icon captions |
+
+#### Package-contents captions (`onecable/index.mdx`)
+
+These are JSX `<p>` children, **not** the markdown bullet lists the other products use.
+
+| English | Italian |
+|---|---|
+| Protective Case | Custodia protettiva |
+| 2x USB-A > USB-C Cable | 2 cavi da USB-A a USB-C |
+| USB-C > USB-C Cable | Cavo da USB-C a USB-C |
+| USB Stick (Incl. Driver) | Chiavetta USB (con driver) |
+
+The two cable captions follow the §2.5 chain rule — the `>` renders as `da … a …`, exactly like
+`to`. Sentence case applies: `Cavo da USB-C a USB-C`, not `Cavo Da USB-C A USB-C`.
+
+#### Boilerplate
+
+| English | Italian |
+|---|---|
+| Your browser does not support the video tag. | Il tuo browser non supporta il tag video. |
+
+#### Ruled DNT — not user-visible
+
+| String | Ruling |
+|---|---|
+| `[Product Name] Manual` | inside `{/* … */}` in `manuals-index.mdx` — an authoring template for future products, never rendered. Leave verbatim. |
+| `Brief product description` | same commented-out `<Card>` template. Leave verbatim. |
+| `https://www.siliconmotion.com/downloads/index.html` | URL used as both link text and target in `panorama/installation.mdx`. Leave verbatim. |
+| `Win10&11` · `DRIVERS (D:)` · `UsbDisplay` · `RacerUSB` · `S6-L` · `S6-R` | literal UI/file strings appearing in prose and `alt` text — see §4.3 and §5.3. |
+
 ---
 
 ## 10. Punctuation, quotes & typography
@@ -1111,9 +1184,16 @@ English only inside the body-copy gloss (§7.3) or an optional parenthetical (§
   emphasis.
 - **MDX components** (`<Note>`, `<Warning>`, `<Info>`, `<Tip>`, `<Tabs>`, `<Tab title="…">`,
   `<Card title="…">`, `className`, `href`, `src`, `icon`) are code: translate only the visible
-  string attributes (`title`, and the callout body). Never translate `icon`, `href`, `src`,
-  `className` or image filenames.
-- **`alt` text** is user-visible and **is** translated.
+  string attributes (`title`) and the visible text children (callout body, `<Card>` body, `<p>`
+  captions, `<a>` link text, `<video>` fallback). Never translate `icon`, `href`, `src`,
+  `className` or image filenames. **Full inventory of the JSX-embedded strings in this corpus,
+  with locked renderings: §9.9.**
+- **`alt` text** is user-visible and **is** translated — per page, against that page's context.
+  It is deliberately not glossary-locked, because the same image carries different `alt` copy
+  across products.
+- **MDX comments `{/* … */}` are never rendered** — leave their contents verbatim, including the
+  commented-out `<Card>` template in `manuals-index.mdx` and the `TODO: confirm with Louie` notes
+  in `one-4k-oled/`.
 - **Frontmatter keys** (`title`, `description`, `icon`, `nl_link` / `it_link`) are never translated;
   only their string values, and only `title` and `description`.
 
