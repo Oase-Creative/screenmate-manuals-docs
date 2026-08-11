@@ -29,7 +29,7 @@ Related conventions applied deliberately (details in the glossaries): SI unit sp
 3. Safety-negation counts, register scans (no Sie/tu/Lei leakage), do-not-translate term survival (42 locked terms) — clean.
 4. Shared-chapter byte-identity: safety and display-settings chapters are literally identical across the products that share them, per language — enforced by checksum.
 5. Build check and link check pass at the pre-existing baseline (the checker's known false positives on URL-encoded image paths; all images verified rendering in the browser).
-6. A 20-test automated suite (`scripts/verify_translation.py`) now guards all of the above for future edits.
+6. An automated checker (`scripts/verify_translation.py`) with a 20-test suite (`tests/test_verify_translation.py`) now guards all of the above for future edits.
 
 **Semantic (independent AI review):**
 7. **Blind back-translation:** 12 independent agents translated every one of the 186 pages back to English *without access to the originals*; 3 comparers then diffed against the source. Result: **zero critical and zero moderate meaning drift in all three languages** (12 cosmetic notes, fixed or logged).
@@ -65,4 +65,4 @@ The review process also audited your existing content. The consolidated report c
 
 ## 8. Numbers
 
-108 commits · 386 files changed · ~32,000 lines added · 3 locked glossaries · 30 QA artifacts under `translations/qa/` (back-translations, reviews, fix logs — full audit trail).
+110 commits · 387 files changed · ~32,000 lines added · 3 locked glossaries · 30 QA artifacts under `translations/qa/` (back-translations, reviews, fix logs — full audit trail).
