@@ -263,7 +263,7 @@ place for a translator or a "fix the French spacing" pass to introduce a defect:
 | Never touch | Reason |
 |---|---|
 | `16:9`, `4:3`, `16:10` | aspect ratios |
-| `1000:1` | contrast ratio |
+| `1000:1`, `100 000:1` | contrast ratios — the colon stays tight even though the number itself carries a space (§4.1) |
 | `https://`, `http://` | URLs |
 | `10:30` | clock times |
 | `Type-C1`, `S6-L`, `S6-R`, `RGB` | device/hardware identifiers |
@@ -292,14 +292,16 @@ A colon introducing prose gets `&nbsp;`. A colon inside a ratio, URL, time or id
 | Type | Locked format | Example |
 |---|---|---|
 | Decimal separator | **comma** | `15,6"`, `2,5 cm`, `3,5 mm`, `40,6 × 23,7 × 2,5 cm` |
-| Thousands separator | **none** | `1820 grammes`, `1750 grammes`, `3000 grammes`, `1920 × 1080` — never `1.820` or `1 820` |
+| Thousands, 4 digits | **no separator** | `1820 grammes`, `1750 grammes`, `1552 grammes`, `3000 grammes`, `1920 × 1080` — never `1.820`, never `1 820` |
+| Thousands, 5+ digits | **plain space** | `100 000:1` — French groups by three above four digits. Never `100,000` (English) and never `100.000` (German/Dutch). |
 | Number + unit symbol | non-breaking space | `45&nbsp;W`, `65&nbsp;W`, `10&nbsp;W`, `5&nbsp;V`, `2&nbsp;A`, `60&nbsp;Hz`, `144&nbsp;Hz`, `25&nbsp;ms`, `300&nbsp;cd/m²` |
 | Percent | space before `%` | `100&nbsp;%&nbsp;sRGB`, `72&nbsp;%&nbsp;NTSC`, `150&nbsp;%` — French takes a space before `%`, unlike EN/NL |
 | Degrees Celsius | space before `°C` | `-20&nbsp;°C`, `60&nbsp;°C` (`°C` is a unit symbol) |
 | Angle degrees | **no** space | `178°`, `360°`, `235°`, `180°`, `90°` (`°` alone is not a unit symbol) |
 | Voltage / current pairs | expand both | EN `5V/2A` → `5&nbsp;V/2&nbsp;A`; EN `DC 5V/3A` → `CC 5&nbsp;V/3&nbsp;A` |
 | Ranges | en dash, or `de … à …` | `0–100`, `10–60 secondes`, `5&nbsp;V – 20&nbsp;V`, `de 0 à 100` |
-| Ratios | untouched | `16:9`, `4:3`, `16:10`, `1000:1` — see §3.4 |
+| Ratios | colon untouched | `16:9`, `4:3`, `16:10`, `1000:1`, `100 000:1` — see §3.4 |
+| Contrast ratio 100,000:1 | **`100 000:1`** | **locked (gate ruling R5).** The only 5-digit figure in the corpus: `one-4k-oled/index.mdx` line 16 (prose) and line 28 (spec row). Both occurrences take the identical form. |
 | Resolutions | `×` with spaces | `1920 × 1080`, `1920 × 1200` (normalise the EN corpus's `1920×1080` variant) |
 | Counts | drop `x` | EN `2x USB-C cables` → `2 câbles USB-C`; EN `6x protective clips` → `6 clips de protection` |
 | Ordinals | `1er`, `2e`, `3e` | not `1ère`/`2ème` |
@@ -309,6 +311,30 @@ A colon introducing prose gets `&nbsp;`. A colon inside a ratio, URL, time or id
 `-20°C` and from the Dutch glossary, which locks the closed forms. French typographic and SI
 convention requires the space, and a French reviewer reads `45W` and `100%` as untranslated
 English. It is locked; do not "restore" the EN spacing.
+
+### 4.1 Which space goes where — plain vs `&nbsp;` (gate ruling R5)
+
+Two different spaces are in play and they are **not** interchangeable. The rule is mechanical:
+
+| Position of the space | Form | Why |
+|---|---|---|
+| **Between digits** of a 5+ digit number | **plain space** — `100 000:1` | Verified MDX-safe in every context (see below). Nothing here sits next to a `**` delimiter, so the §3.2 emphasis hazard cannot fire. |
+| **Between a number and a unit symbol** | `&nbsp;` — `45&nbsp;W`, `-20&nbsp;°C`, `100&nbsp;%` | Same reason as §3: the unit must not wrap away from its number, and these frequently sit inside `**bold**` spec labels. |
+| **Before `:` `;` `!` `?`** as punctuation | `&nbsp;` | §3.1. |
+
+**Verification (2026-08-11, `@mdx-js/mdx@3.1.1` as bundled with `mint@4.2.776`).** `100 000:1`
+compiles cleanly and renders identically in all five probed positions: a spec-table cell, plain
+prose, immediately after a bold label (`**Taux de contraste&nbsp;:** 100 000:1`), immediately after
+a closing `**`, and adjacent to other ratios (`100 000:1 et 1000:1 et 16:9` — all three colons
+correctly left tight). `strong` parsed in every bold case; no literal `**` leaked in any case.
+This confirms the §3.2 finding was specific to whitespace *touching* a `**` delimiter, which
+digit-internal spacing never does.
+
+**Accepted tradeoff:** a plain space can line-wrap, so `100 000:1` may in principle break across
+two lines in a narrow column. This is accepted per the gate ruling (it keeps the figure greppable
+and lets the shared verification script normalise spaced thousands across all languages). If the
+client ever reports a visible wrap, the fix is a one-cell change to `100&nbsp;000:1`, which is
+also verified working — do not make that change unilaterally.
 
 ---
 
@@ -393,8 +419,8 @@ English. It is locked; do not "restore" the EN spacing.
 | USB 2.0 | USB 2.0 | — | ✓ |
 | HDMI | HDMI | — | ✓ |
 | Mini-HDMI | Mini-HDMI | always hyphenated, even where EN writes `Mini HDMI` | ✓ |
-| DisplayPort | DisplayPort | — | ✓ |
-| DisplayPort Alt Mode | DisplayPort Alt Mode | **proposed DNT addition** — see §12 | ✓ |
+| DisplayPort | DisplayPort | in `dnt.json` since the gate R3 realign | ✓ |
+| DisplayPort Alt Mode | DisplayPort Alt Mode | covered by the `DisplayPort` DNT token; never translate the `Alt Mode` tail either | ✓ |
 | DP monitor | moniteur DP | `DP` stays | — |
 | Type-C1 / Type-C2 | Type-C1 / Type-C2 | on-device SOURCE values | ✓ |
 | Power Delivery (PD) | Power Delivery (PD) | brand term | ✓ |
@@ -437,11 +463,13 @@ English. It is locked; do not "restore" the EN spacing.
 |---|---|---|---|
 | driver | pilote (m.) | **default in body copy** | — |
 | display driver | pilote d'affichage (m.) | — | — |
-| `Drivers` *(folder name)* | `Drivers` | keep verbatim when naming the actual folder on the USB stick | ✓ |
+| `DRIVERS` *(drive/folder name)* | `DRIVERS` | keep verbatim when naming the actual drive or folder on the supplied USB stick. The DNT token is the **caps** form (realigned from `Drivers` at the gate) — which matches the only way the EN corpus writes it as an on-disk artifact: `**DRIVERS (D:)**` in `onecable/installation-windows.mdx:47`. | ✓ |
 | `DRIVERS (D:)` *(drive label)* | `DRIVERS (D:)` | keep verbatim — it is what Windows shows | ✓ |
 | `Win10&11`, `Win 7&8`, `mac OS` *(folder names)* | *(unchanged)* | folder names on the supplied stick | ✓ |
 | `RacerDisplayDriver-2024.9.13-en`, `RacerUSB`, `UsbDisplay` | *(unchanged)* | file / app / permission entry names | ✓ |
-| "Download Drivers" *(heading)* | `Télécharger les pilotes` | the common noun is translated; only the literal folder/drive name stays EN | — |
+| "Download Drivers" *(heading)* | `Télécharger les pilotes` | **confirmed at the gate.** Only the literal drive/folder name `DRIVERS` stays EN; the lowercase common noun is always `pilote(s)`. The DNT token being caps-only makes this unambiguous. | — |
+| "Download Windows Drivers" *(button label)* | `Télécharger les pilotes Windows` | — | — |
+| "Download for macOS" *(button label)* | `Télécharger pour macOS` | — | — |
 | download *(verb / noun)* | télécharger / téléchargement (m.) | — | — |
 | install / installation | installer / installation (f.) | — | — |
 | manual installation | installation manuelle | — | — |
@@ -600,7 +628,8 @@ English. It is locked; do not "restore" the EN spacing.
 
 Field **values** that are identifiers or units stay unchanged (`IPS`, `LCD`, `LED`, `HDR 10`,
 `M107`, `M109`, `1000:1`, `16:9`, `100 % sRGB`, `72 % NTSC`, `178°`, `Windows, macOS, Linux`).
-Only `Grey` → `Gris` and `1820 grams` → `1820 grammes` change.
+Three values do change: `Grey` → `Gris`, `1820 grams` → `1820 grammes`, and
+`100,000:1` → **`100 000:1`** (§4.1 — One 4K OLED only).
 
 ### 5.7 Package-contents items (`## Contenu de l'emballage`)
 
@@ -1117,8 +1146,11 @@ grep -nEi '(USB-[CA]|HDMI)-(câble|port|adaptateur|chargeur)' fr/manuals/**/*.md
 # 10. Unhyphenated connector tokens
 grep -nE 'USB C|USBC|Mini HDMI' fr/manuals/**/*.mdx
 
-# 11. Untranslated "driver" in body prose (only the Drivers folder/drive keeps EN)
+# 11. Untranslated "driver" in body prose (only the caps DRIVERS drive/folder keeps EN)
 grep -nE '\bdriver(s)?\b' fr/manuals/**/*.mdx
+
+# 14. English/German thousands separator on the contrast figure (want zero hits)
+grep -nE '100[,.]000' fr/manuals/**/*.mdx
 
 # 12. Structural parity with en/ (must print nothing)
 for f in $(cd en && find . -name '*.mdx'); do
@@ -1147,14 +1179,24 @@ Reason: {file:line where it appears} + {why this French rendering}
 
 ### Open items for the orchestrator / client
 
-1. **`DisplayPort Alt Mode`** — treated as keep-EN in §5.2 but is **not** in `translations/dnt.json`.
-   It should be added there so DE and IT stay consistent with FR. Appears in
-   `en/manuals/one-4k/controls.mdx`, `one-4k-oled/controls.mdx`, `panorama/installation.mdx`.
-2. **`DP`** (as in `DP monitor`, `panorama/osd.mdx:31`) — same situation; flagged during the Task 2
-   DNT reconciliation and deliberately left out. FR renders it `moniteur DP`.
-3. **Unit spacing (`45 W`, `100 %`, `-20 °C`)** deliberately diverges from the EN source and from
+**Resolved at the glossary gate (2026-08-11) — no further action:**
+
+- ✅ **`DisplayPort`** added to `translations/dnt.json` (gate R3). `DisplayPort Alt Mode` is covered
+  by that token; §5.2 updated.
+- ✅ **`Drivers` → `DRIVERS`** in `dnt.json` (gate R3). Confirms the §5.3 split: the caps drive/folder
+  name stays EN, the lowercase common noun is always `pilote(s)`.
+- ✅ **`100,000:1` → `100 000:1`** locked (gate R5), with the plain-vs-`&nbsp;` space rule in §4.1.
+- ✅ **`reverse charging` → `charge inversée`** confirmed, with the EN gloss on first use. Client
+  sign-off recorded in the delivery doc.
+- ✅ **OSD chapter headings translate** (`## Backlight` → `## Rétroéclairage`) — gate R1, §7.
+
+**Still open:**
+
+1. **`DP`** (as in `DP monitor`, `panorama/osd.mdx:31`) — considered during the Task 2 DNT
+   reconciliation and deliberately left out; still absent after the R3 realign. FR renders it
+   `moniteur DP`. Adding it would make DE/FR/IT handling of it explicit rather than incidental.
+2. **Unit spacing (`45 W`, `100 %`, `-20 °C`)** deliberately diverges from the EN source and from
    the Dutch glossary. This is correct French typography, but it is a visible difference from the
    NL pages if anyone diffs them side by side. Confirm with the client if they compare languages.
-4. **`reverse charging` → `charge inversée`** — the Dutch glossary keeps the English brand term.
-   French translates it. If Screenmate treats "reverse charging" as marketing vocabulary that must
-   survive translation, this flips to keep-EN and the term table changes in one place.
+3. **`100 000:1` uses a wrappable plain space** per the R5 ruling. Accepted tradeoff, documented in
+   §4.1; the `100&nbsp;000:1` fallback is verified working if a wrap is ever reported.
