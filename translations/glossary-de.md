@@ -556,12 +556,55 @@ The EN corpus uses two styles. Mirror each one:
 | `**ECO mode (ECO):**` | `**ECO-Modus (ECO):**` |
 | `**Low Blue Light (LOW BLUE LIGHT):**` | `**Low Blue Light (LOW BLUE LIGHT):**` — the gloss is already the label; leave it |
 
-Locked glosses: `Helligkeit (BRIGHTNESS)`, `Kontrast (CONTRAST)`, `Schärfe (SHARPNESS)`,
-`Seitenverhältnis (ASPECT)`, `Farbtemperatur (COLOR TEMP.)`, `Rot (RED)`,
-`Grün (GREEN)`, `Blau (BLUE)`, `Sprache (LANGUAGE)`, `OSD-Timer (OSD TIMER)`,
-`Transparenz (TRANSPARENCY)`, `Zurücksetzen (RESET)`, `HDR-Modus (HDR MODE)`,
-`Signalquelle (SOURCE)`, `ECO-Modus (ECO)`, `Schwarzwert` *(Lite "Black Level", no caps
-label in source)*.
+A third style appears on Lite / Lite 144 Hz, where the EN gives the gloss **without** a
+CAPS token (`**Color Temperature:**`, `**Language:**`, `**Black Level (0–100):**`). Use
+the same German word as in §6.2.1 — the gloss word never changes just because the CAPS
+token is absent.
+
+### 6.2.1 Gloss vocabulary — the German words used *as* the gloss
+
+The CAPS token beside them never changes; only these words do. Locking them here is what
+keeps eleven per-product translators from drifting (`Signalquelle` vs `Quelle`,
+`Schärfe` vs `Bildschärfe`).
+
+| EN gloss | German (locked) |
+|---|---|
+| Brightness | Helligkeit |
+| Contrast | Kontrast |
+| Sharpness | Schärfe |
+| Black Level | Schwarzwert |
+| Aspect / Aspect Ratio | Seitenverhältnis |
+| Color Temperature / Color Temp. | Farbtemperatur |
+| Red | Rot |
+| Green | Grün |
+| Blue | Blau |
+| Language | Sprache |
+| OSD Timer | OSD-Timer |
+| Transparency | Transparenz |
+| Source | Signalquelle |
+| Reset | Zurücksetzen |
+| HDR Mode | HDR-Modus |
+| ECO mode / ECO Mode / ECO modes | ECO-Modus *(EN casing varies by product — one German target)* |
+| Low Blue Light | Low Blue Light *(the gloss **is** the device label — leave it)* |
+| DCR (Dynamic Contrast Ratio) | DCR (Dynamic Contrast Ratio) *(acronym + its expansion, both EN)* |
+
+**The ~37 range-suffixed run-in variants are generated, not listed.** The corpus contains
+`**Brightness (0–100):**`, `**Sharpness (0–4):**`, `**OSD Timer (10–60 seconds):**`,
+`**Aspect Ratio (16:9 / 4:3):**`, `**DCR (Dynamic Contrast Ratio) (ON/OFF):**` and so on.
+Do not look for each one here: apply the §6.2 pattern with the vocabulary above and the
+number rules in §4. Worked examples:
+
+| EN | German |
+|---|---|
+| `**Brightness (0–100):**` | `**Helligkeit (0–100):**` |
+| `**Sharpness (0–4):**` | `**Schärfe (0–4):**` |
+| `**OSD Timer (10–60 seconds):**` | `**OSD-Timer (10–60 Sekunden):**` |
+| `**Aspect Ratio (16:9 / 4:3):**` | `**Seitenverhältnis (16:9 / 4:3):**` |
+| `**DCR (Dynamic Contrast Ratio) (ON/OFF):**` | `**DCR (Dynamic Contrast Ratio) (ON/OFF):**` |
+| `**Transparency (TRANSPARENCY):**` | `**Transparenz (TRANSPARENCY):**` |
+
+Only `seconds` → `Sekunden` is translated inside a range; digits, `:`-ratios, `ON/OFF`
+and CAPS tokens are untouched.
 
 ### 6.3 On-device menu *values* — verbatim
 
@@ -1223,6 +1266,79 @@ Word-for-word renderings that are wrong or unidiomatic in German.
   Screenmate`, `Using the OSD`) become German infinitive phrases with the object first:
   `Helligkeit anpassen`, `Den Screenmate verstauen`, `Das OSD verwenden`. Never a
   German present participle (`Anpassend der Helligkeit`).
+
+### 10.5 Bold run-in labels (non-OSD)
+
+`**Label:**` run-ins open a line of body copy. They are bold **bare text**, not
+attributes and not headings, so no heading grep, frontmatter grep or JSX sweep sees
+them — and they recur across products, where eleven per-product translators drift
+(`Einschalten:` vs `Anschalten:` vs `Einschalten des Monitors:`). Lock them.
+
+Carry the bold markers and the colon over exactly. German sentence-style capitalisation
+applies: only the first word (and nouns) are capitalised.
+
+| English | German | Occurrences |
+|---|---|---|
+| `**Power supply:**` | `**Stromversorgung:**` | 8 — lite, lite-144hz, one-4k, one-4k-oled installation |
+| `**Connecting the console:**` | `**Konsole anschließen:**` | 4 — same four installation pages |
+| `**Connecting the HDMI device:**` | `**HDMI-Gerät anschließen:**` | 4 — same four |
+| `**USB-C Port:**` | `**USB-C-Anschluss:**` | 4 — expand, flip controls |
+| `**Short press:**` | `**Kurz drücken:**` | 3 — infinity, panorama controls |
+| `**Long press:**` | `**Lang drücken:**` | 1 — panorama/controls |
+| `**Long press (1 second):**` | `**Lang drücken (1 Sekunde):**` | 1 — panorama/controls |
+| `**Press and hold (2 seconds):**` | `**2 Sekunden gedrückt halten:**` | 1 — infinity/controls |
+| `**Press and hold (3 seconds):**` | `**3 Sekunden gedrückt halten:**` | 1 — infinity/controls |
+| `**Press right ("Plus"):**` | `**Nach rechts drücken („Plus“):**` | 1 — infinity/controls |
+| `**Press left ("Min"):**` | `**Nach links drücken („Min“):**` | 1 — infinity/controls |
+| `**Turn on:**` | `**Einschalten:**` | 2 — one-4k, one-4k-oled osd |
+| `**Open the OSD menu:**` | `**OSD-Menü öffnen:**` | 2 — idem |
+| `**Navigate:**` | `**Navigieren:**` | 2 — idem |
+| `**Select:**` | `**Auswählen:**` | 2 — idem |
+| `**Adjust settings:**` | `**Einstellungen anpassen:**` | 2 — idem |
+| `**Go back:**` | `**Zurück:**` | 2 — idem |
+| `**+ button:**` | `**Taste +:**` | 2 — one-4k, one-4k-oled controls |
+| `**− button:**` | `**Taste −:**` | 2 — idem |
+| `**+ Increase brightness:**` | `**+ Helligkeit erhöhen:**` | 1 — expand/controls |
+| `**− Decrease brightness:**` | `**− Helligkeit verringern:**` | 1 — expand/controls |
+| `**≡ Menu button:**` | `**≡ Menütaste:**` | 1 — expand/controls |
+| `**Mini HDMI:**` | `**Mini-HDMI:**` | 2 — expand, flip controls |
+| `**Steps:**` | `**Schritte:**` | 1 — expand/installation |
+| `**Extend your workspace:**` | `**Arbeitsfläche erweitern:**` | 1 — panorama/osd |
+| `**Left screen:**` | `**Linker Bildschirm:**` | 2 — dual-flip, expand index |
+| `**Right screen:**` | `**Rechter Bildschirm:**` | 2 — dual-flip, expand index |
+
+**Mode labels** — bold, but no colon. Same treatment:
+
+| English | German | Occurrences |
+|---|---|---|
+| `**General mode**` | `**Allgemeiner Modus**` | 4 — lite, lite-144hz controls |
+| `**OSD mode**` | `**OSD-Modus**` | 2 — lite/controls |
+| `**OSD menu mode**` | `**OSD-Menü-Modus**` | 2 — lite-144hz/controls |
+
+Consistency anchors — these must agree with renderings already locked elsewhere:
+`**Taste +:**` with the §7.4 heading `Taste + (Helligkeit erhöhen)`;
+`**Kurz drücken:**` / `**Lang drücken:**` with the §10.2 trap row rejecting
+`Kurzer Druck` / `Langer Druck`; `**Nach rechts drücken („Plus“):**` with the §7.4
+heading `Rechte Taste „Plus“` and the §3.6 German quote rule.
+
+**Not in this table, by design:**
+
+- **Callout lead-ins** (`**Note:**`, `**Important:**`, `**Important Information:**`,
+  `**Please note:**`, `**Caution:**`, `**Tip:**`, `**Welcome!**`) — §10.1. Occurrence
+  counts: `Important:` 10, `Important Information:` 5, `Note:` 3, and
+  **`Please note:` exactly 1** (`flip/installation.mdx`), which collapses onto the same
+  `Hinweis:` target as `**Note:**`.
+- **OSD glossed run-ins** (`**Brightness (BRIGHTNESS):**` and the ~37 range-suffixed
+  variants) — generated from §6.2 + §6.2.1, deliberately not enumerated.
+- **On-device preset values used as run-ins** (`**Standard:**`, `**Game:**`,
+  `**Movie:**`, `**Text:**` in the Lite ECO-mode lists) — stay English per §6.3. Only the
+  sentence after the colon is translated.
+- **Spec-table field names** (`**Resolution**`, `**Weight**`, …) — §8.
+- **OS UI labels in bold** (`**Display settings**`, `**System Settings**`, `**Identify**`,
+  `**Arrange**`, `**Scale**`, `**Displays**`, `**Display orientation**`) — §9.
+- **Device/product literals in bold** (`**M**`, `**+**`, `**−**`, `**+ / −**`,
+  `**M (Menu)**`, `**S6-L**`, `**S6-R**`, `**'UsbDisplay'**`, `**Screenmate**`) —
+  unchanged; see §5 and §6.1.
 
 ---
 
