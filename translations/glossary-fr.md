@@ -1110,6 +1110,173 @@ and paste the identical French into every product so `fr/` keeps the same cross-
 | `{Product} Manual` *(card titles on the index page)* | `Manuel {Product}` |
 | `Find the complete digital manual for your Screenmate product. Each manual includes setup instructions, troubleshooting guides, and technical specifications.` | `Retrouvez le manuel numérique complet de votre produit Screenmate. Chaque manuel contient les instructions d'installation, les guides de dépannage et les caractéristiques techniques.` |
 
+### 10.1 JSX-embedded strings — attributes, captions, link text
+
+**These are invisible to a heading/frontmatter sweep.** They live inside JSX attributes and inside
+`<div>` / `<p>` / `<a>` elements, so `grep "^#"` and `grep "^title:"` never see them. This section
+is the complete inventory.
+
+**Extraction method — AST, not regex.** The list below was produced by parsing every EN `.mdx` to
+an mdast tree (`mdast-util-from-markdown` + `mdast-util-mdx` + `micromark-extension-mdxjs`, the
+same stack `mint` uses) and walking `mdxJsxFlowElement` / `mdxJsxTextElement` nodes for
+user-visible attributes and text children. **Do not re-derive this list with a regex** — three
+documented regex traps defeat the obvious patterns:
+
+1. `<a[^>]*>[^<]+</a>` finds nothing here: the `<a>` wraps a multi-line `<svg>` before its text, so
+   the label is not in the same match group.
+2. A `<p>` pattern that excludes `>` silently drops the two OneCable cable captions, because the
+   caption text itself contains a literal `>` (`2x USB-A > USB-C Cable`).
+3. Tab-title inch marks are `&quot;`-escaped in the source; a regex reading the decoded value will
+   round-trip a literal `"` back into the attribute and break the MDX parse.
+
+#### A. `<Tab title=…>` — `&quot;` is mandatory, and the decimal comma applies
+
+The inch mark inside a JSX attribute **must** stay as the entity `&quot;`. A literal `"` terminates
+the attribute string and is a hard MDX parse error. The decimal comma applies inside the attribute
+exactly as it does in body copy — verified against the NL precedent, which already ships
+`Expand 15,6&quot;` (`nl/manuals/expand/index.mdx:33`).
+
+| EN source (verbatim) | FR source (verbatim) |
+|---|---|
+| `<Tab title="OneCable 16&quot;" icon="display">` | `<Tab title="OneCable 16&quot;" icon="display">` |
+| `<Tab title="OneCable 14&quot;" icon="display">` | `<Tab title="OneCable 14&quot;" icon="display">` |
+| `<Tab title="Expand 15.6&quot;" icon="display">` | `<Tab title="Expand 15,6&quot;" icon="display">` |
+| `<Tab title="Expand 14&quot;" icon="display">` | `<Tab title="Expand 14&quot;" icon="display">` |
+| `<Tab title="Flip 15.6&quot;" icon="display">` | `<Tab title="Flip 15,6&quot;" icon="display">` |
+| `<Tab title="Flip 14&quot;" icon="display">` | `<Tab title="Flip 14&quot;" icon="display">` |
+| `<Tab title="Windows">` | `<Tab title="Windows">` |
+| `<Tab title="macOS">` | `<Tab title="macOS">` |
+
+Only the two `15.6` titles change. `14` and `16` are whole numbers and carry no separator.
+The `icon="display"` attribute is machine-facing — never translate it.
+
+#### B. Port-icon captions and OS tab labels — DNT, unchanged
+
+These `<p>` captions sit under the connector icons in the "Choose Your Cables" figures and are
+connector names, not prose.
+
+| EN caption | FR caption |
+|---|---|
+| `USB-C` | `USB-C` |
+| `USB-A` | `USB-A` |
+| `USB-A 2.0` | `USB-A 2.0` |
+| `HDMI` | `HDMI` |
+| `Windows` | `Windows` |
+| `macOS` | `macOS` |
+
+#### C. Package / figure captions — including the two with a literal `>`
+
+| EN caption | FR caption |
+|---|---|
+| `USB-C > USB-C Cable` | `Câble USB-C vers USB-C` |
+| `2x USB-A > USB-C Cable` | `2 câbles USB-A vers USB-C` |
+| `USB Stick (Incl. Driver)` | `Clé USB (pilote inclus)` |
+| `Protective Case` | `Étui de protection` |
+
+The `>` is expanded to `vers` per §2.1 — the caption form is not an exception to the cable chain.
+
+#### D. Layout and stand captions (Infinity / Infinity Lite)
+
+| EN caption | FR caption |
+|---|---|
+| `Landscape view` | `Disposition paysage` |
+| `Portrait view` | `Disposition portrait` |
+| `Portrait & landscape combination` | `Disposition mixte portrait et paysage` |
+| `Detached view` | `Écrans détachés` |
+| `The stand supports 360° rotation` | `Le support pivote à 360°` |
+| `Place the screen on the single stand` | `Placez l'écran sur le support simple` |
+
+**Disambiguation with §5.4.** §5.4 locks `landscape view` → `mode paysage` for the *OS display
+orientation* sense (the Windows/macOS rotation setting). These captions describe the *physical
+arrangement of the stands*, so they take `Disposition …`, matching their own section heading
+`### Possible layouts` → `### Dispositions possibles`. Both renderings are correct in their own
+context; pick by which one the surrounding page is about.
+
+#### E. `<a>` link text (wrapped around an inline `<svg>` — regex trap 1)
+
+| EN link text | FR link text |
+|---|---|
+| `Download Windows Drivers` | `Télécharger les pilotes Windows` |
+| `Download for macOS` | `Télécharger pour macOS` |
+
+#### F. Bold prose leads in the display-settings chapter
+
+This chapter is checksum-identical across products (§9.3), so these six strings must be translated
+once and reused byte-for-byte everywhere they appear.
+
+| EN | FR |
+|---|---|
+| `**Want to extend your workspace?**` | `**Envie d'étendre votre espace de travail&nbsp;?**` |
+| `**Screen upside down?**` | `**Écran à l'envers&nbsp;?**` |
+| `**Is a screen upside down?**` | `**Un écran est-il à l'envers&nbsp;?**` |
+| `**Need more overview?**` | `**Besoin de plus de lisibilité&nbsp;?**` |
+| `**Want more on-screen space?**` | `**Besoin de plus d'espace à l'écran&nbsp;?**` |
+| `**Working with three screens?**` | `**Vous utilisez trois écrans&nbsp;?**` |
+
+#### G. `alt=` attributes — a rule, not a list
+
+The corpus carries **144 unique `alt=` strings**. They are user-visible (screen readers, and
+whenever an image fails to load), so they are translated — but they are ordinary descriptive prose
+and are fully governed by the §5 term tables, so enumerating them here would add bulk without
+adding determinism. The rule:
+
+- Translate the descriptive part using §5 vocabulary.
+- Keep verbatim: DNT tokens, OS UI labels (§8), file/folder/app names (`DRIVERS (D:)`, `UsbDisplay`,
+  `RacerUSB`, `Win10&11`), and device identifiers (`S6-L`, `Type-C1`).
+- `Step 1: open This PC …` → `Étape 1&nbsp;: ouvrir Ce PC …` — the `&nbsp;` rule applies inside
+  attributes too (verified: entities decode correctly in JSX attribute values).
+- **Never translate** `src`, `href`, `className`, `icon`, `viewBox`, `type` — machine-facing.
+- Image paths are URL-encoded and language-independent: never touch a `src` even when it contains
+  Dutch words (`Handleiding%20images`, `Aansluitmogelijkheden.png`).
+
+#### H. Not user-visible — leave in English
+
+`title="[Product Name] Manual"` at `en/manuals-index.mdx:73` sits inside a `{/* … */}` scaffold
+comment for adding future products. It never renders. Leave it, and its sibling
+`href="/en/manuals/[product-slug]/index"`, exactly as-is — including the `/en/` path.
+
+#### I. Callout lead-ins and bare text children
+
+Two more classes that no attribute- or tag-based pattern can reach. Both are already locked in §10;
+they are restated here so this inventory is self-contained.
+
+**Callout lead-ins** — bold text opening a `<Note>` block:
+
+| EN | FR | Occurrences (verified) |
+|---|---|---|
+| `**Important Information:**` | `**Informations importantes&nbsp;:**` | 5 products — `dual-flip`, `expand`, `flip`, `infinity-lite`, `onecable`, all in `index.mdx` |
+| `**Please note:**` | `**Remarque&nbsp;:**` | **1 occurrence only** — `flip/installation.mdx:73` |
+| `**Note:**` | `**Remarque&nbsp;:**` | many |
+| `**Important:**` | `**Important&nbsp;:**` | many |
+| `**Caution:**` | `**Attention&nbsp;:**` | `panorama/installation.mdx` |
+| `**Tip:**` | `**Conseil&nbsp;:**` | `infinity/installation.mdx` |
+
+Note the `&nbsp;` before the colon per §3.1 — these lead-ins are the single most frequent site for
+the French spacing rule in the whole corpus, and the colon sits inside the `**…**` run, which
+§3.2 verified is safe with the entity form.
+
+**Deliberate many-to-one merge:** EN `**Note:**` and `**Please note:**` both render as
+`**Remarque&nbsp;:**`. French has no idiomatic distinction between them and `Veuillez noter` is the
+literal-translation trap flagged in §6. This is intended — do not invent a second French form to
+preserve an EN distinction that carries no meaning.
+
+**Correction to the brief:** `Please note:` was described as recurring across 5 products. It does
+not — it appears exactly once (`flip/installation.mdx:73`). Only `Important Information:` has the
+5-product spread. This matters because it changes whether the string is frozen-chapter boilerplate
+(it is not) or a one-off (it is).
+
+**Bare text children of `<video>`** — wrapped in **no tag at all**, so `<p>`, `<a>` and attribute
+patterns are all blind to it. My AST walk catches it because it visits text/paragraph nodes whose
+*parent* is a JSX element, regardless of whether an inner tag exists:
+
+| EN | FR | Occurrences (verified) |
+|---|---|---|
+| `Your browser does not support the video tag.` | `Votre navigateur ne prend pas en charge la balise vidéo.` | **14** — 2× in each of the six `display-settings.mdx`, plus 1× each in `onecable/installation-windows.mdx` and `onecable/installation-mac.mdx` |
+
+Since 12 of the 14 sit in the checksum-identical display-settings chapter, this string must be
+byte-identical everywhere. The `<source src=… type="video/mp4" />` sibling is machine-facing —
+never translate `src` or `type`.
+
 ---
 
 ## 11. Verification greps (run before declaring a French page done)
@@ -1151,6 +1318,15 @@ grep -nE '\bdriver(s)?\b' fr/manuals/**/*.mdx
 
 # 14. English/German thousands separator on the contrast figure (want zero hits)
 grep -nE '100[,.]000' fr/manuals/**/*.mdx
+
+# 15. JSX-embedded strings left untranslated (want zero hits) — see §10.1
+grep -nE 'Tab title="(Expand|Flip|OneCable) [0-9.]+&quot;' fr/manuals/*/index.mdx | grep -E '15\.6'
+grep -rnE 'Landscape view|Portrait view|Detached view|Protective Case|USB Stick \(Incl' fr/
+grep -rn 'does not support the video tag' fr/            # EN string must be gone
+grep -rn 'Important Information:|Please note:|Download Windows Drivers' fr/
+
+# 16. Literal " inside a JSX attribute (hard MDX parse error) — want zero hits
+grep -rnE '<Tab title="[^"]*[0-9]"' fr/manuals/*/index.mdx
 
 # 12. Structural parity with en/ (must print nothing)
 for f in $(cd en && find . -name '*.mdx'); do
