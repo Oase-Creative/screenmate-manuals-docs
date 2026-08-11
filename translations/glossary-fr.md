@@ -19,9 +19,18 @@ When two rules appear to conflict, apply them in this order:
 
 1. `translations/dnt.json` — do-not-translate tokens win over everything.
 2. On-device / OS-UI strings (§7, §8) — must match what the user physically sees.
-3. This glossary's term tables (§5) and section-name tables (§9).
-4. The typography and number rules (§3, §4).
-5. General French usage.
+3. **Already-shipped, QC'd FR pages.** Where a string is already live in `fr/` and this glossary
+   says something different, **the shipped page wins** and the glossary is amended to match — not
+   the reverse. Sections written after a chapter shipped can and did diverge from it (§10.1.F is
+   the worked example). Never edit a shipped page to satisfy a later glossary lock.
+4. This glossary's term tables (§5) and section-name tables (§9).
+5. The typography and number rules (§3, §4).
+6. General French usage.
+
+The canonical shipped references are `fr/manuals/onecable/display-settings.mdx` and
+`fr/manuals/onecable/safety.mdx`. The display-settings body is byte-identical across onecable,
+dual-flip, flip and expand (verified — only the `description:` frontmatter differs on `flip`, which
+faithfully mirrors an EN frontmatter difference), so any change there must land on all four at once.
 
 Structural parity with `en/` is non-negotiable: same files, same heading levels, same heading
 count, same order, same components. Translate the text, never the structure.
@@ -688,7 +697,7 @@ Three values do change: `Grey` → `Gris`, `1820 grams` → `1820 grammes`, and
 | Take good care of your Screenmate | `Prenez bon soin de votre Screenmate` | `Prenez soin de votre Screenmate` |
 | to prevent damage | `pour prévenir dommage` | `afin d'éviter tout dommage` |
 | Watch your fingers | `Regardez vos doigts` | `Attention à vos doigts` |
-| Need more room? | `Besoin de plus de chambre&nbsp;?` | `Besoin de plus d'espace&nbsp;?` |
+| Need more overview? | `Besoin de plus de chambre&nbsp;?` | `Besoin d'une meilleure vue d'ensemble&nbsp;?` *(shipped form — §10.1.F)* |
 | Pick the one that matches … | `Prenez celui qui matche…` | `Choisissez celui qui correspond à…` |
 | your device's specifications | `les spécifications de votre appareil` | `la fiche technique de votre appareil` |
 | boost your productivity | `booster votre productivité` | `améliorer votre productivité` |
@@ -1259,12 +1268,29 @@ once and reused byte-for-byte everywhere they appear.
 
 | EN | FR |
 |---|---|
-| `**Want to extend your workspace?**` | `**Envie d'étendre votre espace de travail&nbsp;?**` |
-| `**Screen upside down?**` | `**Écran à l'envers&nbsp;?**` |
-| `**Is a screen upside down?**` | `**Un écran est-il à l'envers&nbsp;?**` |
-| `**Need more overview?**` | `**Besoin de plus de lisibilité&nbsp;?**` |
-| `**Want more on-screen space?**` | `**Besoin de plus d'espace à l'écran&nbsp;?**` |
-| `**Working with three screens?**` | `**Vous utilisez trois écrans&nbsp;?**` |
+> **Source of truth: the shipped files, not this glossary.** These six renderings were
+> reverse-derived from `fr/manuals/onecable/display-settings.mdx` and its siblings (shipped and
+> QC'd in `7a96840`), which predate this section. My original independent derivation diverged on
+> five of the six; the shipped forms below **win** and are now the locked forms. Never "correct" a
+> shipped file to match an earlier glossary lock — the direction of travel is the other way.
+
+| English | French (locked = shipped) | Occurrences |
+|---|---|---|
+| `**Want to extend your workspace?**` | `**Vous souhaitez étendre votre espace de travail&nbsp;?**` | 7 — all six display-settings pages |
+| `**Screen upside down?**` | `**Écran à l'envers&nbsp;?**` | 10 — dual-flip, expand, flip, infinity-lite, onecable |
+| `**Is a screen upside down?**` | `**Un écran est à l'envers&nbsp;?**` | 3 — infinity, infinity-lite |
+| `**Need more overview?**` | `**Besoin d'une meilleure vue d'ensemble&nbsp;?**` | 6 — dual-flip, expand, flip, infinity-lite, onecable |
+| `**Want more on-screen space?**` | `**Vous souhaitez plus d'espace à l'écran&nbsp;?**` | 1 — infinity |
+| `**Working with three screens?**` | `**Vous travaillez avec trois écrans&nbsp;?**` | 1 — infinity-lite |
+
+**The house pattern these establish** — apply it when a new question lead appears:
+
+- `Want to …?` / `Want more …?` → **`Vous souhaitez …&nbsp;?`** (not `Envie de …`, not `Besoin de …`).
+- A question stated as a fact keeps declarative word order plus `?` — **`Un écran est à l'envers&nbsp;?`**,
+  not the inverted `Un écran est-il à l'envers&nbsp;?`. This matches the conversational register of
+  the surrounding chapter.
+- `Working with …?` → **`Vous travaillez avec …&nbsp;?`**, keeping the `Vous` + present-tense frame.
+- `overview` in this chapter is **`vue d'ensemble`**, not `lisibilité` or `aperçu`.
 
 #### G. `alt=` attributes — a rule, not a list
 
@@ -1443,6 +1469,17 @@ grep -rn 'Important Information:|Please note:|Download Windows Drivers' fr/
 
 # 16. Literal " inside a JSX attribute (hard MDX parse error) — want zero hits
 grep -rnE '<Tab title="[^"]*[0-9]"' fr/manuals/*/index.mdx
+
+# 17. Glossary-vs-shipped drift on the frozen question leads (§10.1.F) — want zero hits.
+#     Any hit means someone applied a pre-7a96840 glossary lock to a shipped page.
+grep -rnE "Envie d'étendre|Besoin de plus de lisibilité|est-il à l'envers|Vous utilisez trois écrans|Besoin de plus d'espace à l'écran" fr/
+
+# 18. Frozen display-settings body parity across the four products (must print nothing)
+for p in dual-flip flip expand; do
+  a=$(awk 'f>1{print} /^---$/{f++}' fr/manuals/onecable/display-settings.mdx | md5sum)
+  b=$(awk 'f>1{print} /^---$/{f++}' fr/manuals/$p/display-settings.mdx | md5sum)
+  [ "$a" = "$b" ] || echo "FROZEN CHAPTER DRIFT: $p"
+done
 
 # 12. Structural parity with en/ (must print nothing)
 for f in $(cd en && find . -name '*.mdx'); do
