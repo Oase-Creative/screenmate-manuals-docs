@@ -90,7 +90,8 @@ re-litigate it per page.
 | port | **Anschluss** | locked over `Port`. `USB-C-Anschluss`, not `USB-C-Port` | — |
 | connector | Anschluss | "a USB-C connector with video output" → `ein USB-C-Anschluss mit Videoausgang` | — |
 | plug (noun, on a cable end) | Stecker | "the black USB-A plug" → `der schwarze USB-A-Stecker` | — |
-| button | **Taste** | locked over `Knopf`/`Button`. pl. `Tasten` | — |
+| button (physical, on the device) | **Taste** | locked over `Knopf`/`Button`. pl. `Tasten` | — |
+| button (on-screen, in the OS UI) | **Schaltfläche** | `die Schaltfläche „Identifizieren“` *(as shipped in the frozen display-settings chapter)* — never `Taste` for a UI button | — |
 | control buttons | Bedientasten | heading "Control Buttons" | — |
 | multifunctional button | Multifunktionstaste | Infinity's rotatable button | — |
 | menu button | Menütaste | `M – OSD-Menütaste` | — |
@@ -1169,7 +1170,7 @@ the display-settings chapter, then the German label alone.
 | See [X] for … | Unter [X] findest du … |
 | as shown in image 2 | wie in Abbildung 2 gezeigt |
 | for example / e.g. | zum Beispiel / z. B. *(note the space in `z. B.`)* |
-| such as | wie zum Beispiel |
+| such as | **wie** — bare, when it introduces a short apposition: `Risiken wie Stromschlag oder Brand` *(as shipped in the frozen safety chapter)*. Use `wie zum Beispiel` only for a genuine enumeration of examples |
 | if needed / if necessary | falls nötig |
 | provided that | sofern |
 | it's now ready for use | er ist jetzt einsatzbereit *(`er` = der Screenmate)* |
@@ -1209,7 +1210,7 @@ Word-for-word renderings that are wrong or unidiomatic in German.
 | Drag the displays into order | Ziehe die Displays in Ordnung | Ziehe die Bildschirme in die richtige Reihenfolge |
 | Check whether … | Checke ob … | Prüfe, ob … |
 | Screen real estate | Bildschirm-Immobilien | Bildschirmfläche |
-| Watch your fingers | Beobachte deine Finger | Achte auf deine Finger |
+| Watch your fingers when folding the screens in or out | Beobachte deine Finger beim Klappen | **Achte beim Ein- und Ausklappen der Bildschirme auf deine Finger** *(shipped, `panorama/safety`)* — `achten` governs `auf`, and the `auf`-phrase goes **after** the adverbial, not straight after the verb |
 | the monitor operates on a DC input | der Monitor operiert auf einem DC-Eingang | der Monitor arbeitet mit einem DC-Eingang |
 | It is recommended to restart | Es ist empfohlen zu neustarten | Wir empfehlen, den Laptop neu zu starten |
 | supports video output | supportet Videoausgang | unterstützt die Videoausgabe |
@@ -1244,8 +1245,11 @@ Word-for-word renderings that are wrong or unidiomatic in German.
 - **`Anschluss` vs `Verbindung`:** `Anschluss` = the physical socket, and the act of
   plugging in. `Verbindung` = the established link. `Anschlussmöglichkeiten` (heading),
   but `wenn die Verbindung instabil ist`.
-- **`Taste` vs `Knopf` vs `Schalter`:** always `Taste` for the device's buttons.
-  `Schalter` only for a macOS toggle switch in Systemeinstellungen.
+- **`Taste` vs `Schaltfläche` vs `Schalter`:** `Taste` for the device's physical
+  buttons. **`Schaltfläche` for an on-screen button in the OS UI** — the shipped
+  display-settings chapter writes `die Schaltfläche „Identifizieren“`, not
+  `die Taste …`. `Schalter` only for a macOS toggle switch in Systemeinstellungen.
+  Never `Knopf`, never `Button`.
 - **`Bildschirm` vs `Display` vs `Monitor`:** `Bildschirm` is the default for the screen
   surface and for individual screens of a multi-screen product. `Monitor` for the product
   as a whole ("the monitor turns on"). `Display` only where the EN clearly means the
@@ -1343,6 +1347,24 @@ heading `Rechte Taste „Plus“` and the §3.6 German quote rule.
 ---
 
 ## 11. Decision log (glossary gate)
+
+### 11.0 Precedence — shipped pages outrank this glossary
+
+Where a locked row here disagrees with an already-shipped, QC'd DE page, **the shipped
+page wins** and this file is amended to match. Sections written after a chapter shipped
+were derived from the EN source, so they can carry a divergence the chapter never had.
+
+Frozen chapters (shipped `4792819`): **safety** and **display-settings**, all 17 files.
+`de/manuals/onecable/display-settings.mdx` and `de/manuals/onecable/safety.mdx` are
+canonical. Reconciled by file-set mapping — 33 string-level rows whose EN lives in a
+frozen chapter, checked against the shipped DE text; 2 amended (§10.1 `such as`,
+§10.2 `Watch your fingers`). Do not "restore" either row to its pre-amendment wording.
+
+Confirmed shipped and therefore locked beyond argument: DIN 5008 unit spacing
+(`150 %`, `−20 °C`, `5 V`, `±2 V`), German quotes `„…“`, `Querformat (gedreht)` for
+Windows "Flipped", `Dein Browser unterstützt das Video-Tag nicht.`, and the
+`Bildschirmkonfiguration Windows` / `Bildschirmkonfiguration macOS` chapter headings
+under the frontmatter title `Anzeigeeinstellungen`.
 
 All items below have been through the orchestrator's glossary gate. Nothing here is
 still open; the log exists so a later reviewer does not re-open a settled question.
