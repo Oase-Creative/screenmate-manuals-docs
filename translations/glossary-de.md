@@ -6,7 +6,7 @@ binding: use them exactly, unless the English term is intentionally retained
 
 Source of truth for the term inventory: the full EN corpus (`en/manuals/**/*.mdx`,
 `en/manuals-index.mdx`), read in full for this glossary. "Keep EN?" is seeded from
-`translations/dnt.json` — all 42 DNT entries are marked ✓ below.
+`translations/dnt.json` — all 41 DNT entries are marked ✓ below.
 
 Structure mirrors `.claude/skills/screenmate-dutch-fidelity/references/glossary.md`;
 the rules are German, not translated Dutch.
@@ -496,8 +496,18 @@ OSD TIMER     RED           RESET         RTS           SHARPNESS
 SOURCE        TRANSPARENCY  WIDE
 ```
 
-Also verbatim: `OSD`, `Backlight`, `DCR` and its expansion `Dynamic Contrast Ratio`,
-`HDR` and its expansion `High Dynamic Range`.
+Also verbatim: `OSD`, `DCR` and its expansion `Dynamic Contrast Ratio`, `HDR` and its
+expansion `High Dynamic Range`.
+
+**`Backlight` is context-dependent** (`dnt.json`, commit `12b31e3`) — it is *not* a flat
+DNT term:
+
+| Context | German |
+|---|---|
+| OSD menu section heading `1. Backlight` / `## Backlight` — names a page of the on-device menu | **`Backlight`** (unchanged, §6.4) |
+| Spec-table field name (`| **Backlight** | LED |`) | **`Hintergrundbeleuchtung`** |
+| Body prose ("the backlight brightness") | **`Hintergrundbeleuchtung`** |
+| Button description "adjusts the backlight (brightness)" | `stellt die Hintergrundbeleuchtung (Helligkeit) ein` |
 
 Where the EN writes `**Color Temp. (COLOR TEMP.):**` the trailing period inside the
 parentheses is part of the on-device label — keep it.
@@ -539,8 +549,10 @@ the label and the value stay English, the sentence around them is German.
 ### 6.4 OSD subsection headings — stay English
 
 The numbered OSD subsections name the pages of the on-device menu. They stay verbatim
-English so the reader can match heading to screen. This is consistent with `Backlight`
-being DNT-listed, and it avoids the half-translated state that caused the NL rework.
+English so the reader can match heading to screen. It also avoids the half-translated
+state that caused the NL rework — and it is what `dnt.json` commit `12b31e3` means by
+"`Backlight` is context-dependent": English as a menu-section name, German everywhere
+else.
 
 | EN heading | German | Keep EN? |
 |---|---|---|
@@ -872,7 +884,7 @@ The `| Feature | Specification |` header row and every field name:
 | Refresh Rate | Bildwiederholrate |
 | Color Accuracy | Farbgenauigkeit |
 | Color Gamut | Farbraum |
-| Backlight | Backlight *(DNT-listed — see §9, flag 1)* |
+| Backlight | Hintergrundbeleuchtung *(field name only — the OSD section heading stays `Backlight`, §6.1)* |
 | Weight | Gewicht |
 | Dimensions | Abmessungen |
 | Dimensions (folded) | Abmessungen (zusammengeklappt) |
@@ -1067,19 +1079,14 @@ Word-for-word renderings that are wrong or unidiomatic in German.
 
 ## 11. Open decisions for the orchestrator
 
-Three calls I made that a reviewer may want to overturn. Each is applied consistently
+Two calls I made that a reviewer may want to overturn. Each is applied consistently
 throughout this glossary; reversing one is a find-and-replace, not a rewrite.
 
-1. **`Backlight` stays English** (spec-table field *and* the `1. Backlight` OSD
-   heading), because `dnt.json` lists it. The natural German is
-   `Hintergrundbeleuchtung`. If the client prefers the German word in the spec table,
-   change §8's `Backlight` row and leave §6.4 alone — the OSD heading should stay
-   English either way, since it names an on-device menu page.
-2. **Unit spacing follows DIN 5008** (`45 W`, `5 V/2 A`, `100 %`, `−20 °C`), diverging
+1. **Unit spacing follows DIN 5008** (`45 W`, `5 V/2 A`, `100 %`, `−20 °C`), diverging
    from the Dutch glossary, which locked the closed forms (`45W`, `5V`, `100%`,
    `-20°C`). German technical convention requires the space; keeping the NL forms would
    read as an error to a German reader. Angles (`178°`) keep no space in both languages.
-3. **Contrast ratio `100.000:1`** — the only figure in the corpus above four digits.
+2. **Contrast ratio `100.000:1`** — the only figure in the corpus above four digits.
    German uses a period as thousands separator, so `100,000:1` becomes `100.000:1`.
    Four-digit figures take no separator at all (`1820 Gramm`, `1920 × 1080`), matching
    the EN source and the NL lock.
