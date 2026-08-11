@@ -1,5 +1,57 @@
 ---
-title: "STUB"
+title: "Installazione macOS"
+description: "Installazione del driver per macOS"
+icon: "apple"
 ---
 
-{/* STUB-TRANSLATION-PENDING */}
+## Installazione del driver per macOS
+
+### Scarica il driver per macOS
+
+<div className="space-y-3 mt-4">
+  <div>
+    <a 
+      href="https://drive.google.com/drive/folders/1Q81a7LbWl8p694TbDaAb10t9De5Ji15F?usp=drive_link" 
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-dark transition-colors"
+    >
+      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+      Scarica per macOS
+    </a>
+  </div>
+</div>
+
+### Fasi di installazione
+
+1. Scarica il driver dal pulsante qui sopra.
+2. Vai alla cartella 'macOS'.
+3. Installa il driver seguendo le indicazioni del programma di installazione.
+4. Vai su **'System Settings'** ('Impostazioni di Sistema') > **'Privacy & Security'** ('Privacy e sicurezza') > **'Screen & System Audio Recording'** ('Registrazione schermo e audio di sistema').
+5. Attiva l'interruttore accanto a **'UsbDisplay'** (potrebbe esserti chiesto di confermare con la password).
+6. Dopo un'installazione riuscita, riavvia il Mac.
+7. Collega lo Screenmate – ora è pronto all'uso.
+
+<video controls className="rounded-lg border border-gray-200 dark:border-gray-700 mt-4">
+  <source src="https://firebasestorage.googleapis.com/v0/b/oase-documentation.firebasestorage.app/o/screenmate%2FoneCable%2Fmac-driver-installation-guide-walkthrough-video.mp4?alt=media&token=4b0652ba-7a6a-444a-a6d9-6f917292dd7a" type="video/mp4" />
+  Il tuo browser non supporta il tag video.
+</video>
+
+## Se il driver non funziona
+
+Segui questi passaggi sul tuo MacBook:
+
+1. Vai su **'System Settings'** ('Impostazioni di Sistema') > **'Privacy & Security'** ('Privacy e sicurezza') > **'Screen & System Audio Recording'** ('Registrazione schermo e audio di sistema').
+2. Fai clic sul simbolo **'+'** per aggiungere il driver. **'UsbDisplay'** è già nell'elenco? Vai direttamente al passaggio 5.
+3. Fai clic su **'Applications'** ('Applicazioni') > **'RacerUSB'** > **'UsbDisplay'** e scegli **'Open'** ('Apri').
+4. Segui le istruzioni visualizzate sullo schermo per installare il driver.
+5. Dopo un'installazione riuscita, riavvia il laptop.
+6. Collega lo Screenmate al laptop, ora è pronto all'uso.
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+  <img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/new%20installation%20media/mac-english-privacy-security.png" alt="Passaggio 1: 'Privacy & Security' ('Privacy e sicurezza') > 'Screen & System Audio Recording' ('Registrazione schermo e audio di sistema')" className="rounded-lg border border-gray-200" />
+  <img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/new%20installation%20media/mac-english-screen-recording.png" alt="Passaggio 2: fai clic sul simbolo '+' e controlla che 'UsbDisplay' sia nell'elenco" className="rounded-lg border border-gray-200" />
+  <img src="/images/Screenmate%20-%20OneCable%20-%20Handleiding%20images/new%20installation%20media/mac-english-select-usb-display.png" alt="Passaggio 3: 'Applications' ('Applicazioni') > 'RacerUSB' > 'UsbDisplay', poi scegli 'Open' ('Apri')" className="rounded-lg border border-gray-200" />
+</div>
