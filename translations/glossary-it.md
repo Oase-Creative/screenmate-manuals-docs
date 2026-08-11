@@ -1245,6 +1245,33 @@ ones (OSD run-ins are governed by the §7.3 glossing pattern and §7.3.1 vocabul
 | `**Left screen:**` / `**Right screen:**` | `**Schermo sinistro:**` / `**Schermo destro:**` | `expand/index`, `flip/index` |
 | `**USB-C Port:**` · `**Mini HDMI:**` | `**Porta USB-C:**` · `**Mini-HDMI:**` | `flip/controls` |
 
+### 9.10 Recurring display-settings prompts
+
+The display-settings chapter is checksum-identical across products, so these prompts must be
+**byte-identical across every Italian page**. The EN side has drifted into near-duplicate
+phrasings for the same instruction; Italian collapses each group onto one target.
+
+| English (all variants) | Italian (locked) | EN occurrences |
+|---|---|---|
+| Screen upside down? | Schermo capovolto? | 11 |
+| Is a screen upside down? | Uno schermo è capovolto? | 3 |
+| Want to extend your workspace? | Vuoi estendere lo spazio di lavoro? | 7 |
+| Need more overview? · Want more on-screen space? · Need more room? | **Vuoi più spazio a schermo?** *(one target for all three — same instruction, EN drift)* | 6 + 1 + 1 |
+| Working with three screens? | Lavori con tre schermi? | 1 |
+| Extend your workspace: | Estendi lo spazio di lavoro: | 1 |
+
+Their bodies, which recur verbatim with the prompts:
+
+| English | Italian |
+|---|---|
+| Click on 'Scale' and set it to 150% for a larger display of text and elements. | Fai clic su 'Ridimensionamento' e impostalo su 150% per visualizzare testo ed elementi più grandi. |
+| Click Scale and set it to 150% for larger text and elements. *(unquoted variant)* | Fai clic su Ridimensionamento e impostalo su 150% per testo ed elementi più grandi. |
+| Want more on-screen space? Click Scale and set it to 150% for larger text and elements. *(prompt + body in one paragraph, `infinity/display-settings.mdx`)* | Vuoi più spazio a schermo? Fai clic su Ridimensionamento e impostalo su 150% per testo ed elementi più grandi. |
+| Select the relevant screen, go to 'Rotation' and choose 'Standard' to correct this. | Seleziona lo schermo interessato, vai su 'Rotazione' e scegli 'Standard' per correggerlo. |
+| Select the relevant screen, go to 'Display orientation' and choose 'Flipped' to correct this. | Seleziona lo schermo interessato, vai su 'Orientamento dello schermo' e scegli 'Capovolto' per correggerlo. |
+
+OS label forms come from §8; `fai clic su` (not `clicca`) from §5.3.
+
 #### Ruled DNT — not user-visible
 
 | String | Ruling |
