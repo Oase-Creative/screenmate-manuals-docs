@@ -497,7 +497,7 @@ tables. Inside a JSX attribute the same string takes `&quot;` instead — `<Tab 
 | additional power supply | alimentazione aggiuntiva | | — |
 | power outlet / wall outlet | presa di corrente | | — |
 | mains | rete elettrica | | — |
-| grounded | messa a terra | `assicurati che la presa sia dotata di messa a terra` | — |
+| grounded *(properly grounded)* | messa a terra | `assicurati che la presa sia correttamente dotata di messa a terra`; EN `properly` / NL `goed` is load-bearing in a mains-electrical clause — never drop `correttamente` | — |
 | amperage | amperaggio | | — |
 | DC input | ingresso DC | `DC` verbatim | ✓ *(acronym)* |
 | tolerance | tolleranza | `con una tolleranza di ±2 V` | — |
