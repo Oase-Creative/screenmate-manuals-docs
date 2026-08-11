@@ -153,6 +153,9 @@ re-litigate it per page.
 All product names come from `dnt.json` and are used verbatim. Size suffixes take the
 German decimal comma (§4).
 
+The inch mark below is shown in its **markdown** form. In a `<Tab title="…">` it must be
+written `&quot;` and in frontmatter `\"` — **see §4.1 before pasting these anywhere.**
+
 | English | German | Keep EN? |
 |---|---|---|
 | Screenmate | Screenmate | ✓ |
@@ -391,7 +394,7 @@ EN: `Choose Your Cables` → DE: `Die richtigen Kabel wählen`
 | Percent | **space** | `100 % sRGB`, `72 % NTSC`, `150 %` |
 | Degrees (angle) | **no space** | `178°`, `360°`, `0° – 245°`, `180°` |
 | Degrees (temperature) | **space before °C** | `−20 °C`, `60 °C` |
-| Inches | comma + `"` | `15,6"`, `14"`, `16"` — do **not** expand to `Zoll` in specs or product names |
+| Inches | comma + inch mark | `15,6"`, `14"`, `16"` — do **not** expand to `Zoll`. **The quote character is context-dependent — see §4.1** |
 | Resolution | `×` with spaces | `1920 × 1080`, `2560 × 1600` |
 | Dimensions | `×` with spaces, comma decimals | `39 × 24 × 2,5 cm`, `40,6 × 23,7 × 2,5 cm` |
 | Ratios | colon, no spaces | `1000:1`, `16:9`, `16:10`, `4:3` |
@@ -401,6 +404,34 @@ EN: `Choose Your Cables` → DE: `Die richtigen Kabel wählen`
 | Weight | `Gramm` spelled out | `1820 Gramm`, `609 Gramm` — matches EN "grams" |
 | Counts / quantities | `2×`, `3×`, `6×`, `8×` | `2× USB-C-auf-USB-C-Kabel`, `6× Schutzclips` |
 | Ordinals | period after digit | `der 3. Anschluss`, `zum 1. Mal` |
+
+### 4.1 The inch mark — PARSE HAZARD, three contexts
+
+Changing `15.6` to `15,6` is safe everywhere. **Changing the quote character is not.**
+The inch mark takes a different form in each of the three places it appears, and getting
+it wrong breaks the MDX build rather than just looking wrong.
+
+| Context | Form | Example (source, as it must be written) |
+|---|---|---|
+| **JSX attribute** — `<Tab title="…">` | **`&quot;`** | `<Tab title="Flip 15,6&quot;" icon="display">` |
+| **Frontmatter** — YAML double-quoted `description:` | **`\"`** | `description: "… erhältlich in 14\" und 15,6\""` |
+| **Markdown** — headings, prose, spec-table cells | **literal `"`** | `### Flip 15,6"` |
+
+**Why this matters:** a translator who copies the markdown form `Flip 15,6"` into a
+`<Tab title="…">` closes the JSX attribute early and the page fails to build. The same
+paste into frontmatter terminates the YAML string early.
+
+**Rule:** carry over whatever escape the EN source already uses at that spot and change
+only the decimal separator. The EN corpus is already correct in all three contexts —
+`<Tab title="Flip 15.6&quot;">`, `description: "… 15.6\" …"`, `### Flip 15.6"` — so the
+edit is always `15.6` → `15,6` and nothing else.
+
+NL ships exactly this three-way split, which confirms it:
+`<Tab title="Flip 15,6&quot;">` / `description: "… 14\" en 15,6\""` / `### Flip 15,6"`.
+
+**One NL defect not to copy:** `nl/manuals/panorama/index.mdx` left its frontmatter at
+`Panorama 15.6\"` (period) while `flip` correctly uses `15,6\"`. German applies the comma
+in **all** products, frontmatter included.
 
 **Note on the unit space.** German (DIN 5008 / SI) requires a space between numeral and
 unit symbol — including for `W`, `V`, `A`, `%` and `°C`, where the EN source writes them
@@ -822,6 +853,11 @@ it without editing all four.
 | Flip 14" | Flip 14" |
 | Flip 15.6" | Flip 15,6" |
 
+These two are markdown `###` headings (`### Flip 15.6"` in `flip/installation.mdx`), so
+the **literal** `"` shown here is correct — NL ships `### Flip 15,6"` the same way. Do
+not "fix" these rows to `&quot;`; that escape belongs only in JSX attributes (§4.1,
+§7.7).
+
 **Drivers, OS & safety**
 
 | English | German |
@@ -896,8 +932,11 @@ alt text is translated per page by the translator, not locked here).
 
 **`<Tab title=…>` — spec tabs and OS tabs**
 
-The inch mark inside a double-quoted JSX attribute is HTML-escaped as `&quot;`. **Keep
-the entity**; writing a literal `"` there breaks the MDX parse.
+> **PARSE HAZARD.** The inch mark inside a double-quoted JSX attribute is HTML-escaped as
+> `&quot;`. **Keep the entity.** Writing the literal `"` here — e.g. copying
+> `Flip 15,6"` out of §1.2 or §7.4 — closes the attribute early and breaks the MDX
+> build. Both columns below are shown in the escaped form deliberately, so the row can
+> be pasted as-is. Full three-context rule: §4.1.
 
 | English | German |
 |---|---|
