@@ -881,6 +881,79 @@ Do not diverge from these; they were locked in Task 2.
 Product tab labels (`OneCable`, `Lite`, `Lite 144 Hz`, `Dual Flip`, `Flip`, `Expand`,
 `Infinity`, `Infinity Lite`, `One 4K`, `One 4K OLED`, `Panorama`) are unchanged.
 
+### 7.7 JSX-embedded strings
+
+**These render to the user but are invisible to a heading/frontmatter grep.** Anyone
+translating a page by walking `##` headings and frontmatter will leave them in English.
+Sweep every page for `<Tab title=`, `<Card title=`, `<a>…</a>` link text, and `<p>`
+caption text before declaring a page done.
+
+**In scope:** JSX attribute and child text that renders — `title=` on `<Tab>`/`<Card>`,
+link/button text, `<p>` captions under images.
+**Out of scope:** `className`, `src`, `href`, `icon` (never translated) and `alt` (image
+alt text is translated per page by the translator, not locked here).
+
+**`<Tab title=…>` — spec tabs and OS tabs**
+
+The inch mark inside a double-quoted JSX attribute is HTML-escaped as `&quot;`. **Keep
+the entity**; writing a literal `"` there breaks the MDX parse.
+
+| English | German |
+|---|---|
+| `title="OneCable 16&quot;"` | `title="OneCable 16&quot;"` |
+| `title="OneCable 14&quot;"` | `title="OneCable 14&quot;"` |
+| `title="Expand 15.6&quot;"` | `title="Expand 15,6&quot;"` |
+| `title="Expand 14&quot;"` | `title="Expand 14&quot;"` |
+| `title="Flip 14&quot;"` | `title="Flip 14&quot;"` |
+| `title="Flip 15.6&quot;"` | `title="Flip 15,6&quot;"` |
+| `title="Windows"` | `title="Windows"` |
+| `title="macOS"` | `title="macOS"` |
+
+Only the decimal separator changes (§4). The product token is DNT.
+
+**`<a>` link / button text** *(OneCable driver pages)*
+
+| English | German |
+|---|---|
+| Download Windows Drivers | Windows-Treiber herunterladen |
+| Download for macOS | Für macOS herunterladen |
+
+Both are translated: they name the action, not the `DRIVERS (D:)` volume (§5, §7.4).
+
+**`<p>` image captions**
+
+| English | German | File |
+|---|---|---|
+| Protective Case | Schutzhülle | onecable/index |
+| 2x USB-A > USB-C Cable | 2× USB-A-auf-USB-C-Kabel | onecable/index |
+| USB-C > USB-C Cable | USB-C-auf-USB-C-Kabel | onecable/index |
+| USB Stick (Incl. Driver) | USB-Stick (inkl. Treiber) | onecable/index |
+| USB-C | USB-C | flip, infinity/installation |
+| HDMI | HDMI | flip, infinity/installation |
+| USB-A | USB-A | infinity/installation |
+| USB-A 2.0 | USB-A 2.0 | flip/installation |
+| Landscape view | Querformat | infinity/installation |
+| Portrait view | Hochformat | infinity/installation |
+| Portrait & landscape combination | Hoch- und Querformat kombiniert | infinity/installation |
+| Detached view | Getrennt aufgestellt | infinity/installation |
+| Place the screen on the single stand | Den Bildschirm auf den Ständer setzen | infinity/installation |
+| The stand supports 360° rotation | Der Ständer lässt sich um 360° drehen | infinity/installation |
+
+Notes:
+
+- The two cable captions use the `>` arrow form in the EN source. German applies the
+  locked chain rule (§3.3) and drops the arrow: `2× USB-A-auf-USB-C-Kabel`. The `2x`
+  count also becomes `2×` (§4).
+- `Place the screen on the single stand` shortens to `auf den Ständer` — the section
+  heading above it is already `Einzelner Bildschirm`, so repeating "für einen
+  Bildschirm" reads redundant in German. Do not invent `Einzelständer`.
+- The port-icon captions (`USB-C`, `HDMI`, `USB-A`, `USB-A 2.0`) are DNT interface names
+  and stay exactly as-is.
+- `title="[Product Name] Manual"` in `manuals-index.mdx` sits inside a `{/* … */}`
+  comment block as a template for future products. **Not user-visible — leave the whole
+  comment block in English**, including its `[Product Name]` placeholder and
+  `Brief product description` body.
+
 ---
 
 ## 8. Spec table fields
