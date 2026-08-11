@@ -889,7 +889,8 @@ Sweep every page for `<Tab title=`, `<Card title=`, `<a>…</a>` link text, and 
 caption text before declaring a page done.
 
 **In scope:** JSX attribute and child text that renders — `title=` on `<Tab>`/`<Card>`,
-link/button text, `<p>` captions under images.
+link/button text, `<p>` captions under images, and **bare text children** such as the
+`<video>` fallback (easy to miss: it is not wrapped in any tag at all).
 **Out of scope:** `className`, `src`, `href`, `icon` (never translated) and `alt` (image
 alt text is translated per page by the translator, not locked here).
 
@@ -919,6 +920,18 @@ Only the decimal separator changes (§4). The product token is DNT.
 | Download for macOS | Für macOS herunterladen |
 
 Both are translated: they name the action, not the `DRIVERS (D:)` volume (§5, §7.4).
+
+**`<video>` fallback text** *(bare text child, no wrapping tag)*
+
+| English | German |
+|---|---|
+| Your browser does not support the video tag. | Dein Browser unterstützt das Video-Tag nicht. |
+
+Appears **14 times across 8 files** — twice in each of the six `display-settings.mdx`
+pages (12), once each in `onecable/installation-windows.mdx` and
+`onecable/installation-mac.mdx` (2). It sits between `<source …/>` and `</video>` with
+no tag of its own, so it is invisible to any sweep that only looks inside `<p>`, `<a>`
+or `title=`. Translate every occurrence; the string is identical in all 14.
 
 **`<p>` image captions**
 
@@ -1054,7 +1067,9 @@ the display-settings chapter, then the German label alone.
 | English | German (locked) |
 |---|---|
 | Note: | Hinweis: |
+| Please note: | Hinweis: *(drop "please", same as `Note:`)* |
 | Important: | Wichtig: |
+| Important Information: | Wichtige Informationen: |
 | Caution: | Achtung: |
 | Warning | Warnung |
 | Tip: | Tipp: |
