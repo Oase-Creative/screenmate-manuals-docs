@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.verify_translation import parse_page, verify_tree
+from scripts.verify_translation import parse_page, verify_tree, _dnt_pattern, body_hash
 
 def write(root: Path, rel: str, text: str) -> None:
     p = root / rel
@@ -101,3 +101,71 @@ def test_dedupe_divergence_fails(tree: Path) -> None:
     write(tree, "de/manuals/flip/safety.mdx",     '---\ntitle: "Sicherheit"\nicon: "shield"\n---\nDecke es nie ab.\n')
     issues = verify_tree(tree, base="en", targets=["de"])
     assert any(i.check == "dedupe" and i.severity == "FAIL" for i in issues)
+
+# --- Regression tests for the tunings applied during nl calibration ---
+
+NUMWORD_HEADING_EN = """\
+    ---
+    title: "Counts"
+    icon: "hash"
+    ---
+    ## Connection Options
+    ### 1. Three USB-C cables
+    Use the included cables.
+    Connect it once.
+    """
+
+def test_numword_credit_leak_is_not_forgiven_outside_target_heading(tree: Path) -> None:
+    # Base spells the heading count as a word ("Three" -> credit for digit '3').
+    write(tree, "en/manuals/lite/counts.mdx", NUMWORD_HEADING_EN)
+    # Target ALSO keeps the heading as a spelled word (no digit '3' anywhere in
+    # its own heading -- the credit is never actually "spent" there) but has an
+    # unrelated, genuine duplicated "3" in body prose. A same-valued credit
+    # generated elsewhere in the document must not silently forgive a real
+    # defect just because the numbers match -- forgiveness must be scoped to
+    # digits that actually appear within the target's own heading line.
+    write(tree, "de/manuals/lite/counts.mdx", """\
+        ---
+        title: "Zählungen"
+        icon: "hash"
+        ---
+        ## Verbindungsoptionen
+        ### 1. Drei USB-C-Kabel
+        Verwende die mitgelieferten Kabel.
+        Schließe es 3 Mal an.
+        """)
+    issues = verify_tree(tree, base="en", targets=["de"])
+    assert any(i.check == "numbers" and i.severity == "FAIL" for i in issues)
+
+def test_numword_credit_legitimate_heading_conversion_passes(tree: Path) -> None:
+    # Base spells the heading count as a word; target legitimately renders the
+    # same count as a digit in ITS OWN heading (matching the digit+"x" style
+    # convention used elsewhere) -- this must be accepted, not flagged.
+    write(tree, "en/manuals/lite/counts.mdx", NUMWORD_HEADING_EN)
+    write(tree, "de/manuals/lite/counts.mdx", """\
+        ---
+        title: "Zählungen"
+        icon: "hash"
+        ---
+        ## Verbindungsoptionen
+        ### 1. 3 USB-C-Kabel
+        Verwende die mitgelieferten Kabel.
+        Schließe es an.
+        """)
+    issues = verify_tree(tree, base="en", targets=["de"])
+    assert [i for i in issues if i.check == "numbers" and i.severity == "FAIL"] == []
+
+def test_dnt_pattern_matches_whole_word_not_inside_unrelated_word() -> None:
+    pat = _dnt_pattern("Flip")
+    assert pat.search("Screenmate Flip 15.6\" manual") is not None
+    assert pat.search("choose 'Flipped' to correct this") is None
+
+def test_body_hash_ignores_trailing_whitespace_but_catches_mid_body_diff(tmp_path: Path) -> None:
+    a = tmp_path / "a.mdx"
+    b = tmp_path / "b.mdx"
+    c = tmp_path / "c.mdx"
+    a.write_text('---\ntitle: "X"\n---\nSame content here.\n', encoding="utf-8")
+    b.write_text('---\ntitle: "X"\n---\nSame content here.\n\n\n', encoding="utf-8")
+    c.write_text('---\ntitle: "X"\n---\nDifferent content here.\n', encoding="utf-8")
+    assert body_hash(a) == body_hash(b)
+    assert body_hash(a) != body_hash(c)

@@ -65,6 +65,15 @@ DEDUPE_GROUPS = {
 # digits, it never creates a "missing" obligation. Scoped strictly to numbered
 # heading lines: "one"/"two"/... appear dozens of times as ordinary prose
 # elsewhere in the corpus and must not be touched there.
+#
+# Forgiveness is capped by BOTH the base-side credit AND the count of that
+# same digit actually present within the TARGET's own heading lines. Capping
+# only by the base-side credit is not enough: a credit is generated purely
+# from the base spelling a count as a word, regardless of whether the target
+# ever used the digit form anywhere -- if it didn't (translator kept the
+# spelled-word style too), that credit must not be spent forgiving an
+# unrelated genuine defect elsewhere in the body that happens to share the
+# same numeric value. Location, not just value, has to match.
 NUMWORDS = {
     "One": "1", "Two": "2", "Three": "3", "Four": "4", "Five": "5", "Six": "6",
     "Seven": "7", "Eight": "8", "Nine": "9", "Ten": "10", "Eleven": "11", "Twelve": "12",
@@ -74,11 +83,20 @@ NUMWORD_RE = re.compile(r"\b(" + "|".join(NUMWORDS) + r")\b", re.I)
 
 
 def _numword_credits(body: str) -> Counter:
+    """Digit-equivalents of spelled-out counts found in numbered heading lines."""
     credits: Counter = Counter()
     for line in HEADING_LINE_RE.findall(body):
         for w in NUMWORD_RE.findall(line):
             credits[NUMWORDS[w.capitalize()]] += 1
     return credits
+
+
+def _heading_digit_counts(body: str) -> Counter:
+    """Digit tokens that actually appear within numbered heading lines."""
+    counts: Counter = Counter()
+    for line in HEADING_LINE_RE.findall(body):
+        counts.update(n.replace(".", ",") for n in NUM_RE.findall(line))
+    return counts
 
 
 _DNT_PATTERN_CACHE: dict[str, re.Pattern] = {}
@@ -163,6 +181,7 @@ def compare_page(base: dict, tgt: dict, lang: str, rel: str, dnt: list[str],
     tgt_counts = Counter(n.replace(".", ",") for n in tgt["numbers"])
     if base_counts != tgt_counts:
         credits = _numword_credits(base_body)
+        tgt_heading_digits = _heading_digit_counts(tgt["body"])
         missing: list[str] = []
         extra: list[str] = []
         for v in sorted(set(base_counts) | set(tgt_counts)):
@@ -170,7 +189,11 @@ def compare_page(base: dict, tgt: dict, lang: str, rel: str, dnt: list[str],
             if t < b:
                 missing.extend([v] * (b - t))
             elif t > b:
-                forgiven = min(t - b, credits.get(v, 0))
+                # Forgive only excess digits that both (a) the base credited
+                # via a spelled-out heading count, AND (b) actually occur
+                # within the target's own heading lines -- not just anywhere
+                # with a matching value.
+                forgiven = min(t - b, credits.get(v, 0), tgt_heading_digits.get(v, 0))
                 remaining = (t - b) - forgiven
                 if remaining > 0:
                     extra.extend([v] * remaining)
