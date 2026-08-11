@@ -61,54 +61,56 @@ DEDUPE_GROUPS = {
 # translation, no digit ever appears), others switch to the digit+"x"
 # shorthand used elsewhere in the same doc ("1x USB-C-kabel, ..."). A digit in
 # the target that corresponds 1:1 to a spelled count in the base heading is
-# therefore *tolerated*, never *required* -- it only forgives extra target
-# digits, it never creates a "missing" obligation. Scoped strictly to numbered
-# heading lines: "one"/"two"/... appear dozens of times as ordinary prose
-# elsewhere in the corpus and must not be touched there.
+# therefore *tolerated*, never *required*.
 #
-# Forgiveness is capped by BOTH the base-side credit AND the count of that
-# same digit actually present within the TARGET's own heading lines. Capping
-# only by the base-side credit is not enough: a credit is generated purely
-# from the base spelling a count as a word, regardless of whether the target
-# ever used the digit form anywhere -- if it didn't (translator kept the
-# spelled-word style too), that credit must not be spent forgiving an
-# unrelated genuine defect elsewhere in the body that happens to share the
-# same numeric value. Location, not just value, has to match.
+# This is deliberately a PAIRWISE, per-heading-POSITION comparison, not a
+# document-wide value-keyed credit bucket (that was tried twice and leaked
+# both times: a same-valued credit generated at one heading could forgive an
+# unrelated defect anywhere else with the same digit -- once via prose
+# anywhere in the body, once via another heading's own ordinal number). It
+# also does NOT try to strip a "### N." ordinal prefix off the heading text
+# before scanning for digits -- an earlier attempt at that broke on the real
+# corpus pattern "### 3.5mm Headphone Jack" (not a numbered step at all, but
+# `\d+\.` still matches the "3." inside "3.5mm", tearing the decimal in two
+# and minting a phantom '5'). Instead: NUM_RE runs over the FULL heading text
+# unmodified for both base and target at the SAME position; a real "N."
+# ordinal then naturally cancels itself out (both sides contribute the same
+# ordinal digit), and a decimal like "3.5mm"/"3,5 mm" survives intact as one
+# token on both sides -- no special-casing needed for either.
 NUMWORDS = {
     "One": "1", "Two": "2", "Three": "3", "Four": "4", "Five": "5", "Six": "6",
     "Seven": "7", "Eight": "8", "Nine": "9", "Ten": "10", "Eleven": "11", "Twelve": "12",
 }
-# Captures only the heading TEXT after the "N." ordinal prefix. The ordinal
-# itself (e.g. the "2" in "### 2. ...") is heading numbering, not translated
-# content, and is already parity-checked separately via the structure check
-# (heading count/levels) and the main number multiset (both base and target
-# contribute their own ordinal digits equally) -- it must never be read as
-# "digit content the translator produced" and must never fund credits.
-HEADING_CONTENT_RE = re.compile(r"^#{1,6}\s+\d+\.\s*(.*)$", re.M)
 NUMWORD_RE = re.compile(r"\b(" + "|".join(NUMWORDS) + r")\b", re.I)
 
 
-def _numword_credits(body: str) -> Counter:
-    """Digit-equivalents of spelled-out counts found in numbered heading text
-    (after the ordinal prefix). NUMWORD_RE only matches alphabetic spelled-out
-    words (One, Two, ...), never bare digit characters, so the ordinal prefix
-    itself can never match here -- no ordinal-leak risk on this side."""
-    credits: Counter = Counter()
-    for content in HEADING_CONTENT_RE.findall(body):
-        for w in NUMWORD_RE.findall(content):
-            credits[NUMWORDS[w.capitalize()]] += 1
-    return credits
+def _pairwise_numword_forgiveness(base_headings: list[tuple[int, str]],
+                                  tgt_headings: list[tuple[int, str]]) -> Counter:
+    """Per-heading-position credit: a spelled-out count in base heading i may
+    be claimed ONLY by excess digit tokens within target heading i itself --
+    never pooled across headings or the whole document.
 
-
-def _heading_digit_counts(body: str) -> Counter:
-    """Digit tokens that actually appear within numbered heading TEXT, i.e.
-    after the "N." ordinal prefix -- scanning the full line (ordinal
-    included) would let a heading's own sequence number masquerade as
-    translated digit content and fund forgiveness it never earned."""
-    counts: Counter = Counter()
-    for content in HEADING_CONTENT_RE.findall(body):
-        counts.update(n.replace(".", ",") for n in NUM_RE.findall(content))
-    return counts
+    Guarded behind positional parity: the structure check elsewhere already
+    FAILs if heading counts/levels differ, so pairing by index is safe here;
+    if counts differ (e.g. this is called before that check runs, or on data
+    that will already FAIL structure), no forgiveness is computed at all --
+    better to under-forgive than to mis-pair headings.
+    """
+    forgiven: Counter = Counter()
+    if len(base_headings) != len(tgt_headings):
+        return forgiven
+    for (_, base_text), (_, tgt_text) in zip(base_headings, tgt_headings):
+        credits = Counter(
+            NUMWORDS[w.capitalize()] for w in NUMWORD_RE.findall(base_text)
+        )
+        if not credits:
+            continue
+        base_line_nums = Counter(n.replace(".", ",") for n in NUM_RE.findall(base_text))
+        tgt_line_nums = Counter(n.replace(".", ",") for n in NUM_RE.findall(tgt_text))
+        for v, c in credits.items():
+            excess_local = max(0, tgt_line_nums.get(v, 0) - base_line_nums.get(v, 0))
+            forgiven[v] += min(excess_local, c)
+    return forgiven
 
 
 _DNT_PATTERN_CACHE: dict[str, re.Pattern] = {}
@@ -192,8 +194,7 @@ def compare_page(base: dict, tgt: dict, lang: str, rel: str, dnt: list[str],
     base_counts = Counter(n.replace(".", ",") for n in base["numbers"])
     tgt_counts = Counter(n.replace(".", ",") for n in tgt["numbers"])
     if base_counts != tgt_counts:
-        credits = _numword_credits(base_body)
-        tgt_heading_digits = _heading_digit_counts(tgt["body"])
+        forgiven_credits = _pairwise_numword_forgiveness(base["headings"], tgt["headings"])
         missing: list[str] = []
         extra: list[str] = []
         for v in sorted(set(base_counts) | set(tgt_counts)):
@@ -201,11 +202,7 @@ def compare_page(base: dict, tgt: dict, lang: str, rel: str, dnt: list[str],
             if t < b:
                 missing.extend([v] * (b - t))
             elif t > b:
-                # Forgive only excess digits that both (a) the base credited
-                # via a spelled-out heading count, AND (b) actually occur
-                # within the target's own heading lines -- not just anywhere
-                # with a matching value.
-                forgiven = min(t - b, credits.get(v, 0), tgt_heading_digits.get(v, 0))
+                forgiven = min(t - b, forgiven_credits.get(v, 0))
                 remaining = (t - b) - forgiven
                 if remaining > 0:
                     extra.extend([v] * remaining)

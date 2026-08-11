@@ -200,3 +200,62 @@ def test_numword_credit_leak_via_heading_ordinal_digit_is_not_forgiven(tree: Pat
         """)
     issues = verify_tree(tree, base="en", targets=["de"])
     assert any(i.check == "numbers" and i.severity == "FAIL" for i in issues)
+
+def test_numword_credit_leak_via_decimal_heading_false_ordinal(tree: Path) -> None:
+    # Root-cause variant (reviewer-supplied, real corpus pattern present in
+    # lite/one-4k/one-4k-oled/lite-144hz controls.mdx): "### 3.5mm Headphone
+    # Jack" is NOT a numbered step -- it's a measurement that happens to look
+    # like an ordinal prefix. A heading-content extraction built on
+    # `^#{1,6}\s+\d+\.\s*(.*)$` tears it apart: "3." is consumed as a fake
+    # ordinal and "5mm Headphone Jack" becomes "content", minting a phantom
+    # digit '5' that can then forgive a completely unrelated credit generated
+    # at a different heading ("### 1. Five HDMI ports" -> credit '5'). The
+    # genuine extra "5" in body prose must still be caught.
+    write(tree, "en/manuals/lite/counts.mdx", """\
+        ---
+        title: "Counts"
+        icon: "hash"
+        ---
+        ## Ports
+        ### 1. Five HDMI ports
+        ### 3.5mm Headphone Jack
+        """)
+    write(tree, "de/manuals/lite/counts.mdx", """\
+        ---
+        title: "Zählungen"
+        icon: "hash"
+        ---
+        ## Ports
+        ### 1. Five HDMI ports
+        ### 3.5mm Headphone Jack
+        Schliesse es 5 Mal an.
+        """)
+    issues = verify_tree(tree, base="en", targets=["de"])
+    assert any(i.check == "numbers" and i.severity == "FAIL" for i in issues)
+
+def test_decimal_heading_translated_still_passes(tree: Path) -> None:
+    # Positive companion: a legitimately translated decimal-looking heading
+    # (comma decimal separator, as German/Dutch convention requires) must not
+    # be misread as a broken ordinal and must not trigger a false "numbers"
+    # FAIL -- the decimal token ("3.5" / "3,5") has to survive as a single
+    # unit through the heading comparison, not get torn into "3." + "5".
+    write(tree, "en/manuals/lite/counts.mdx", """\
+        ---
+        title: "Counts"
+        icon: "hash"
+        ---
+        ## Ports
+        ### 3.5mm Headphone Jack
+        Located on the side.
+        """)
+    write(tree, "de/manuals/lite/counts.mdx", """\
+        ---
+        title: "Zählungen"
+        icon: "hash"
+        ---
+        ## Ports
+        ### 3,5-mm-Kopfhöreranschluss
+        Befindet sich seitlich.
+        """)
+    issues = verify_tree(tree, base="en", targets=["de"])
+    assert [i for i in issues if i.check == "numbers" and i.severity == "FAIL"] == []
