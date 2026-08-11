@@ -169,3 +169,34 @@ def test_body_hash_ignores_trailing_whitespace_but_catches_mid_body_diff(tmp_pat
     c.write_text('---\ntitle: "X"\n---\nDifferent content here.\n', encoding="utf-8")
     assert body_hash(a) == body_hash(b)
     assert body_hash(a) != body_hash(c)
+
+def test_numword_credit_leak_via_heading_ordinal_digit_is_not_forgiven(tree: Path) -> None:
+    # A second variant of the credit-leak bug: the heading ordinal prefix
+    # itself ("### 2." -> digit '2') must not count as "digit content present
+    # in the target's heading" -- only digits in the translated text AFTER
+    # the ordinal may fund forgiveness. Reproduction (reviewer-supplied):
+    # base credits '2' via a spelled "Two" in heading 1; target's heading 2
+    # happens to be numbered "2." (pure ordinal, no translated digit) plus a
+    # genuine unrelated extra "2" in body prose. The ordinal digit must not
+    # be mistaken for a legitimate word->digit conversion of that credit.
+    write(tree, "en/manuals/lite/counts.mdx", """\
+        ---
+        title: "Counts"
+        icon: "hash"
+        ---
+        ## Connection Options
+        ### 1. Two USB-C cables
+        ### 2. One extra accessory
+        """)
+    write(tree, "de/manuals/lite/counts.mdx", """\
+        ---
+        title: "Zählungen"
+        icon: "hash"
+        ---
+        ## Verbindungsoptionen
+        ### 1. Zwei USB-C-Kabel
+        ### 2. Ein Zubehoerteil
+        Schliesse es 2 Mal an.
+        """)
+    issues = verify_tree(tree, base="en", targets=["de"])
+    assert any(i.check == "numbers" and i.severity == "FAIL" for i in issues)

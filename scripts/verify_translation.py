@@ -78,24 +78,36 @@ NUMWORDS = {
     "One": "1", "Two": "2", "Three": "3", "Four": "4", "Five": "5", "Six": "6",
     "Seven": "7", "Eight": "8", "Nine": "9", "Ten": "10", "Eleven": "11", "Twelve": "12",
 }
-HEADING_LINE_RE = re.compile(r"^#{1,6}\s+\d+\..*$", re.M)
+# Captures only the heading TEXT after the "N." ordinal prefix. The ordinal
+# itself (e.g. the "2" in "### 2. ...") is heading numbering, not translated
+# content, and is already parity-checked separately via the structure check
+# (heading count/levels) and the main number multiset (both base and target
+# contribute their own ordinal digits equally) -- it must never be read as
+# "digit content the translator produced" and must never fund credits.
+HEADING_CONTENT_RE = re.compile(r"^#{1,6}\s+\d+\.\s*(.*)$", re.M)
 NUMWORD_RE = re.compile(r"\b(" + "|".join(NUMWORDS) + r")\b", re.I)
 
 
 def _numword_credits(body: str) -> Counter:
-    """Digit-equivalents of spelled-out counts found in numbered heading lines."""
+    """Digit-equivalents of spelled-out counts found in numbered heading text
+    (after the ordinal prefix). NUMWORD_RE only matches alphabetic spelled-out
+    words (One, Two, ...), never bare digit characters, so the ordinal prefix
+    itself can never match here -- no ordinal-leak risk on this side."""
     credits: Counter = Counter()
-    for line in HEADING_LINE_RE.findall(body):
-        for w in NUMWORD_RE.findall(line):
+    for content in HEADING_CONTENT_RE.findall(body):
+        for w in NUMWORD_RE.findall(content):
             credits[NUMWORDS[w.capitalize()]] += 1
     return credits
 
 
 def _heading_digit_counts(body: str) -> Counter:
-    """Digit tokens that actually appear within numbered heading lines."""
+    """Digit tokens that actually appear within numbered heading TEXT, i.e.
+    after the "N." ordinal prefix -- scanning the full line (ordinal
+    included) would let a heading's own sequence number masquerade as
+    translated digit content and fund forgiveness it never earned."""
     counts: Counter = Counter()
-    for line in HEADING_LINE_RE.findall(body):
-        counts.update(n.replace(".", ",") for n in NUM_RE.findall(line))
+    for content in HEADING_CONTENT_RE.findall(body):
+        counts.update(n.replace(".", ",") for n in NUM_RE.findall(content))
     return counts
 
 
