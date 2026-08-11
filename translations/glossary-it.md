@@ -6,8 +6,8 @@ English term is intentionally retained (**Keep EN? = ✓**).
 This file is **binding** for every Italian translation pass. If a term is not listed here, do not
 invent a rendering silently — propose an addition (see the last section).
 
-**Source of truth for "Keep EN?":** `translations/dnt.json` (41 entries: 11 product names, 5 connector
-/ standard names, `Backlight`, `Drivers`, `FAQ`, `OSD`, and 22 OSD caps labels). Every entry in it is
+**Source of truth for "Keep EN?":** `translations/dnt.json` (42 entries: 11 product names, 6 connector
+/ standard names, `DRIVERS`, `FAQ`, `OSD`, and 22 OSD caps labels). Every entry in it is
 marked ✓ below. Additional ✓ entries are third-party product names, on-device strings and file/
 folder names that `dnt.json` does not enumerate but which are equally untranslatable.
 
@@ -517,7 +517,7 @@ The size is a **measurement**, not part of a protected product name, so it conve
 | English | Italian | Notes | Keep EN? |
 |---|---|---|---|
 | driver | driver | m. **invariable** — `il driver`, `i driver`; never `i drivers`, never `pilota` | ✓ |
-| `Drivers` *(folder name on the USB stick)* | Drivers | verbatim, only for the literal folder / `DRIVERS (D:)` drive label | ✓ |
+| `DRIVERS (D:)` *(volume name of the bundled USB stick)* | DRIVERS (D:) | verbatim — `DRIVERS` is the DNT token; it covers the literal drive/volume label only, never the word "driver" in prose or headings | ✓ |
 | display driver | driver dello schermo | | — |
 | driver installation | installazione del driver | | — |
 | to download | scaricare | `Scarica il driver` | — |
@@ -574,7 +574,7 @@ The size is a **measurement**, not part of a protected product name, so it conve
 | Refresh Rate | Frequenza di aggiornamento | | — |
 | Color Accuracy | Precisione cromatica | | — |
 | Color Gamut | Gamma cromatica | | — |
-| Backlight *(spec field, value `LED`)* | Retroilluminazione | **spec field only** — the OSD menu page name stays `Backlight`, see §7 and §9 | — |
+| Backlight | Retroilluminazione | one target in **every** position — spec-table field (value `LED`) and OSD chapter heading (`### 1. Backlight`) alike. Removed from `dnt.json` in `12b31e3` as context-dependent; gate ruling R1 resolved it to "always translate". Only the ALL-CAPS on-device token inside a parenthetical gloss stays EN | — |
 | Weight | Peso | | — |
 | Color *(spec field)* | Colore | values: `Grey` → `Grigio`, `Black` → `Nero` | — |
 | Special Features | Caratteristiche speciali | | — |
@@ -685,6 +685,12 @@ These strings are **engraved in the device firmware and render in English on the
 Translating them in the manual would make the manual disagree with the hardware. Reproduce them
 character-for-character, including capitalisation.
 
+> **Scope of this section (gate ruling R1).** "Verbatim" applies to the **ALL-CAPS device tokens
+> and preset values**, not to the chapter headings that name them. Every `##` / `###` heading in
+> `osd.mdx` **is translated** — see §9.3 and §9.6. The NL precedent is the model:
+> `### 1. Backlight` → NL `### 1. Achtergrondverlichting` → IT `### 1. Retroilluminazione`.
+> Only the parenthesised caps label survives in English.
+
 ### 7.1 Locked ALL-CAPS labels (all 22 are in `dnt.json`)
 
 ```
@@ -700,10 +706,9 @@ Also reproduce `COLOR TEMP.` with its trailing period where the source page has 
 
 ### 7.2 Additional on-device strings — also verbatim
 
-Menu page names and preset values that render on the panel:
+Preset **values** that render on the panel (these are menu *options*, not chapter names):
 
 ```
-Backlight   Image   Color   Settings   Reset   Other
 Standard    Game    Movie   Text       Energy Saving
 Warm        Cool    User
 Off         Auto    2084
@@ -711,9 +716,20 @@ Type-C1     Type-C2     HDMI
 4:3         16:9        WIDE
 ```
 
-`Backlight` is in `dnt.json` and is **kept English as the OSD menu page name**
-(`### 1. Backlight`). Its homograph in the spec table (`Backlight | LED`) is a different string and
-**is** translated → `Retroilluminazione`. See the flag in §9.
+**Not in this list:** `Backlight`, `Image`, `Color`, `Settings`, `Reset`, `Other`. These are OSD
+**chapter names**, and per R1 they are translated wherever they appear as a heading —
+`Retroilluminazione`, `Immagine`, `Colore`, `Impostazioni`, `Ripristino`, `Altro`. `Backlight` was
+removed from `dnt.json` in commit `12b31e3` precisely because it is context-dependent; do not
+treat it as a protected token. Its spec-table homograph (`Backlight | LED`) takes the same
+Italian target, `Retroilluminazione`.
+
+### 7.2.1 Optional parenthetical device gloss
+
+The NL pages sometimes append the EN device token to a translated OSD heading
+(`### 1. Achtergrondverlichting (Backlight)`, `### 5. Resetten (Reset)`) and sometimes do not
+(`### 1. Achtergrondverlichting`). Italian may do the same **where the EN or NL sibling page
+carries the gloss**, giving `### 1. Retroilluminazione (Backlight)`. The translated word is
+mandatory; the parenthetical is optional and must never appear alone.
 
 ### 7.3 Glossing pattern in body copy
 
@@ -732,6 +748,7 @@ Italian keeps the CAPS token untouched and translates only the gloss and the des
 | `**Source (SOURCE):** Choose between two signal sources: Type-C1 / Type-C2 and HDMI.` | `**Sorgente (SOURCE):** scegli tra due sorgenti del segnale: Type-C1 / Type-C2 e HDMI.` |
 | `**HDR Mode (HDR MODE):** Enable HDR (High Dynamic Range)… Available modes: Off, Auto, 2084.` | `**Modalità HDR (HDR MODE):** attiva l'HDR (High Dynamic Range)… Modalità disponibili: Off, Auto, 2084.` |
 | `**ECO mode (ECO):** Preset display modes (Standard, Game, Movie, Text, FPS, RTS, Energy Saving).` | `**Modalità ECO (ECO):** modalità immagine predefinite (Standard, Game, Movie, Text, FPS, RTS, Energy Saving).` |
+| `**Reset (RESET):** Choose RESET to restore all settings to factory defaults.` | `**Ripristino (RESET):** scegli RESET per riportare tutte le impostazioni ai valori di fabbrica.` |
 
 Where the EN uses only the CAPS token with no gloss (`**BRIGHTNESS (0–100):**`, dual-flip),
 keep the CAPS token alone — do not add an Italian gloss the EN page does not have. Structural
@@ -804,8 +821,9 @@ nouns, product names, OS names and protected tokens. EN uses title case; do not 
 `Porte e pulsanti` ✓ · `Porte E Pulsanti` ✗.
 
 **Structural punctuation is preserved.** Where an EN heading carries an em dash (`M — OSD Menu
-Button`, `Option 1 — USB-C`, `Dual screen — front and back horizontal`) or a leading number
-(`### 1. Backlight`), keep it exactly.
+Button`, `Option 1 — USB-C`, `Dual screen — front and back horizontal`) or a leading number, keep
+the punctuation and the numbering exactly while translating the words:
+`### 1. Backlight` → `### 1. Retroilluminazione`.
 
 ### 9.1 Frontmatter titles
 
@@ -917,11 +935,11 @@ Button`, `Option 1 — USB-C`, `Dual screen — front and back horizontal`) or a
 | Using the OSD Menu | Uso del menu OSD |
 | OSD Settings | Impostazioni OSD |
 | Per-Screen Settings | Impostazioni per singolo schermo |
-| Backlight *(OSD page)* | Backlight |
+| Backlight *(OSD page)* | Retroilluminazione |
 | Image *(OSD page)* | Immagine |
 | Color *(OSD page)* | Colore |
 | Settings *(OSD page)* | Impostazioni |
-| Reset *(OSD page)* | Reset |
+| Reset *(OSD page)* | Ripristino |
 | Other *(OSD page)* | Altro |
 | Display Configuration | Configurazione dello schermo |
 | Display Configuration Windows | Configurazione dello schermo Windows |
@@ -1033,9 +1051,12 @@ Button`, `Option 1 — USB-C`, `Dual screen — front and back horizontal`) or a
 
 ### 9.6 `###` headings — OSD sections
 
+Per gate ruling R1, **every** OSD chapter heading is translated. The ALL-CAPS device token stays
+English only inside the body-copy gloss (§7.3) or an optional parenthetical (§7.2.1).
+
 | English | Italian |
 |---|---|
-| 1. Backlight | 1. Backlight |
+| 1. Backlight | 1. Retroilluminazione |
 | 1. Brightness | 1. Luminosità |
 | 2. Image | 2. Immagine |
 | 2. Image Modes | 2. Modalità immagine |
@@ -1043,7 +1064,7 @@ Button`, `Option 1 — USB-C`, `Dual screen — front and back horizontal`) or a
 | 3. Color Settings | 3. Impostazioni colore |
 | 4. OSD Settings | 4. Impostazioni OSD |
 | 4. Settings | 4. Impostazioni |
-| 5. Reset | 5. Reset |
+| 5. Reset | 5. Ripristino |
 | 6. Other | 6. Altro |
 
 ### 9.7 `###` headings — FAQ questions
@@ -1098,44 +1119,45 @@ Button`, `Option 1 — USB-C`, `Dual screen — front and back horizontal`) or a
 
 ---
 
-## 11. Open decisions — orchestrator attention
+## 11. Decision log
 
-1. **`Backlight` DNT collision.** `dnt.json` protects `Backlight`, but the token has two distinct
-   roles in the corpus: the OSD menu page name (`### 1. Backlight`, `## Backlight` — genuinely on
-   the device, keep EN) and a spec-table field (`| **Backlight** | LED |` — ordinary prose,
-   translated here as `Retroilluminazione`). This glossary splits them. If the orchestrator wants a
-   single treatment, say which.
-2. **OSD page-name inconsistency inherited from `dnt.json`.** `Backlight` and `RESET` are protected,
-   but `Image`, `Color`, `Settings` and `Other` are not, so the OSD chapter reads
-   `Backlight / Immagine / Colore / Impostazioni / Reset / Altro`. This is what the DNT list
-   mandates, but it looks half-translated. Recommend the orchestrator decide between (a) keep as
-   locked here, (b) add `Image / Color / Settings / Other` to `dnt.json`, or (c) translate
-   `Backlight` and `Reset` as page names too. **No decision made unilaterally.**
-3. **`reverse charging` diverges from NL.** The NL glossary marks it Keep EN ✓; `dnt.json` does not
-   list it. Per the brief ("seed Keep EN from `dnt.json`") I locked the translated
-   `ricarica inversa` with a first-use gloss. Confirm this is the intended divergence.
-4. **Unit spacing diverges from NL.** The NL glossary locks `45W` / `5V` / `-20°C` with no space.
-   Italian typographic and SI convention requires the space (`45 W`, `5 V`, `-20 °C`), and the EN
-   corpus is itself inconsistent (`65 W power adapter` vs `45W` vs `5V/2A`). I locked the spaced
-   form. This is a deliberate per-language divergence, not an oversight.
-5. **Six-digit thousands separator.** The brief says "no thousands separator", but the corpus's one
-   six-digit figure (`100,000:1`, One 4K OLED contrast ratio) is unreadable without one. Locked as
-   `100.000:1` (Italian point separator). Every other figure in the corpus is ≤ 4 digits and takes
-   no separator.
-6. **`Download Drivers` heading.** `Drivers` is DNT because it is the folder name on the USB stick.
-   As a *section heading* I locked `Scarica i driver` (natural Italian, `driver` invariable) and
-   reserved the literal `Drivers` / `DRIVERS (D:)` for the folder and drive label. If the DNT check
-   is a naive substring match, this heading will trip it — flagging so the checker can be scoped to
-   the folder-name context.
+### 11.1 Resolved at the glossary gate — binding
+
+1. **All OSD chapter headings translate (ruling R1).** `Backlight` was removed from `dnt.json` in
+   commit `12b31e3` as context-dependent. There is no split treatment: `Backlight` →
+   `Retroilluminazione` in **every** position — OSD chapter heading and spec-table field alike.
+   `Reset` → `Ripristino` as a heading, matching the NL precedent `Resetten`. Only the ALL-CAPS
+   device token stays English, and only inside a body-copy gloss (§7.3) or the optional
+   parenthetical (§7.2.1). The OSD chapter therefore reads fully Italian:
+   `Retroilluminazione / Immagine / Colore / Impostazioni / Ripristino / Altro`.
+2. **`Download Drivers` → `Scarica i driver` (ruling R3).** Confirmed. The NL keep-EN heading is an
+   anomaly being raised with the client, not a precedent. The DNT token is now `DRIVERS`
+   (uppercase), which covers only the literal `DRIVERS (D:)` volume label of the bundled USB stick
+   — it never applies to the word "driver" in prose or headings, where Italian uses the invariable
+   `il driver` / `i driver`.
+3. **`reverse charging` → `ricarica inversa` with an EN gloss on first use.** Confirmed, client
+   sign-off noted.
+4. **`100.000:1`.** Confirmed. Italian point separator for the corpus's single six-digit figure;
+   every other figure is ≤ 4 digits and takes no separator.
+5. **SI unit spacing** (`45 W`, `5 V`, `2 A`, `-20 °C`, with `180°` and `150%` closed up).
+   Accepted as a deliberate per-language divergence from the NL glossary's closed-up forms.
+6. **`DisplayPort`** is now a DNT token; already marked Keep EN ✓ in §5.2 alongside
+   `DisplayPort Alt Mode`.
+
+### 11.2 Carried to the delivery doc — client ask
+
 7. **OS UI labels need a live-OS confirmation pass** (§8). They follow current Microsoft/Apple
    Italian localisation as documented, but Windows 11 in particular has renamed
-   `Impostazioni schermo` / `Ridimensionamento` across builds. A native reviewer with an Italian
-   Windows 11 + macOS Sequoia should confirm before publication.
+   `Impostazioni schermo` / `Ridimensionamento` across builds. Routed to the delivery doc as a
+   client verification item.
+
+### 11.3 Translator-facing notes — no action required
+
 8. **`Storage` → two targets.** `## Storage` (dual-flip, infinity) is locked as
    `Come riporre il prodotto` and `## Storing the Screenmate` (flip) as
    `Come riporre lo Screenmate`. Italian has no natural one-word noun for this sense
-   (`Conservazione` reads industrial, `Immagazzinamento` is warehousing). Flagging the
-   verb-phrase heading as a deliberate choice.
+   (`Conservazione` reads industrial, `Immagazzinamento` is warehousing), so both are verb phrases.
+   Deliberate.
 
 ---
 
