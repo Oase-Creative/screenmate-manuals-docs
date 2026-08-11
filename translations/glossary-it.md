@@ -635,8 +635,10 @@ tables. Inside a JSX attribute the same string takes `&quot;` instead — `<Tab 
 | such as | come | | — |
 | as shown in image 2 | come mostrato nell'immagine 2 | | — |
 | in the direction shown | nella direzione indicata | | — |
-| Note: | Nota: | | — |
-| Important: | Importante: | | — |
+| Note: | Nota: | `<Note>` lead-in | — |
+| Please note: | Nota: | **same target as `Note:`** — "please" is dropped (§1.4). Deliberate collapse: the EN corpus uses both interchangeably for the identical callout | — |
+| Important: | Importante: | `<Note>` lead-in | — |
+| Important Information: | Informazioni importanti: | `<Note>` lead-in on the index pages; matches the `## Important Information` heading in §9.3 | — |
 | Caution: | Attenzione: | | — |
 | Warning | Avvertenza | `<Warning>` callout | — |
 | Tip: | Suggerimento: | | — |
@@ -757,6 +759,33 @@ Italian keeps the CAPS token untouched and translates only the gloss and the des
 Where the EN uses only the CAPS token with no gloss (`**BRIGHTNESS (0–100):**`, dual-flip),
 keep the CAPS token alone — do not add an Italian gloss the EN page does not have. Structural
 parity with EN takes precedence.
+
+#### 7.3.1 Gloss vocabulary
+
+The Italian words used *as* the gloss. The CAPS token beside them never changes.
+
+| EN gloss | Italian |
+|---|---|
+| Brightness | Luminosità |
+| Contrast | Contrasto |
+| Sharpness | Nitidezza |
+| Black Level | Livello del nero |
+| Aspect / Aspect Ratio | Formato / Rapporto d'aspetto |
+| Color Temperature / Color Temp. | Temperatura colore |
+| Red | Rosso |
+| Green | Verde |
+| Blue | Blu |
+| Language | Lingua |
+| OSD Timer | Timer OSD |
+| Transparency | Trasparenza |
+| Source | Sorgente |
+| Reset | Ripristino |
+| HDR Mode | Modalità HDR |
+| Low Blue Light | Luce blu ridotta |
+| ECO mode / ECO Mode / ECO modes | Modalità ECO *(EN casing varies by product — one Italian target)* |
+
+The **preset values** beside these glosses (`Standard`, `Game`, `Movie`, `Text`, `Energy Saving`,
+`Warm`, `Cool`, `User`, `Off`, `Auto`, `2084`) stay English — see §7.2.
 
 ### 7.4 The OSD language list is lowercase in Italian
 
@@ -1171,9 +1200,50 @@ The two cable captions follow the §2.5 chain rule — the `>` renders as `da �
 
 #### Boilerplate
 
-| English | Italian |
-|---|---|
-| Your browser does not support the video tag. | Il tuo browser non supporta il tag video. |
+| English | Italian | Occurrences |
+|---|---|---|
+| Your browser does not support the video tag. | Il tuo browser non supporta il tag video. | 14 — 2× in each of the six `display-settings.mdx`, 1× each in `onecable/installation-windows.mdx` and `-mac.mdx` |
+
+#### Callout lead-ins (bare text children of `<Note>` / `<Warning>`)
+
+These are bold bare-text children, not attributes, so they escape an attribute-oriented sweep.
+They recur across products and must read identically everywhere — full renderings in §5.5.
+
+| English | Italian | Where |
+|---|---|---|
+| `**Important Information:**` | `**Informazioni importanti:**` | index pages of dual-flip, expand, flip, infinity-lite, onecable (5×) |
+| `**Please note:**` | `**Nota:**` | `flip/installation.mdx` (1×) — collapses onto the same target as `**Note:**` |
+| `**Note:**` · `**Important:**` · `**Caution:**` · `**Tip:**` · `**Welcome!**` | `**Nota:**` · `**Importante:**` · `**Attenzione:**` · `**Suggerimento:**` · `**Benvenuto!**` | throughout |
+
+The bold markers are structural — carry them over exactly, colon included.
+
+#### Bold run-in labels (body copy)
+
+Same escape route as the callout lead-ins: bold bare text, not attributes. These are the non-OSD
+ones (OSD run-ins are governed by the §7.3 glossing pattern and §7.3.1 vocabulary).
+
+| English | Italian | Where |
+|---|---|---|
+| `**Turn on:**` | `**Accensione:**` | `one-4k`, `one-4k-oled` osd |
+| `**Open the OSD menu:**` | `**Apertura del menu OSD:**` | idem |
+| `**Navigate:**` | `**Navigazione:**` | idem |
+| `**Select:**` | `**Selezione:**` | idem |
+| `**Adjust settings:**` | `**Regolazione delle impostazioni:**` | idem |
+| `**Go back:**` | `**Indietro:**` | idem |
+| `**Short press:**` | `**Pressione breve:**` | controls pages |
+| `**Long press:**` | `**Pressione prolungata:**` | controls pages |
+| `**Long press (1 second):**` | `**Pressione prolungata (1 secondo):**` | `panorama/controls` |
+| `**Press and hold (2 seconds):**` | `**Tieni premuto (2 secondi):**` | `infinity/controls` |
+| `**Press and hold (3 seconds):**` | `**Tieni premuto (3 secondi):**` | idem |
+| `**Press right ("Plus"):**` | `**Premi a destra ("Plus"):**` | idem |
+| `**Press left ("Min"):**` | `**Premi a sinistra ("Min"):**` | idem |
+| `**Power supply:**` | `**Alimentazione:**` | lite / lite-144hz / one-4k installation |
+| `**Connecting the console:**` | `**Collegamento della console:**` | idem |
+| `**Connecting the HDMI device:**` | `**Collegamento del dispositivo HDMI:**` | idem |
+| `**Steps:**` | `**Procedura:**` | `expand/installation` |
+| `**Extend your workspace:**` | `**Estendi lo spazio di lavoro:**` | `panorama/osd` |
+| `**Left screen:**` / `**Right screen:**` | `**Schermo sinistro:**` / `**Schermo destro:**` | `expand/index`, `flip/index` |
+| `**USB-C Port:**` · `**Mini HDMI:**` | `**Porta USB-C:**` · `**Mini-HDMI:**` | `flip/controls` |
 
 #### Ruled DNT — not user-visible
 
