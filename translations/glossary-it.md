@@ -394,6 +394,10 @@ The size is a **measurement**, not part of a protected product name, so it conve
 | `Screenmate Panorama 15.6"` | `Screenmate Panorama 15,6"` |
 | `Screenmate Lite 144 Hz` | `Screenmate Lite 144 Hz` *(no decimal — unchanged)* |
 
+The table above is the **literal-`"`** form, used in markdown headings, body prose and spec
+tables. Inside a JSX attribute the same string takes `&quot;` instead — `<Tab title="Flip
+15,6&quot;">`. See §9.9; a literal `"` there breaks the MDX build.
+
 ---
 
 ## 5. Term table
@@ -1111,16 +1115,33 @@ anything inside an MDX comment `{/* … */}` *(never rendered)*.
 | Download Windows Drivers | Scarica i driver per Windows | `onecable/installation-windows.mdx` `<a>` |
 | Download for macOS | Scarica per macOS | `onecable/installation-mac.mdx` `<a>` |
 
-#### Tab titles not already covered in §9.5
+#### Tab titles — inch marks must stay `&quot;`-escaped
 
-| English | Italian |
+> **Parse hazard.** In a JSX attribute the inch mark is written `&quot;`, never a literal `"` —
+> a literal double quote closes the attribute and **breaks the MDX build**. Copy the escaped form
+> exactly. The decimal comma still applies *inside* the escaped string: the NL pages literally
+> ship `<Tab title="Expand 15,6&quot;">`, verified against `nl/manuals/expand/index.mdx`.
+
+| English (source form) | Italian (locked, escaped) |
 |---|---|
-| Expand 14" | Expand 14" |
-| Expand 15.6" | Expand 15,6" |
-| OneCable 14" | OneCable 14" |
-| OneCable 16" | OneCable 16" |
-| Flip 14" · Flip 15.6" | Flip 14" · Flip 15,6" |
-| Windows · macOS | Windows · macOS |
+| `Expand 14&quot;` | `Expand 14&quot;` |
+| `Expand 15.6&quot;` | `Expand 15,6&quot;` |
+| `Flip 14&quot;` | `Flip 14&quot;` |
+| `Flip 15.6&quot;` | `Flip 15,6&quot;` |
+| `OneCable 14&quot;` | `OneCable 14&quot;` |
+| `OneCable 16&quot;` | `OneCable 16&quot;` |
+| `Windows` | `Windows` *(DNT)* |
+| `macOS` | `macOS` *(DNT)* |
+
+**Context rule — the same product size is written two different ways:**
+
+| Context | Form | Example |
+|---|---|---|
+| JSX attribute (`<Tab title="…">`, `<Card title="…">`) | `&quot;` | `<Tab title="Flip 15,6&quot;">` |
+| Markdown heading, body prose, spec table | literal `"` | `### Flip 15,6"` · `monitor portatile da 15,6"` |
+
+§9.5 and §4.5 give the literal-`"` heading and prose forms; this table gives the JSX-attribute
+forms. Both carry the decimal comma — only the quote character differs.
 
 #### Image captions and figure labels (`<p className="…">` children)
 
@@ -1132,7 +1153,7 @@ anything inside an MDX comment `{/* … */}` *(never rendered)*.
 | Detached view | Vista separata | `infinity/installation.mdx` |
 | Place the screen on the single stand | Appoggia lo schermo sul supporto singolo | `infinity/installation.mdx` |
 | The stand supports 360° rotation | Il supporto ruota di 360° | `infinity/installation.mdx` |
-| USB-C · HDMI · USB-A · USB-A 2.0 | *(unchanged — connector names)* | `flip/`, `infinity/installation.mdx` port-icon captions |
+| USB-C · HDMI · USB-A · USB-A 2.0 | *(unchanged — **DNT**, connector names)* | `flip/`, `infinity/installation.mdx` port-icon captions |
 
 #### Package-contents captions (`onecable/index.mdx`)
 
