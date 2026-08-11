@@ -4,7 +4,9 @@ from pathlib import Path
 
 import pytest
 
-from scripts.verify_translation import parse_page, verify_tree, _dnt_pattern, body_hash
+from scripts.verify_translation import (
+    parse_page, verify_tree, _dnt_pattern, body_hash, _normalize_spaced_thousands,
+)
 
 def write(root: Path, rel: str, text: str) -> None:
     p = root / rel
@@ -259,3 +261,109 @@ def test_decimal_heading_translated_still_passes(tree: Path) -> None:
         """)
     issues = verify_tree(tree, base="en", targets=["de"])
     assert [i for i in issues if i.check == "numbers" and i.severity == "FAIL"] == []
+
+# --- Spaced-thousands normalization (fr glossary: "100 000:1" contrast ratio) ---
+
+def test_normalize_spaced_thousands_merges_recognized_separators() -> None:
+    # en's own native "100,000" already tokenizes as one NUM_RE match; fr's
+    # convention groups the same value with a space (or non-breaking-space
+    # variant) instead of a comma. Canonicalize to the comma form en already
+    # produces natively, so both sides land on the identical token instead of
+    # requiring a second, divergent "bare digits" representation.
+    assert _normalize_spaced_thousands("100 000:1") == "100,000:1"
+    assert _normalize_spaced_thousands("100&nbsp;000:1") == "100,000:1"
+    assert _normalize_spaced_thousands("100 000:1") == "100,000:1"  # U+00A0 NBSP
+    assert _normalize_spaced_thousands("100 000:1") == "100,000:1"  # U+202F NNBSP
+    # en's own comma form must pass through unchanged (no space/nbsp present).
+    assert _normalize_spaced_thousands("100,000:1") == "100,000:1"
+
+def test_normalize_spaced_thousands_does_not_merge_non_three_digit_group(tree: Path) -> None:
+    # Guard: only a RIGHT-hand group of EXACTLY 3 digits is a valid thousands
+    # grouping. A 2-digit or 4-digit right-hand group must be left untouched
+    # -- merging would treat two independent numbers as if they were one and
+    # could mask a genuine defect in either of them.
+    assert _normalize_spaced_thousands("10 0000 units") == "10 0000 units"
+    assert _normalize_spaced_thousands("10 00 units") == "10 00 units"
+
+def test_spaced_thousands_plain_space_passes_numbers_check(tree: Path) -> None:
+    # Reproduces the real one-4k-oled corpus pattern: contrast ratio appears
+    # both in prose and in a spec table row.
+    write(tree, "en/manuals/one-4k-oled/index.mdx", """\
+        ---
+        title: "Overview"
+        icon: "book-open"
+        ---
+        ## Specs
+        The OLED panel delivers a 100,000:1 contrast ratio for deep blacks.
+        | Spec | Value |
+        | :--- | :--- |
+        | **Contrast Ratio** | 100,000:1 |
+        """)
+    write(tree, "fr/manuals/one-4k-oled/index.mdx", """\
+        ---
+        title: "Aperçu"
+        icon: "book-open"
+        ---
+        ## Caractéristiques
+        Le panneau OLED offre un rapport de contraste de 100 000:1 pour des noirs profonds.
+        | Caractéristique | Valeur |
+        | :--- | :--- |
+        | **Rapport de contraste** | 100 000:1 |
+        """)
+    issues = verify_tree(tree, base="en", targets=["fr"])
+    assert [i for i in issues if i.check == "numbers" and i.severity == "FAIL"] == []
+
+def test_spaced_thousands_nbsp_entity_passes_numbers_check(tree: Path) -> None:
+    write(tree, "en/manuals/one-4k-oled/index.mdx", """\
+        ---
+        title: "Overview"
+        icon: "book-open"
+        ---
+        ## Specs
+        The OLED panel delivers a 100,000:1 contrast ratio for deep blacks.
+        | Spec | Value |
+        | :--- | :--- |
+        | **Contrast Ratio** | 100,000:1 |
+        """)
+    write(tree, "fr/manuals/one-4k-oled/index.mdx", """\
+        ---
+        title: "Aperçu"
+        icon: "book-open"
+        ---
+        ## Caractéristiques
+        Le panneau OLED offre un rapport de contraste de 100&nbsp;000:1 pour des noirs profonds.
+        | Caractéristique | Valeur |
+        | :--- | :--- |
+        | **Rapport de contraste** | 100&nbsp;000:1 |
+        """)
+    issues = verify_tree(tree, base="en", targets=["fr"])
+    assert [i for i in issues if i.check == "numbers" and i.severity == "FAIL"] == []
+
+def test_spaced_thousands_genuinely_missing_number_still_fails(tree: Path) -> None:
+    # A real defect (the number dropped entirely, not just reformatted) must
+    # still be caught -- the normalization must not make the checker blind to
+    # a genuinely missing figure.
+    write(tree, "en/manuals/one-4k-oled/index.mdx", """\
+        ---
+        title: "Overview"
+        icon: "book-open"
+        ---
+        ## Specs
+        The OLED panel delivers a 100,000:1 contrast ratio for deep blacks.
+        | Spec | Value |
+        | :--- | :--- |
+        | **Contrast Ratio** | 100,000:1 |
+        """)
+    write(tree, "fr/manuals/one-4k-oled/index.mdx", """\
+        ---
+        title: "Aperçu"
+        icon: "book-open"
+        ---
+        ## Caractéristiques
+        Le panneau OLED offre des noirs profonds superbes.
+        | Caractéristique | Valeur |
+        | :--- | :--- |
+        | **Rapport de contraste** | excellent |
+        """)
+    issues = verify_tree(tree, base="en", targets=["fr"])
+    assert any(i.check == "numbers" and i.severity == "FAIL" for i in issues)

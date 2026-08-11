@@ -83,6 +83,38 @@ NUMWORDS = {
 }
 NUMWORD_RE = re.compile(r"\b(" + "|".join(NUMWORDS) + r")\b", re.I)
 
+# French (and other European) convention groups large numbers with a space
+# instead of en's comma: "100,000:1" (en) vs "100 000:1" (fr), where the
+# space may be a plain space, the literal HTML entity "&nbsp;", or a real
+# non-breaking/narrow-no-break-space character (U+00A0, U+202F). NUM_RE alone
+# tokenizes the fr form as two separate numbers ('100', '000') since it only
+# recognizes '.'/',' as an internal separator -- a guaranteed false
+# "numbers" FAIL. Canonicalize to en's own native comma-grouped form (rather
+# than stripping to bare digits) so both land on the exact same token via the
+# existing NUM_RE + dot->comma pipeline, with no change to how en or the
+# already-working de dot-grouped convention ("100.000" -> "100,000" via the
+# pre-existing normalization) are handled.
+#
+# Guarded to only the shape of a genuine thousands grouping: a standalone
+# 1-3 digit group immediately followed by a space/nbsp variant and EXACTLY 3
+# digits. Decimal fractions in this corpus are always single-digit precision
+# ("15,6", "3,5"), never 3 digits, so this can't collide with a real decimal.
+# The 3-digit requirement is a shape guard, not a semantic one: a string like
+# "10 000" is mechanically indistinguishable from a genuine "ten thousand"
+# grouping and will be merged -- there is no way to tell without meaning. The
+# lookaround boundaries (no digit immediately before the left group or after
+# the right group) at least prevent eating into a longer, unrelated digit run
+# (e.g. a 4-digit code right after the space is never touched).
+THOUSANDS_SEP_RE = re.compile(
+    r"(?<!\d)(\d{1,3})(?:[   ]|&nbsp;)(\d{3})(?!\d)"
+)
+
+
+def _normalize_spaced_thousands(text: str) -> str:
+    """Canonicalize a space/nbsp-grouped thousands figure to en's own native
+    comma-grouped form, before NUM_RE tokenization."""
+    return THOUSANDS_SEP_RE.sub(r"\1,\2", text)
+
 
 def _pairwise_numword_forgiveness(base_headings: list[tuple[int, str]],
                                   tgt_headings: list[tuple[int, str]]) -> Counter:
@@ -105,8 +137,10 @@ def _pairwise_numword_forgiveness(base_headings: list[tuple[int, str]],
         )
         if not credits:
             continue
-        base_line_nums = Counter(n.replace(".", ",") for n in NUM_RE.findall(base_text))
-        tgt_line_nums = Counter(n.replace(".", ",") for n in NUM_RE.findall(tgt_text))
+        base_line_nums = Counter(
+            n.replace(".", ",") for n in NUM_RE.findall(_normalize_spaced_thousands(base_text)))
+        tgt_line_nums = Counter(
+            n.replace(".", ",") for n in NUM_RE.findall(_normalize_spaced_thousands(tgt_text)))
         for v, c in credits.items():
             excess_local = max(0, tgt_line_nums.get(v, 0) - base_line_nums.get(v, 0))
             forgiven[v] += min(excess_local, c)
@@ -148,7 +182,7 @@ def parse_page(path: Path) -> dict:
         "headings": [(len(h), t.strip()) for h, t in HEADING_RE.findall(body)],
         "components": ["".join(c) for c in COMPONENT_RE.findall(body)],
         "srcs": SRC_RE.findall(body),
-        "numbers": sorted(NUM_RE.findall(body)),
+        "numbers": sorted(NUM_RE.findall(_normalize_spaced_thousands(body))),
         "steps": len(STEP_RE.findall(body)),
         "table_rows": len(TABLEROW_RE.findall(body)),
         "icon": icon.group(1).strip() if icon else None,
