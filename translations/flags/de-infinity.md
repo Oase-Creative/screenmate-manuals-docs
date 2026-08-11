@@ -5,17 +5,23 @@ Task 7-de / slug `infinity`. Pages: index, installation, controls
 
 Format: `- [file] EN says X / NL says Y — blocked|proceeded-with-Z`
 
-Raised: 2. Blocked: 0.
+Raised: 2. Blocked: 0. Resolved by orchestrator ruling: 1 (R10).
 
 - [controls.mdx] EN says `The layout is mirrored on both the left and right screen.` /
   NL says `De indeling is identiek op het linker- en rechterscherm.` (= *identical*) —
-  proceeded-with `Die Anordnung ist auf dem linken und dem rechten Bildschirm
-  identisch.` English "mirrored" is ambiguous: it can mean "duplicated on both" (NL's
-  reading) or "mirror-imaged, left-right reversed". The ports diagram
-  (`ports-buttons-diagram.png`) shows the same port order on both panels, so the NL
-  reading matches the hardware and was followed. If the client means the two screens are
-  genuinely mirror-imaged, the German line must become
-  `… spiegelverkehrt angeordnet` and the EN/NL lines need fixing too.
+  **resolved by orchestrator ruling R10 in favour of EN** — proceeded-with
+  `Die Anordnung ist auf dem linken und dem rechten Bildschirm spiegelbildlich.`
+  R10 rationale: the adjacent `### Lautsprecher` section states each screen's speaker
+  sits on its **outer** edge, which is a mirrored layout by definition, not an identical
+  one; the IT agent resolved the same conflict the same way and its corroboration was
+  decisive. NL `identiek` goes to the client as a probable **NL defect** — the Dutch line
+  should become `gespiegeld` on a future NL pass.
+  Word choice: `spiegelbildlich` (adjective, standard German technical usage for a
+  mirror-image arrangement). Deliberately **not** `gespiegelt` — `Gespiegeld` is the
+  Dutch rendering of the Windows *orientation* option, an unrelated string that glossary
+  §9 already tells the German pass not to imitate, and reusing the participle here would
+  invite exactly that confusion. Proposed glossary addition:
+  `| mirrored (physical layout) | spiegelbildlich | Infinity controls; not the Windows orientation option (§9) | — |`
 
 - [index.mdx] EN says `Each screen has built-in speakers` (plural) in `index.mdx` but
   `Each screen has a built-in speaker` (singular) in `controls.mdx`; NL mirrors the same
