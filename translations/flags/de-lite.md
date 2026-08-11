@@ -17,6 +17,27 @@ Raised: 5. Blocked: 0.
 
 - [controls.mdx] EN says `### Power & Return Button` / NL says `### Power & Return-knop` — NL keeps the English button name, EN uses it as a heading — proceeded-with `### Power- und Zurück-Taste` per glossary §7.4. **Client eye, not blocking:** if "Power & Return" is silkscreened on the physical unit, the German heading will no longer match the hardware. §6.1 covers only ALL-CAPS OSD labels, and this string is not one, so the glossary lock stands — but a photo of the button would settle it.
 
+## Coordinator ruling R9 — alt text (applied)
+
+R9: image `alt` text translates FULLY into German, including OSD menu names and device-menu
+references; do not mirror the product's NL alt behaviour.
+
+Audit of all 13 alts on this slug: **no untranslated English was present** — the four
+`osd.mdx` alts already read `OSD-Menü Helligkeit / … Farbtemperatur / … Einstellungen`, so
+the failure mode R9 targets (`alt="OSD-Menü Backlight"`) did not occur here.
+
+One alt was changed under the "do not mirror NL" half of the ruling:
+
+- [osd.mdx] EN says `alt="OSD Image menu"` / NL says `alt="OSD-menu Beeldmodus"` (= "image
+  mode") — **was** `OSD-Menü Bildmodus` (a calque of NL), **now** `OSD-Menü Bildeinstellungen`.
+  Rationale: the alt names the OSD **Image** menu, and glossary §6.4 locks that menu to
+  `Bildeinstellungen`. `Bildmodi` is reserved for the *heading* `2. Image Modes`, which is a
+  different string; EN itself distinguishes them ("Image" in the alt, "Image Modes" in the
+  heading). The heading on the page remains `### 2. Bildmodi`.
+
+Non-German tokens remaining in alts are DNT only: `Screenmate`, `Lite`, `USB-C`, `HDMI`,
+`OSD`, `PC` (§7.7: port/interface names stay as-is).
+
 ## Proposed glossary additions (§12)
 
 Neither term is in the glossary; both are the spelled-out expansions of DNT acronyms (`RTS`, `FPS`) and were handled by analogy with §6.1's treatment of `DCR (Dynamic Contrast Ratio)` and `HDR (High Dynamic Range)` — acronym expansions stay English — combined with §3.1 Durchkopplung.
