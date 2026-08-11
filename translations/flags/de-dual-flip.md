@@ -28,10 +28,12 @@ deliberately **not** listed here. Nothing below is blocking.
   `Standard, Game, Movie, Text, FPS, RTS, Energy Saving`, `Warm, Cool, User, Standard`, `ON`/`OFF`,
   `Off, Auto, 2084`.
 - [osd.mdx] Image alt text: EN `OSD Settings menu` / NL `OSD-menu Set` (NL names the on-device
-  menu "Set"). EN followed → `OSD-Menü Settings`. The six OSD alt strings keep the English
-  on-device menu name (`Backlight`, `Image`, `Color`, `Settings`, `Reset`, `Other`) because the
-  screenshots show the English firmware, matching NL practice; the *headings* are translated per
-  glossary §6.4 (`### 1. Hintergrundbeleuchtung` …).
+  menu "Set"). Per **gate ruling R9**, alt text translates fully — alt is assistive prose for the
+  German reader, and R1 already translates the headings naming the same menus. The six OSD alt
+  strings therefore use the §6.4 heading renderings: `OSD-Menü Hintergrundbeleuchtung`,
+  `… Bildeinstellungen`, `… Farbeinstellungen`, `… Einstellungen`, `… Zurücksetzen`,
+  `… Sonstiges` — matching the uniformly translated IT alts. NL is internally split on this
+  (flip translates, dual-flip does not); that split is the client's flag, not DE's.
 - [installation.mdx] EN `**Important:**` vs NL `**Let op:**`. Glossary §10.1 → `**Wichtig:**`.
   Callout-label variance, not meaning.
 - [installation.mdx] EN heading `2. One USB-C cable, one HDMI cable, and one USB-A cable` vs NL
