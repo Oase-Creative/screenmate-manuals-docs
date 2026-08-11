@@ -6,7 +6,8 @@ binding: use them exactly, unless the English term is intentionally retained
 
 Source of truth for the term inventory: the full EN corpus (`en/manuals/**/*.mdx`,
 `en/manuals-index.mdx`), read in full for this glossary. "Keep EN?" is seeded from
-`translations/dnt.json` — all 41 DNT entries are marked ✓ below.
+`translations/dnt.json` — all 42 DNT entries are marked ✓ below (aligned to the
+post-`Drivers`→`DRIVERS` / `+DisplayPort` revision of that file).
 
 Structure mirrors `.claude/skills/screenmate-dutch-fidelity/references/glossary.md`;
 the rules are German, not translated Dutch.
@@ -31,7 +32,7 @@ Read these first. Everything else in this file is detail.
 4. **`der Screenmate`** — masculine, in every product variant. `den Screenmate`,
    `dem Screenmate`. See §1.0.
 5. **The device is in English.** Every ALL-CAPS OSD label, every on-device menu *value*,
-   and every numbered OSD subsection heading stays verbatim English. See §6.
+   stays verbatim English. OSD *headings*, by contrast, are translated. See §6.
 
 ---
 
@@ -454,7 +455,8 @@ glossary, which locked the closed forms. Angles (`178°`) keep no space in both.
 | output device | Ausgabegerät | Windows/macOS sound settings | — |
 | pass-through | Durchschleifen | rare; check context | — |
 | driver | **Treiber** | default in body copy; `der Treiber` | — |
-| Drivers (folder / drive name) | Drivers | keep verbatim: the `Drivers` folder, `DRIVERS (D:)` | ✓ |
+| DRIVERS (volume name) | DRIVERS | the literal USB-stick volume label, `DRIVERS (D:)`. This — not the English word "drivers" — is the invariant | ✓ |
+| DisplayPort | DisplayPort | interface name; `DisplayPort Alt Mode`, `S6-R (DisplayPort)` | ✓ |
 | display driver | Displaytreiber | Panorama | — |
 | to download | herunterladen | `Lade den Treiber herunter` | — |
 | download (noun) | Download | `die Download-Seite` | — |
@@ -500,12 +502,12 @@ Also verbatim: `OSD`, `DCR` and its expansion `Dynamic Contrast Ratio`, `HDR` an
 expansion `High Dynamic Range`.
 
 **`Backlight` is context-dependent** (`dnt.json`, commit `12b31e3`) — it is *not* a flat
-DNT term:
+DNT term. In this corpus it never appears in ALL CAPS, so it is **always translated**:
 
 | Context | German |
 |---|---|
-| OSD menu section heading `1. Backlight` / `## Backlight` — names a page of the on-device menu | **`Backlight`** (unchanged, §6.4) |
-| Spec-table field name (`| **Backlight** | LED |`) | **`Hintergrundbeleuchtung`** |
+| OSD chapter heading `### 1. Backlight` / `## Backlight` | **`Hintergrundbeleuchtung`** (§6.4) |
+| Spec-table field name (the `Backlight` row, value `LED`) | **`Hintergrundbeleuchtung`** |
 | Body prose ("the backlight brightness") | **`Hintergrundbeleuchtung`** |
 | Button description "adjusts the backlight (brightness)" | `stellt die Hintergrundbeleuchtung (Helligkeit) ein` |
 
@@ -546,31 +548,51 @@ Type-C1    Type-C2   HDMI
 `Wähle **RESET**, um alle Einstellungen auf die Werkseinstellungen zurückzusetzen.` —
 the label and the value stay English, the sentence around them is German.
 
-### 6.4 OSD subsection headings — stay English
+### 6.4 OSD chapter headings — translated
 
-The numbered OSD subsections name the pages of the on-device menu. They stay verbatim
-English so the reader can match heading to screen. It also avoids the half-translated
-state that caused the NL rework — and it is what `dnt.json` commit `12b31e3` means by
-"`Backlight` is context-dependent": English as a menu-section name, German everywhere
-else.
+**Every OSD chapter heading is translated into natural German.** Headings are the
+document's own prose, not device text; only the parenthesised ALL-CAPS labels inside the
+body (`(LANGUAGE)`, `(OSD TIMER)`, `(BRIGHTNESS)` …) render on the physical device and
+stay English.
 
-| EN heading | German | Keep EN? |
-|---|---|---|
-| `1. Backlight` | `1. Backlight` | ✓ |
-| `1. Brightness` | `1. Brightness` | ✓ |
-| `2. Image` | `2. Image` | ✓ |
-| `2. Image Modes` | `2. Image Modes` | ✓ |
-| `3. Color` | `3. Color` | ✓ |
-| `3. Color Settings` | `3. Color Settings` | ✓ |
-| `4. Settings` | `4. Settings` | ✓ |
-| `4. OSD Settings` | `4. OSD Settings` | ✓ |
-| `5. Reset` | `5. Reset` | ✓ |
-| `6. Other` | `6. Other` | ✓ |
-| `## Backlight` / `## Image` / `## Color` / `## Settings` / `## Reset` / `## Other` *(Flip, `##`-level)* | unchanged | ✓ |
+This follows the locked NL precedent, which translates every `osd.mdx` heading:
+`## Backlight` → `## Achtergrondverlichting`, `## Image` → `## Beeldinstellingen`,
+`## Reset` → `## Resetten`, `### 1. Achtergrondverlichting`, `### 5. Resetten`.
 
-The **wrapper** headings around them are ordinary doc headings and **are** translated —
-see §7 (`Using the OSD` → `Das OSD verwenden`, `OSD Settings` (wrapper) →
-`OSD-Einstellungen`, `Introduction to the OSD` → `Einführung in das OSD`).
+| EN heading | German |
+|---|---|
+| `1. Backlight` | `1. Hintergrundbeleuchtung` |
+| `1. Brightness` | `1. Helligkeit` |
+| `2. Image` | `2. Bildeinstellungen` |
+| `2. Image Modes` | `2. Bildmodi` |
+| `3. Color` | `3. Farbeinstellungen` |
+| `3. Color Settings` | `3. Farbeinstellungen` |
+| `4. Settings` | `4. Einstellungen` |
+| `4. OSD Settings` | `4. OSD-Einstellungen` |
+| `5. Reset` | `5. Zurücksetzen` |
+| `6. Other` | `6. Sonstiges` |
+| `## Backlight` *(Flip, `##`-level)* | `## Hintergrundbeleuchtung` |
+| `## Image` *(Flip)* | `## Bildeinstellungen` |
+| `## Color` *(Flip)* | `## Farbeinstellungen` |
+| `## Settings` *(Flip)* | `## Einstellungen` |
+| `## Reset` *(Flip)* | `## Zurücksetzen` |
+| `## Other` *(Flip)* | `## Sonstiges` |
+
+**No parenthetical device name in the heading.** NL's `expand/osd.mdx` alone appends the
+English menu name — `### 1. Achtergrondverlichting (Backlight)` — while its five sibling
+products do not. That is exactly the per-file inconsistency this glossary exists to
+prevent, so German uses the bare translated heading in **all** products.
+
+**`Reset` heading vs `RESET` label.** The heading is `5. Zurücksetzen`; the value the
+user selects on the device inside that menu stays `RESET`:
+`Wähle **RESET**, um alle Einstellungen auf die Werkseinstellungen zurückzusetzen.`
+Same split for `Zurücksetzen (RESET)` in the §6.2 gloss pattern.
+
+The wrapper headings around these sections are likewise translated — see §7
+(`Using the OSD` → `Das OSD verwenden`, `OSD Settings` (wrapper) → `OSD-Einstellungen`,
+`Introduction to the OSD` → `Einführung in das OSD`). Note that the wrapper
+`## OSD Settings` and the numbered `### 4. OSD Settings` both render as
+`OSD-Einstellungen`; that collision exists in the EN source too and is not a defect.
 
 ---
 
@@ -694,7 +716,7 @@ Infinity Lite` (§1.0).
 | Display Configuration (OS-Level) | Bildschirmkonfiguration (Betriebssystem) |
 | Arrange Your Displays (Video) | Bildschirme anordnen (Video) |
 | Sound Settings | Toneinstellungen |
-| Backlight / Image / Color / Settings / Reset / Other *(Flip OSD chapters)* | unchanged — see §6.4 |
+| Backlight / Image / Color / Settings / Reset / Other *(Flip OSD chapters)* | Hintergrundbeleuchtung / Bildeinstellungen / Farbeinstellungen / Einstellungen / Zurücksetzen / Sonstiges — see §6.4 |
 | FAQ | FAQ |
 | Safety Instructions | Sicherheitshinweise |
 
@@ -816,7 +838,7 @@ it without editing all four.
 | Check before use | Vor der Verwendung prüfen |
 
 Note: the `Download Drivers` **heading** is translated (`Treiber herunterladen`) because
-it names the action, not the folder. The literal folder and drive names — `Drivers`,
+it names the action, not the volume. The literal volume and folder names —
 `DRIVERS (D:)`, `Win10&11`, `Win 7&8`, `mac OS` — stay verbatim (§5). The button label
 `Download Windows Drivers` → `Windows-Treiber herunterladen`; `Download for macOS` →
 `Für macOS herunterladen`.
@@ -884,7 +906,7 @@ The `| Feature | Specification |` header row and every field name:
 | Refresh Rate | Bildwiederholrate |
 | Color Accuracy | Farbgenauigkeit |
 | Color Gamut | Farbraum |
-| Backlight | Hintergrundbeleuchtung *(field name only — the OSD section heading stays `Backlight`, §6.1)* |
+| Backlight | Hintergrundbeleuchtung |
 | Weight | Gewicht |
 | Dimensions | Abmessungen |
 | Dimensions (folded) | Abmessungen (zusammengeklappt) |
@@ -1058,8 +1080,8 @@ Word-for-word renderings that are wrong or unidiomatic in German.
   surface and for individual screens of a multi-screen product. `Monitor` for the product
   as a whole ("the monitor turns on"). `Display` only where the EN clearly means the
   panel as a hardware component, and in the macOS UI label `Displays`.
-- **`Treiber` vs `Drivers`:** `Treiber` in body copy and headings. `Drivers` only as the
-  literal folder/drive name on the USB stick.
+- **`Treiber` vs `DRIVERS`:** `Treiber` in body copy and headings — always. `DRIVERS`
+  only when quoting the literal USB-stick volume label `DRIVERS (D:)`.
 - **`falls` vs `wenn` vs `ob`:** `falls` = "in case / if it should happen"; `wenn` =
   plain conditional or temporal "when"; `ob` = "whether" after `prüfen`/`sehen`. Never
   use `wenn` where the EN means "whether".
@@ -1077,26 +1099,39 @@ Word-for-word renderings that are wrong or unidiomatic in German.
 
 ---
 
-## 11. Open decisions for the orchestrator
+## 11. Decision log (glossary gate)
 
-Two calls I made that a reviewer may want to overturn. Each is applied consistently
-throughout this glossary; reversing one is a find-and-replace, not a rewrite.
+All items below have been through the orchestrator's glossary gate. Nothing here is
+still open; the log exists so a later reviewer does not re-open a settled question.
 
-1. **Unit spacing follows DIN 5008** (`45 W`, `5 V/2 A`, `100 %`, `−20 °C`), diverging
-   from the Dutch glossary, which locked the closed forms (`45W`, `5V`, `100%`,
-   `-20°C`). German technical convention requires the space; keeping the NL forms would
-   read as an error to a German reader. Angles (`178°`) keep no space in both languages.
-2. **Contrast ratio `100.000:1`** — the only figure in the corpus above four digits.
-   German uses a period as thousands separator, so `100,000:1` becomes `100.000:1`.
-   Four-digit figures take no separator at all (`1820 Gramm`, `1920 × 1080`), matching
-   the EN source and the NL lock.
+**Ruled by the gate**
 
-Also worth the orchestrator's attention: the EN corpus is internally inconsistent in
-three places, and this glossary normalises all three in German. Confirm that is wanted.
+- **R1 — OSD chapter headings translate.** Corrected: every `osd.mdx` heading is rendered
+  in natural German (§6.4), matching the locked NL precedent
+  (`## Backlight` → `## Achtergrondverlichting`, `## Reset` → `## Resetten`). Only
+  parenthesised ALL-CAPS device labels stay English. My earlier keep-EN rule for
+  `## Backlight` was overturned.
+- **Spec-table field names translate** — `Backlight` → `Hintergrundbeleuchtung` (§8)
+  **confirmed**. NL's keep-EN spec rows are verbatim inheritance from the Dutch booklet;
+  no German booklet exists, so DE/FR/IT translate them.
+- **`Download Drivers` → `Treiber herunterladen`** — stands (§7.4).
+- **`Reverse Charging` keep-EN** — stands (§5), client sign-off noted.
+- **`100.000:1`** — stands (§4). German period as thousands separator; the only figure in
+  the corpus above four digits. Four-digit figures keep no separator (`1820 Gramm`).
+- **DIN 5008 unit spacing** — accepted (§4): `45 W`, `5 V/2 A`, `100 %`, `−20 °C`. This
+  is deliberately **not** identical to the NL lock (`45W`, `5V`, `100%`, `-20°C`); do not
+  flag it as an nl↔de parity defect. Angles (`178°`) keep no space in both.
+- **Title style `Screenmate OneCable – Handbuch`** — accepted pending client sign-off
+  (§3.4, §7.1).
 
-- `Mini HDMI` vs `Mini-HDMI` → DE always `Mini-HDMI` (per `dnt.json`).
-- `protective case` vs `protective sleeve` → DE always `Schutzhülle`.
-- `3.5mm` vs `3.5 mm` → DE always `3,5-mm-`.
+**Still worth the client's eye (not blocking)**
+
+- **Windows "Flipped" → `Querformat (gedreht)`** (§9). German Windows has no standalone
+  "Gedreht" entry, and the NL solution (`Gespiegeld`) has no German counterpart. Verify
+  against a real German Windows install before the pages ship.
+- **Three EN-source inconsistencies normalised in German.** `Mini HDMI` / `Mini-HDMI` →
+  always `Mini-HDMI` (per `dnt.json`); `protective case` / `protective sleeve` → always
+  `Schutzhülle`; `3.5mm` / `3.5 mm` → always `3,5-mm-`.
 
 ---
 
