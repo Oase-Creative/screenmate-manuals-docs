@@ -666,7 +666,7 @@ Word-by-word renderings that are wrong or unidiomatic in Italian.
 | Pick the one that matches your laptop | `Prendi quello che combacia con il tuo laptop` | `Scegli quella adatta al tuo laptop` |
 | boost your productivity | `spingere la tua produttività` | `aumentare la tua produttività` |
 | on the go | `sull'andare` | `ovunque ti trovi` / `in mobilità` |
-| Need more overview? | `Hai bisogno di più panoramica?` | `Vuoi più spazio a schermo?` |
+| Need more overview? | `Hai bisogno di più panoramica?` · `Vuoi più spazio a schermo?` *(round-4 correction: this old target **inverted the meaning** — the instruction it introduces raises scaling to 150%, which enlarges text and leaves **less** usable space)* | `Vuoi una visione d'insieme migliore?` |
 | Want to extend your workspace? | `Vuoi estendere il tuo spazio di lavoro?` | `Vuoi estendere lo spazio di lavoro?` |
 | The screen stays black | `Lo schermo rimane nero` | `Lo schermo resta nero` |
 | What could be the cause? | `Cosa potrebbe essere la causa?` | `Quale può essere la causa?` |
@@ -1248,15 +1248,18 @@ ones (OSD run-ins are governed by the §7.3 glossing pattern and §7.3.1 vocabul
 ### 9.10 Recurring display-settings prompts
 
 The display-settings chapter is checksum-identical across products, so these prompts must be
-**byte-identical across every Italian page**. The EN side has drifted into near-duplicate
-phrasings for the same instruction; Italian collapses each group onto one target.
+**byte-identical across every Italian page that carries the same EN prompt**. The EN side has
+drifted into near-duplicate phrasings; Italian collapses a group onto one target **only where the
+EN variants really do say the same thing**. Where an EN variant says something different, it keeps
+its own Italian target — see the `Need more overview?` split below.
 
 | English (all variants) | Italian (locked) | EN occurrences |
 |---|---|---|
 | Screen upside down? | Schermo capovolto? | 11 |
 | Is a screen upside down? | Uno schermo è capovolto? | 3 |
 | Want to extend your workspace? | Vuoi estendere lo spazio di lavoro? | 7 |
-| Need more overview? · Want more on-screen space? · Need more room? | **Vuoi più spazio a schermo?** *(one target for all three — same instruction, EN drift)* | 6 + 1 + 1 |
+| Need more overview? | **Vuoi una visione d'insieme migliore?** *(round 4: previously collapsed onto `Vuoi più spazio a schermo?`, which inverted the meaning — see §6)* | 6 |
+| Want more on-screen space? · Need more room? | **Vuoi più spazio a schermo?** *(faithful to these two EN variants; that the EN prompts themselves fit the 150%-scaling answer badly is an EN-source matter — logged in `translations/qa/round4/source-flags-it.md`)* | 1 + 1 |
 | Working with three screens? | Lavori con tre schermi? | 1 |
 | Extend your workspace: | Estendi lo spazio di lavoro: | 1 |
 
