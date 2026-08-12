@@ -547,6 +547,7 @@ tables. Inside a JSX attribute the same string takes `&quot;` instead — `<Tab 
 | to drag | trascinare | | — |
 | password | password | f. invariable | ✓ |
 | menu bar | barra dei menu | | — |
+| shortcut menu *(the OSD hotkey menu a `+`/`−` press opens)* | menu rapido | `apre il menu rapido della luminosità` / `del volume`. **Round-4 addition:** EN uses one term — `brightness/volume shortcut menu` — on `one-4k`, `one-4k-oled` **and** `panorama`; Italian had split it into `menu delle scorciatoie` (one-4k pair) and `menu rapido` (panorama). One EN term, one Italian target: `menu rapido`. Keep `scorciatoia` for the §9.3 heading `Scorciatoie per volume e luminosità` and for a *link* shortcut (`una scorciatoia per le impostazioni audio`) | — |
 | taskbar | barra delle applicazioni | Windows IT label | — |
 | desktop | desktop | m. invariable | ✓ |
 | icon | icona | | — |
@@ -666,7 +667,7 @@ Word-by-word renderings that are wrong or unidiomatic in Italian.
 | Pick the one that matches your laptop | `Prendi quello che combacia con il tuo laptop` | `Scegli quella adatta al tuo laptop` |
 | boost your productivity | `spingere la tua produttività` | `aumentare la tua produttività` |
 | on the go | `sull'andare` | `ovunque ti trovi` / `in mobilità` |
-| Need more overview? | `Hai bisogno di più panoramica?` · `Vuoi più spazio a schermo?` *(round-4 correction: this old target **inverted the meaning** — the instruction it introduces raises scaling to 150%, which enlarges text and leaves **less** usable space)* | `Vuoi una visione d'insieme migliore?` |
+| Need more overview? · Want more on-screen space? · Need more room? *(three EN strings, one NL meaning: `meer overzicht`)* | `Hai bisogno di più panoramica?` · `Vuoi più spazio a schermo?` *(round-4 correction: this old target **inverted the meaning** — the instruction it introduces raises scaling to 150%, which enlarges text and leaves **less** usable space)* | `Vuoi una visione d'insieme migliore?` *(all 8 sites — see §9.10)* |
 | Want to extend your workspace? | `Vuoi estendere il tuo spazio di lavoro?` | `Vuoi estendere lo spazio di lavoro?` |
 | The screen stays black | `Lo schermo rimane nero` | `Lo schermo resta nero` |
 | What could be the cause? | `Cosa potrebbe essere la causa?` | `Quale può essere la causa?` |
@@ -1028,7 +1029,7 @@ the punctuation and the numbering exactly while translating the words:
 | Right "Plus" Button | Pulsante destro "Plus" |
 | OSD Lock | Blocco dell'OSD |
 | Opening the OSD Menu | Apertura del menu OSD |
-| Volume and Brightness Shortcuts | Scorciatoie per volume e luminosità |
+| Volume and Brightness Shortcuts | Scorciatoie per volume e luminosità *(the `### …` heading naming the feature, `one-4k`/`one-4k-oled` osd. The **inline** term `shortcut menu` is `menu rapido` — see §5.3 — exactly as EN uses the noun `Shortcuts` in the heading and `shortcut menu` in body copy.)* |
 | Brightness and volume | Luminosità e volume |
 | Adjusting Brightness | Regolazione della luminosità |
 | Adjusting Volume | Regolazione del volume |
@@ -1238,7 +1239,7 @@ ones (OSD run-ins are governed by the §7.3 glossing pattern and §7.3.1 vocabul
 | `**Press and hold (3 seconds):**` | `**Tieni premuto (3 secondi):**` | idem |
 | `**Press right ("Plus"):**` | `**Premi a destra ("Plus"):**` | idem |
 | `**Press left ("Min"):**` | `**Premi a sinistra ("Min"):**` | idem |
-| `Toggle right –` / `Toggle left –` | `Premi verso destra –` / `Premi verso sinistra –` | `infinity-lite/controls` — round-4 addition: `Sposta verso …` was a transitive imperative with no object; `premere verso` matches the `Premi a destra / a sinistra` forms above |
+| `Toggle right –` / `Toggle left –` | `Sposta il pulsante verso destra –` / `Sposta il pulsante verso sinistra –` | `infinity-lite/controls` — round-4 addition. The bare `Sposta verso …` was a transitive imperative with no object; naming the object fixes that **without changing the gesture**. ⚠ Do **not** collapse this onto the `Premi a destra / a sinistra` forms above: EN keeps `Toggle` (Infinity Lite, a sideways flick — NL `Naar links schakelen`) distinct from `Press` (Infinity), and Italian must keep `spostare` vs `premere` distinct the same way |
 | `**Power supply:**` | `**Alimentazione:**` | lite / lite-144hz / one-4k installation |
 | `**Connecting the console:**` | `**Collegamento della console:**` | idem |
 | `**Connecting the HDMI device:**` | `**Collegamento del dispositivo HDMI:**` | idem |
@@ -1250,20 +1251,26 @@ ones (OSD run-ins are governed by the §7.3 glossing pattern and §7.3.1 vocabul
 ### 9.10 Recurring display-settings prompts
 
 The display-settings chapter is checksum-identical across products, so these prompts must be
-**byte-identical across every Italian page that carries the same EN prompt**. The EN side has
-drifted into near-duplicate phrasings; Italian collapses a group onto one target **only where the
-EN variants really do say the same thing**. Where an EN variant says something different, it keeps
-its own Italian target — see the `Need more overview?` split below.
+**byte-identical across every Italian page**. The EN side has drifted into near-duplicate
+phrasings; Italian collapses each group onto one target.
 
-| English (all variants) | Italian (locked) | EN occurrences |
-|---|---|---|
-| Screen upside down? | Schermo capovolto? | 11 |
-| Is a screen upside down? | Uno schermo è capovolto? | 3 |
-| Want to extend your workspace? | Vuoi estendere lo spazio di lavoro? | 7 |
-| Need more overview? | **Vuoi una visione d'insieme migliore?** *(round 4: previously collapsed onto `Vuoi più spazio a schermo?`, which inverted the meaning — see §6)* | 6 |
-| Want more on-screen space? · Need more room? | **Vuoi più spazio a schermo?** *(faithful to these two EN variants; that the EN prompts themselves fit the 150%-scaling answer badly is an EN-source matter — logged in `translations/qa/round4/source-flags-it.md`)* | 1 + 1 |
-| Working with three screens? | Lavori con tre schermi? | 1 |
-| Extend your workspace: | Estendi lo spazio di lavoro: | 1 |
+> **Resolve prompts against the Dutch, not against the English (round-4 ruling).** The English is
+> the structural base, but for these prompts it is a *drifted* witness: the scaling prompt appears
+> as **three different English strings** for what is **one uniform Dutch string** (`meer overzicht`)
+> at all 8 sites, with the identical 150%-scaling body underneath in all three languages. Round 4
+> first split the Italian per EN variant; that reproduced the EN drift in Italian and left the
+> meaning-inverting `Vuoi più spazio a schermo?` on 2 pages. The collapse below is therefore keyed
+> to the **Dutch** meaning. The EN drift itself is logged in
+> `translations/qa/round4/source-flags-it.md` §3.1 as a pending EN-side revert-to-Dutch.
+
+| English (all variants) | Dutch | Italian (locked) | EN occurrences |
+|---|---|---|---|
+| Screen upside down? | Scherm ondersteboven? | Schermo capovolto? | 11 |
+| Is a screen upside down? | Staat een scherm ondersteboven? | Uno schermo è capovolto? | 3 |
+| Want to extend your workspace? | Wil je je werkruimte uitbreiden? | Vuoi estendere lo spazio di lavoro? | 7 |
+| Need more overview? · Want more on-screen space? · Need more room? | `Behoefte aan meer overzicht?` · `Heb je behoefte aan meer overzicht?` · `Meer overzicht nodig?` — **one meaning: *overview*** | **Vuoi una visione d'insieme migliore?** *(all 8 sites. The former target `Vuoi più spazio a schermo?` inverted the meaning — 150% scaling enlarges text and leaves **less** usable space; see §6. Do not re-split this row per EN variant.)* | 6 + 1 + 1 |
+| Working with three screens? | Werk je met drie schermen? | Lavori con tre schermi? | 1 |
+| Extend your workspace: | Werkruimte uitbreiden: | Estendi lo spazio di lavoro: | 1 |
 
 Their bodies, which recur verbatim with the prompts:
 

@@ -62,19 +62,34 @@ right = volume). Identical in English. Needs the real gesture map from the clien
 > (§9.9). `Min` is Dutch in origin, but it reaches Italian through the English page, so changing
 > it is an EN-side decision.
 
-### 1.4 Infinity Lite orientation value: `'Duplicato'` vs `'Capovolto'`
+### 1.4 Infinity Lite orientation value: `'Duplicato'` vs `'Capovolto'` — **CLIENT ESCALATION**
 
 | | |
 |---|---|
-| **File** | `it/manuals/infinity-lite/display-settings.mdx` (top section vs. the Tabs/video section) |
+| **File** | `it/manuals/infinity-lite/display-settings.mdx` L21 (top section) vs. L57 (Tabs/video section) |
 | **IT** | `…scegli **Capovolto** per correggerlo.` / `…scegli 'Duplicato' per correggerlo.` |
 | **EN** | `…choose **Flipped** to correct it.` / `…choose 'Mirrored' to correct this.` |
+| **NL** | `…kies **'Gespiegeld'**…` at **both** lines — NL is uniform, EN is the outlier |
 
 The Italian faithfully renders two *different* English strings: `Flipped` → `Capovolto` and
-`Mirrored` → `Duplicato`, both glossary-locked (§8). The English page is the stale one — glossary
-§8 already records `Mirrored` as *"superseded — EN pages now say 'Flipped'"*, but this EN page was
-not updated. Fix on the EN side (`Mirrored` → `Flipped`), then re-translate the line in all five
-languages.
+`Mirrored` → `Duplicato`, both glossary-locked (§8), where §8 already records `Mirrored` as
+*"superseded — EN pages now say 'Flipped'"*. This EN page was never updated.
+
+**Why this ranks above the neighbouring EN tidy-ups: the Italian lands worse than its English.**
+`Mirrored` is a label that simply does not exist in the Windows orientation dropdown, so an English
+reader hunting for it finds nothing and stops. `Duplicato` **does** exist in Windows Italian — it is
+the multi-monitor mode *Duplica questi schermi*. An Italian customer with an upside-down screen is
+therefore sent to a real setting that does the wrong thing: they mirror their desktop across both
+displays, do not fix the rotation, and then have to work out how to undo it.
+
+Not introduced by this wave, and out of scope for a target-only fix (the Italian is the locked
+rendering of the English string it was given). But it is a live wrong-instruction reaching
+customers, not a documentation tidy-up.
+
+**Fix on the EN side:** `'Mirrored'` → `'Flipped'` at
+`en/manuals/infinity-lite/display-settings.mdx:57`. This matches the Dutch, matches glossary §8's
+own *superseded* note, and matches line 21 of the same file — a revert-to-Dutch, not a design
+question. The Italian then follows automatically to `'Capovolto'` in all five languages.
 
 ### 1.5 Flip: "check the Screenmate's ports" vs. "check your laptop's ports"
 
@@ -196,18 +211,46 @@ was given. EN-side normalisation.
 
 ## 3. Prompts and sentences whose oddness is in the source
 
-### 3.1 `Vuoi più spazio a schermo?` — retained on two pages
+### 3.1 The scaling prompt: **three English strings for one Dutch string**
 
-The meaning-inverting rendering was **fixed** where English reads `Need more overview?` (6
-occurrences; see `fixlog-it.md`). It is **retained** on:
+**This is the EN-side finding.** The Italian is fully fixed — all 8 sites now read
+`**Vuoi una visione d'insieme migliore?**` (see `fixlog-it.md` §2.1 and §7.1). What remains is an
+English defect.
 
-- `it/manuals/infinity/display-settings.mdx` — EN `**Want more on-screen space?**`
-- `it/manuals/panorama/osd.mdx` — EN `**Need more room?**`
+The Dutch source is **uniform** across all 8 sites, and the body underneath is the identical
+150%-scaling instruction in all three languages:
 
-On those two pages the Italian is a faithful rendering of the English. That the English prompts
-themselves sit badly with the answer they introduce (raising scaling to 150% yields *larger
-elements and less usable space*) is an EN-source matter. Suggested EN fix: make all three prompts
-one string, on the model of `Need more overview?`.
+| Site | NL | EN |
+|---|---|---|
+| `dual-flip/display-settings.mdx:34` | `Behoefte aan meer overzicht?` | `Need more overview?` |
+| `expand/display-settings.mdx:34` | `Behoefte aan meer overzicht?` | `Need more overview?` |
+| `flip/display-settings.mdx:34` | `Behoefte aan meer overzicht?` | `Need more overview?` |
+| `onecable/display-settings.mdx:34` | `Behoefte aan meer overzicht?` | `Need more overview?` |
+| `infinity-lite/display-settings.mdx:23` | `Heb je behoefte aan meer overzicht?` | `Need more overview?` |
+| `infinity-lite/display-settings.mdx:59` | `Behoefte aan meer overzicht?` | `Need more overview?` |
+| `infinity/display-settings.mdx:30` | `Heb je behoefte aan meer overzicht?` | **`Want more on-screen space?`** |
+| `panorama/osd.mdx:49` | `Meer overzicht nodig?` | **`Need more room?`** |
+
+Every Dutch variant asks about ***overzicht*** — getting a better overview, i.e. taking more in at a
+glance. Two of the English renderings drifted away from that:
+
+- **`Want more on-screen space?`** (`en/manuals/infinity/display-settings.mdx:30`) reverses the
+  sense outright. Raising scaling to 150% enlarges text and elements and therefore yields *less*
+  usable screen space, so the English promises the opposite of what its own instruction delivers.
+- **`Need more room?`** (`en/manuals/panorama/osd.mdx:49`) is ambiguous rather than wrong: *room*
+  can be read as screen real estate or as room to take things in. NL `Meer overzicht nodig?`
+  disambiguates it to the latter.
+
+Because the English is a drifted witness here and the Dutch is uniform, the Italian resolves this
+prompt **against the Dutch**, with one target at all 8 sites. That ruling is recorded in
+`glossary-it.md` §9.10 so a future pass does not re-split the row per EN variant and reintroduce the
+inversion.
+
+**Recommended EN fix:** revert both outliers to `Need more overview?`. This is a
+*revert-to-Dutch*, not an open design question — the correct string already exists on the other 6
+English pages. `de` needs the same correction (`Brauchst du mehr Platz?` carries the inversion);
+`fr` is already correct (`Besoin d'une meilleure vue d'ensemble ?`), which is independent evidence
+for the *overview* reading.
 
 ### 3.2 `## Ricarica dello Screenmate OneCable` heading over a reverse-charging section
 

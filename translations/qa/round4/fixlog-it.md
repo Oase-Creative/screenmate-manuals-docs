@@ -13,16 +13,21 @@
 |---|---|
 | `605570c` | glossary meaning-inversion fix (`Need more overview?`) + its 6 pages |
 | `ed87722` | fluency wave — 29 Italian pages + 4 glossary additions |
-| *(this file)* | QA logs |
+| `290c8b4` | QA logs |
+| *(this commit)* | **fix round** after `review-it.md` — see §7 |
 
-**Headline counts**
+**Headline counts** *(after the fix round; §7 lists what changed)*
 
 | Outcome | Count |
 |---|---|
-| **Fixed** | 21 distinct findings → 43 edits across 30 Italian pages + 5 glossary rows |
-| **Rejected** (glossary-locked / DNT / locked convention / reviewer misreading) | 24 |
+| **Fixed** | 23 distinct findings → 59 changed lines across 32 Italian pages + 8 glossary rows |
+| **Rejected** (glossary-locked / DNT / locked convention / reviewer misreading) | 23 |
 | **Source-flagged** (EN or NL says the same thing — `source-flags-it.md`) | 38 |
 | **Deferred** (frozen safety bodies, or taste where a rewrite risks drift) | 12 |
+
+> The first wave (`605570c` + `ed87722`) was **29 changed files / 51 changed lines** under `it/` plus
+> 5 glossary rows — the figures originally printed here (30 files / 43 lines) were wrong, corrected
+> per `review-it.md` F-6. The fix round adds 3 files, 8 lines and 3 glossary rows.
 
 ---
 
@@ -207,8 +212,13 @@ Reviewer preferences that contradict a locked convention, a DNT token, or the so
 16. `Modalità generale` → `nell'uso normale` (fluency-b MAJOR-02) — `**General mode**` is a device
     mode label in `lite/controls.mdx`; EN `in general mode` on one-4k is the same concept, and the
     Italian is consistent across both products.
-17. `menu delle scorciatoie` → `menu rapido` (MAJOR-02) — EN says `shortcut menu` on one-4k and
-    `quick menu` on panorama; the Italian tracks each.
+17. ~~`menu delle scorciatoie` → `menu rapido` (MAJOR-02) — EN says `shortcut menu` on one-4k and
+    `quick menu` on panorama; the Italian tracks each.~~ **WITHDRAWN — the rejection was wrong and
+    its EN citation was false.** `quick menu` does not occur anywhere in `en/manuals/`; English uses
+    the same term on both products (`en/manuals/one-4k/controls.mdx:51-52`,
+    `en/manuals/one-4k-oled/controls.mdx:51-52`, `en/manuals/panorama/controls.mdx:38,44` — all
+    `shortcut menu`), so one EN term had two Italian targets with no source warrant. Reviewer B's
+    MAJOR-02 was correct. Fixed in the fix round — see §7.2.
 18. `aumenta` / `riduci` voice mismatch in `infinity/controls.mdx` (CRITICAL-02, second half) —
     misreading: `aumenta` is the `tu` imperative of *aumentare*, identical in form to the third
     person. Both bullets are imperative, like their neighbours.
@@ -332,3 +342,156 @@ $ git diff --stat -- 'it/**/safety.mdx'
 `translations/glossary-it.md`, `translations/qa/round4/`). No `git add -A`, no `--amend`, and no
 file under `de/`, `fr/`, `nl/` or `en/` was modified — the concurrent DE and FR working-tree
 changes were left untouched.
+
+---
+
+## 7. Fix round — response to `review-it.md`
+
+`review-it.md` returned **NEEDS FIXES**: 1 Critical, 2 Important, 4 Minor. All six actionable
+findings are addressed below; F-7 was explicitly "no action needed" and is left as it stands.
+
+### 7.1 [Critical] F-1 — the scaling-prompt split was under-inclusive
+
+**What went wrong.** The first wave keyed the split to the **English** prompt and stopped at 6 of 8
+sites. Checking the Dutch shows why that was the wrong axis: NL says *meer overzicht* at **all
+eight** sites, with the identical 150%-scaling body underneath in all three languages. The three
+English strings are EN-side drift from one Dutch string — so the original §9.10 collapse was right
+that the prompts say one thing, and wrong only about *which* thing. Splitting per EN variant
+reproduced the English drift in Italian and left the condemned, meaning-inverting string on two
+pages — one of which (`panorama/osd.mdx`, EN `Need more room?`, NL `Meer overzicht nodig?`) is a
+**target defect**, not a source-inherited one: `room` there means room to take things in, and
+rendering it `spazio a schermo` re-introduced exactly the inversion this wave exists to remove.
+
+Worse, §9.10 had **locked** the shortfall, which is the failure mode §2.1 itself warned about.
+
+**Pages** — the remaining 2 sites now carry the same target as the other 6:
+
+| File | before → after |
+|---|---|
+| `it/manuals/panorama/osd.mdx:49` | `**Vuoi più spazio a schermo?** Fai clic su…` → `**Vuoi una visione d'insieme migliore?** Fai clic su…` |
+| `it/manuals/infinity/display-settings.mdx:30` | `**Vuoi più spazio a schermo?**` → `**Vuoi una visione d'insieme migliore?**` |
+
+`grep -rn "Vuoi più spazio a schermo" it/` → **0 hits**. All 8 sites identical.
+
+**Glossary §9.10** — the two rows are folded back into one, and a standing ruling is added above the
+table: *resolve these prompts against the Dutch, not the English*, because for this prompt the
+English is a drifted witness. The table gains an NL column so the evidence travels with the rule,
+the row carries an explicit *"do not re-split this row per EN variant"*, and §6 line 669 now lists
+all three EN strings against the single Italian target.
+
+**`source-flags-it.md` §3.1** — rewritten from "retained on two pages, faithful" to the actual
+finding: **three EN strings for one NL string**, with the 8-site NL/EN table, the reason each
+outlier drifted, and the recommendation reframed as a *revert-to-Dutch* (the correct English already
+exists on the other 6 pages) rather than an open question. FR is noted as independent corroboration
+of the *overview* reading; DE carries the same inversion.
+
+### 7.2 [Important] F-2 — rejection #17 rested on a non-existent English string
+
+The rejection claimed EN says `quick menu` on panorama. It does not: `grep -rn "quick" en/manuals/`
+returns nothing, and all six English sites read `shortcut menu`. One EN term with two Italian
+targets and no source warrant is real drift, so the finding is now **accepted** and the Italian
+harmonised on `menu rapido` — the natural Italian, already in use on `panorama`:
+
+| File | before → after |
+|---|---|
+| `it/manuals/one-4k/controls.mdx:51` | `apre il menu delle scorciatoie per la luminosità.` → `apre il menu rapido della luminosità.` |
+| `it/manuals/one-4k/controls.mdx:52` | `apre il menu delle scorciatoie per il volume.` → `apre il menu rapido del volume.` |
+| `it/manuals/one-4k-oled/controls.mdx:51-52` | identical pair of edits (twin parity) |
+
+`panorama/controls.mdx:38,44` already read `menu rapido` and are unchanged. Glossary §5.3 gains a
+`shortcut menu` → `menu rapido` row. The §9.3 heading `Volume and Brightness Shortcuts` →
+`Scorciatoie per volume e luminosità` is deliberately **not** changed: English likewise uses the
+noun `Shortcuts` in that heading and `shortcut menu` in body copy, so the Italian split mirrors a
+split the source makes. A cross-reference note was added to both rows so a future pass does not
+churn them.
+
+Rejection entry #17 is struck through in §3 with the false citation named, per the review's point
+that leaving it in place would let a future pass "re-verify" it and reject the finding again.
+
+### 7.3 [Important] F-3 — `Toggle` → `Premi` had changed the documented gesture
+
+The grammatical objection to the original `Sposta verso sinistra` (transitive imperative, no object)
+was sound, but `Premi` fixed it by swapping the physical action. EN keeps `Press` (Infinity) and
+`Toggle` (Infinity Lite) deliberately distinct, and NL follows with `Naar links schakelen` — a
+sideways flick, not a press. A reader told to *press towards the left* on a side-toggle may push it
+inward. The correct fix names the object while keeping the movement verb:
+
+| File | before → after |
+|---|---|
+| `it/manuals/infinity-lite/controls.mdx:50` | `Premi verso sinistra – regola la retroilluminazione (luminosità).` → `Sposta il pulsante verso sinistra – regola la retroilluminazione (luminosità).` |
+| `it/manuals/infinity-lite/controls.mdx:54` | `Premi verso destra – regola il volume.` → `Sposta il pulsante verso destra – regola il volume.` |
+
+Glossary §9.9 row amended to the new target and given an explicit warning **not** to collapse it
+onto the `Premi a destra / a sinistra` forms on `infinity/controls`, since those render a genuinely
+different English verb. This restores the log's own rule — "EN splits, the Italian tracks each" —
+which rejections #17 and #21 apply correctly and this edit had violated.
+
+### 7.4 [Minor] F-4 — `tu` register restored at `panorama/osd.mdx:41`
+
+EN `so you may want to adjust the desktop layout in your operating system` / NL `dus mogelijk wil je
+de bureaubladindeling in je besturingssysteem aanpassen` — both address the reader and both carry a
+possessive. Removing the `potresti voler` calque was right, but the replacement had dropped both.
+
+> before: `quindi può essere utile modificare la disposizione del desktop nel sistema operativo.`
+> after:  `quindi può esserti utile modificare la disposizione del desktop nel tuo sistema operativo.`
+
+`esserti` restores the `tu` clitic and `nel tuo sistema operativo` restores the possessive, while
+keeping the impersonal-usefulness framing that avoids the `you may want to` calque — closer to the
+source than `potresti dover`, which would shift *may want* to *may have to*.
+
+### 7.5 [Minor] F-5 — `Duplicato` re-filed as a client escalation
+
+`source-flags-it.md` §1.4 rewritten. The classification (EN stale, IT faithful, out of scope for a
+target-only fix) stands, but the entry now records the part that makes it urgent: **the Italian
+lands worse than its English.** `Mirrored` is a label that does not exist in the Windows orientation
+dropdown, so an English reader finds nothing and stops; `Duplicato` *is* a real Windows Italian
+control — the multi-monitor mode *Duplica questi schermi* — so an Italian customer is sent to an
+existing setting that mirrors their desktop instead of fixing the rotation, and then has to undo it.
+Marked **CLIENT ESCALATION**, with the NL evidence (`Gespiegeld` at both lines) making the EN fix a
+revert-to-Dutch.
+
+### 7.6 [Minor] F-6 — edit counts corrected
+
+The header claimed *"43 edits across 30 Italian pages"*; the first wave was **29 files / 51 changed
+lines** under `it/` plus 5 glossary rows. Corrected, with the fix-round delta stated separately.
+
+### 7.7 F-7 — no action
+
+`A e B e C` → `A, B e C` (`expand/installation.mdx:20`, `infinity/installation.mdx:35`): the review
+records it only so a future parity sweep does not query it, and recommends keeping it. Kept.
+
+### 7.8 Fix-round verification
+
+```
+$ python scripts/verify_translation.py --base en --targets it --include-nl
+
+0 FAIL, 0 WARN
+
+$ python -m pytest tests/test_verify_translation.py -q
+....................                                                     [100%]
+20 passed in 0.19s
+```
+
+display-settings 4-product body identity — unchanged by this round (none of the 8 edits lands in
+that body), four identical hashes:
+
+```
+onecable   9a7b67c0a2662cc94be8774d99299a9a
+expand     9a7b67c0a2662cc94be8774d99299a9a
+flip       9a7b67c0a2662cc94be8774d99299a9a
+dual-flip  9a7b67c0a2662cc94be8774d99299a9a
+```
+
+Frozen safety, against the round-4 base:
+
+```
+$ git diff --stat a0525eb..HEAD -- 'it/manuals/*/safety.mdx'
+(no output)
+```
+
+Twin parity re-checked: `one-4k` and `one-4k-oled` `controls.mdx` received the identical
+`menu rapido` pair of edits.
+
+Scope: pathspec commit over `it/`, `translations/glossary-it.md`,
+`translations/qa/round4/fixlog-it.md` and `translations/qa/round4/source-flags-it.md` only. No
+`--amend`; concurrent `de/` and `fr/` working-tree changes untouched.
