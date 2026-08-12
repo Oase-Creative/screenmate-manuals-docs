@@ -491,7 +491,7 @@ tables. Inside a JSX attribute the same string takes `&quot;` instead — `<Tab 
 | power *(noun, electricity)* | alimentazione | `alimentazione aggiuntiva` | — |
 | power *(output capability)* | potenza | `una potenza in uscita superiore a 10 W` | — |
 | output power | potenza in uscita | | — |
-| power supply | alimentazione | `alimentazione esterna` = external power supply | — |
+| power supply | alimentazione | `alimentazione esterna` = external power supply. **Exception (round 4):** where EN `power supply` denotes the *physical unit* rather than the supply of power, render `alimentatore` — a property such as PD compatibility attaches to the device, not to the abstract noun (`The power supply is PD-compatible.` → `L'alimentatore è compatibile con PD.`, `onecable/troubleshooting.mdx`) | — |
 | power source | fonte di alimentazione | | — |
 | external power source | fonte di alimentazione esterna | | — |
 | additional power supply | alimentazione aggiuntiva | | — |
@@ -1203,6 +1203,7 @@ The two cable captions follow the §2.5 chain rule — the `>` renders as `da �
 | English | Italian | Occurrences |
 |---|---|---|
 | Your browser does not support the video tag. | Il tuo browser non supporta il tag video. | 14 — 2× in each of the six `display-settings.mdx`, 1× each in `onecable/installation-windows.mdx` and `-mac.mdx` |
+| This is your complete digital manual for the Screenmate {Product}. | Questo è il manuale digitale completo del tuo Screenmate {Prodotto}. *(round-4 addition: the possessive attaches to the product, not to the manual; `manuale … per lo Screenmate` is an EN/NL calque — Italian marks the relation with the genitive, matching `manuals-index.mdx`'s own `il manuale digitale completo del tuo prodotto Screenmate`)* | 11 — every `index.mdx` |
 
 #### Callout lead-ins (bare text children of `<Note>` / `<Warning>`)
 
@@ -1237,6 +1238,7 @@ ones (OSD run-ins are governed by the §7.3 glossing pattern and §7.3.1 vocabul
 | `**Press and hold (3 seconds):**` | `**Tieni premuto (3 secondi):**` | idem |
 | `**Press right ("Plus"):**` | `**Premi a destra ("Plus"):**` | idem |
 | `**Press left ("Min"):**` | `**Premi a sinistra ("Min"):**` | idem |
+| `Toggle right –` / `Toggle left –` | `Premi verso destra –` / `Premi verso sinistra –` | `infinity-lite/controls` — round-4 addition: `Sposta verso …` was a transitive imperative with no object; `premere verso` matches the `Premi a destra / a sinistra` forms above |
 | `**Power supply:**` | `**Alimentazione:**` | lite / lite-144hz / one-4k installation |
 | `**Connecting the console:**` | `**Collegamento della console:**` | idem |
 | `**Connecting the HDMI device:**` | `**Collegamento del dispositivo HDMI:**` | idem |
@@ -1272,6 +1274,7 @@ Their bodies, which recur verbatim with the prompts:
 | Want more on-screen space? Click Scale and set it to 150% for larger text and elements. *(prompt + body in one paragraph, `infinity/display-settings.mdx`)* | Vuoi più spazio a schermo? Fai clic su Ridimensionamento e impostalo su 150% per testo ed elementi più grandi. |
 | Select the relevant screen, go to 'Rotation' and choose 'Standard' to correct this. | Seleziona lo schermo interessato, vai su 'Rotazione' e scegli 'Standard' per correggerlo. |
 | Select the relevant screen, go to 'Display orientation' and choose 'Flipped' to correct this. | Seleziona lo schermo interessato, vai su 'Orientamento dello schermo' e scegli 'Capovolto' per correggerlo. |
+| …to see which screen has which number. | …per vedere quale numero corrisponde a ciascuno schermo. *(round-4 addition: the literal `per vedere quale schermo ha quale numero` transposes an EN correlative that does not exist in Italian; the `panorama/osd.mdx` rendering is now the locked target for all 7 occurrences)* |
 
 OS label forms come from §8; `fai clic su` (not `clicca`) from §5.3.
 
