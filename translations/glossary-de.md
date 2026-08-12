@@ -837,7 +837,7 @@ it without editing all four.
 | Menu / Select / Confirm | Menü / Auswahl / Bestätigen |
 | Confirm / Exit Button | Bestätigen-/Beenden-Taste |
 | Power Button | Power-Taste |
-| Power & Return Button | Power- und Zurück-Taste |
+| Power & Return Button | Power-/Zurück-Taste *(amended round 4 — the `und` form reads as two buttons; §3.5 slash-suspension is the house form for one multi-function button)* |
 | Scroll Wheel | Scrollrad |
 | + and − Buttons | Tasten + und − |
 | + Button (Increase Brightness) | Taste + (Helligkeit erhöhen) |
@@ -945,7 +945,7 @@ not an instruction, so they take `ich`/`mein`, never `du`/`dein`.
 | Shop Products | Produkte ansehen |
 | Warranty Info | Garantieinformationen |
 | Get help from our support team | Hilfe von unserem Support-Team erhalten |
-| Browse all Screenmate products | Alle Screenmate-Produkte durchsuchen |
+| Browse all Screenmate products | Alle Screenmate-Produkte entdecken *(amended round 4 — `durchsuchen` means "search through/rummage", not "browse")* |
 | Learn about product warranties | Mehr über die Produktgarantie erfahren |
 | Scanning a QR code? | Du hast einen QR-Code gescannt? |
 
@@ -1105,7 +1105,7 @@ Quote them with German quotes: `Wähle „Desktop auf diese Anzeige erweitern“
 | Windows | Display settings / Display Settings | Anzeigeeinstellungen |
 | Windows | Extend desktop to this display | Desktop auf diese Anzeige erweitern |
 | Windows | Identify | Identifizieren |
-| Windows | Display orientation | Anzeigeausrichtung |
+| Windows | Display orientation | Bildschirmausrichtung — see note |
 | Windows | Flipped | Querformat (gedreht) — see note |
 | Windows | Mirrored *(superseded — EN now says "Flipped")* | Querformat (gedreht) |
 | Windows | Scale | Skalierung |
@@ -1136,10 +1136,46 @@ orientation dropdown; the options are `Querformat`, `Hochformat`,
 corresponds to the EN "Flipped" in this instruction. Do not invent `Gespiegelt` — that
 is the Dutch solution and it does not appear in German Windows.
 
-The NL pages carry parenthetical Dutch OS labels alongside the English
-(`'Display settings' ('Beeldscherminstellingen')`) because the screenshots are English.
-Do the same in German: `„Display settings“ („Anzeigeeinstellungen“)` on first mention in
-the display-settings chapter, then the German label alone.
+**Note on "Display orientation" — amended round 4.** This row previously read
+`Anzeigeausrichtung`. That string does not exist in the German Windows UI: under
+*Skalierung und Layout* the field is labelled **`Bildschirmausrichtung`**. A coined
+label the reader cannot find on their own screen is a meaning defect, not a style
+preference, so the lock was corrected and all eight body occurrences plus one `alt`
+text were updated in the same commit (`de/manuals/{onecable,dual-flip,flip,expand,
+infinity,infinity-lite}/display-settings.mdx`, `de/manuals/panorama/osd.mdx`).
+
+**Note on OS-label glossing — amended round 4. ONE pattern, no exceptions.**
+
+> **German label only. Never add a parenthetical gloss in any language, on any mention,
+> anywhere in `de/`.**
+
+This paragraph previously required the English label first with a German gloss
+(`„Display settings“ („Anzeigeeinstellungen“)`), by analogy with the NL pages. The
+analogy does not hold, and it does not hold in a way that rules out *both* glossing
+directions:
+
+- The EN pages gloss the English label with the **Dutch** string
+  (`**Display settings** ('Beeldscherminstellingen')`) because the screenshots are Dutch.
+- The **NL** pages — the precedent actually being cited — carry **no gloss at all**
+  (`nl/manuals/onecable/display-settings.mdx:13` `kies **Beeldscherminstellingen**`),
+  because for a Dutch reader the leading label is already their own.
+- A German page is in the NL position, not the EN one: the reader's OS says
+  `Anzeigeeinstellungen`. An English gloss names a string that is on neither the
+  screenshot nor their screen; a Dutch gloss names the screenshot but not their screen.
+
+So German follows the NL precedent exactly: **the German label stands alone.**
+
+| EN source line | German |
+|---|---|
+| `choose **Display settings** ('Beeldscherminstellingen')` | `wähle **Anzeigeeinstellungen**` |
+| `choose 'Extend desktop to this display' ('Bureaublad uitbreiden…')` | `wähle „Desktop auf diese Anzeige erweitern“` |
+| `Open **Display Settings** and choose …` *(no gloss in EN)* | `Öffne die **Anzeigeeinstellungen** und wähle …` |
+
+This is now uniform across every site: `{onecable,dual-flip,flip,expand}/display-settings`
+(shared body), `infinity/display-settings`, `infinity-lite/display-settings`,
+`onecable/installation-mac`, `onecable/installation-windows`, `panorama/osd`. Grep check —
+`grep -rn 'Display settings\|System Settings\|Privacy & Security' de/` must return **0
+hits**. The German OS strings themselves are locked in the §9 table above; use those.
 
 ---
 
@@ -1184,8 +1220,44 @@ the display-settings chapter, then the German label alone.
 | Need extra power? | Brauchst du mehr Strom? |
 | No USB-C port on your laptop? | Dein Laptop hat keinen USB-C-Anschluss? |
 | Screen upside down? | Bildschirm steht auf dem Kopf? |
-| Need more room? / Need more overview? | Brauchst du mehr Platz? |
+| Need more overview? · Want more on-screen space? · Need more room? *(three EN strings, one NL source meaning: `meer overzicht`)* | Brauchst du mehr Übersicht? *(all 8 sites — amended round 4, see note. **Do not re-split this row per EN variant.**)* |
 | Want to extend your workspace? | Möchtest du deine Arbeitsfläche erweitern? |
+| connection scenarios *(sentence-level, not the `Connection Options` heading in §7.3)* | Anschlussvarianten *(round-4 harmonisation — 6 sites: `expand:42`, `flip:59`, `lite:13`, `lite-144hz:13`, `one-4k:23`, `one-4k-oled:23` `installation`. Not `Anschlussszenarien` (wrong register, triple `s`) and not a paraphrase like `lässt sich auf N Arten anschließen`.)* |
+| connection methods *(`infinity-lite/installation:73`)* / can be connected in the following ways *(`dual-flip:13`, `expand:18`, `infinity:33`)* | *(different EN strings — keep their existing paraphrases; do **not** normalise these onto `Anschlussvarianten`)* |
+| a small amount of power | etwas Strom *(round-4 harmonisation — 4 sites: `onecable`, `flip`, `expand`, `dual-flip` `index`. Not `eine geringe Menge Strom`.)* |
+| Simplified Chinese *(inside the OSD language list)* | Chinesisch (vereinfacht) *(round-4 harmonisation — 3 sites: `flip`, `dual-flip`, `expand` `osd`. German language-list convention; `Vereinfachtes Chinesisch` also wrongly capitalises the attributive adjective mid-list.)* |
+
+**Note on the scaling prompt — amended round 4, then corrected in review follow-up.**
+**Standing ruling: this family resolves against the Dutch. Do not re-split it per EN
+variant.**
+
+The EN corpus carries **three** strings where the Dutch carries **one**. All eight sites
+introduce the identical instruction (set scaling to 150 %), and the Dutch says
+*overzicht* at every one of them:
+
+| Site | EN | **NL — the source** | German |
+|---|---|---|---|
+| `{onecable,dual-flip,flip,expand}/display-settings:34` | `Need more overview?` | `Behoefte aan meer overzicht?` | `Brauchst du mehr Übersicht?` |
+| `infinity-lite/display-settings:23` | `Need more overview?` | `Heb je behoefte aan meer overzicht?` | idem |
+| `infinity-lite/display-settings:59` | `Need more overview?` | `Behoefte aan meer overzicht?` | idem |
+| `infinity/display-settings:30` | `Want more on-screen space?` | `Heb je behoefte aan meer **overzicht**?` | idem |
+| `panorama/osd:49` | `Need more room?` | `Meer **overzicht** nodig?` | idem |
+
+**Why the ruling exists.** Round 4 first split this row three ways, keyed to the English,
+and left `Brauchst du mehr Platz?` standing at the last two sites. That was wrong twice
+over: `mehr Platz` inverts the meaning (150 % scaling enlarges text and therefore leaves
+*less* usable desktop area), and the English variation it deferred to is **EN-side drift
+from a Dutch original that never varied** — a drifted witness cannot outvote the source.
+Italian resolved the identical line the same way in `f66e287`; DE and IT are now aligned
+on all eight. The EN drift is filed in `translations/qa/round4/source-flags-de.md` §8.
+
+**Residual, not fixed in any language:** "more overview" does not actually follow from
+enlarging text either. The prompt→instruction mismatch is a source defect present in NL
+and EN alike; `mehr Übersicht` restores *fidelity*, not logic. Flagged for the client.
+
+Unrelated and not part of this family: `Need extra power?` → `Brauchst du mehr Strom?`
+(`lite`, `lite-144hz`, `one-4k` `installation` — **3** sites; `one-4k-oled` has no such
+prompt), already correct.
 
 ### 10.2 Literal-translation traps
 
@@ -1354,10 +1426,21 @@ Where a locked row here disagrees with an already-shipped, QC'd DE page, **the s
 page wins** and this file is amended to match. Sections written after a chapter shipped
 were derived from the EN source, so they can carry a divergence the chapter never had.
 
-Frozen chapters (shipped `4792819`): **safety** and **display-settings**, all 17 files.
-`de/manuals/onecable/display-settings.mdx` and `de/manuals/onecable/safety.mdx` are
-canonical. Reconciled by file-set mapping — 33 string-level rows whose EN lives in a
-frozen chapter, checked against the shipped DE text; 2 amended (§10.1 `such as`,
+**Round-4 amendments to the display-settings chapter.** Three locked strings were shown to
+carry meaning errors, not stylistic ones, and were corrected together with every affected
+page: `Display orientation` → `Bildschirmausrichtung` (§9), the scaling prompt →
+`Brauchst du mehr Übersicht?` (§10.1), and the OS-label gloss pattern (§9).
+
+**Freeze status — read this before editing either chapter.** There is exactly one frozen
+chapter, and the two chapters are governed by different rules:
+
+| Chapter | Status | Rule |
+|---|---|---|
+| **safety** | **FROZEN** (shipped `4792819`), all 17 files, `de/manuals/onecable/safety.mdx` canonical | Do not edit the body. Style findings go to the fixlog for a native reviewer, not into the file. Verify with `git diff a0525eb..HEAD -- 'de/manuals/*/safety.mdx'` → must be empty. |
+| **display-settings** | **NOT frozen** — editable under the propagation rule | Edits are permitted, but the body is shared by OneCable, Dual Flip, Flip and Expand and must stay **byte-identical across all four** (§7.3). Never edit one product's copy alone. The invariant is enforced by checksum, not by a freeze: strip the frontmatter and compare — `awk 'BEGIN{c=0} /^---$/{c++; next} c>=2{print}' FILE \| md5sum` must return one hash four times. `de/manuals/onecable/display-settings.mdx` on `round4-fixes` is the canonical body. |
+
+Reconciled by file-set mapping — 33 string-level rows whose EN lived in one of these two
+chapters, checked against the shipped DE text; 2 amended (§10.1 `such as`,
 §10.2 `Watch your fingers`). Do not "restore" either row to its pre-amendment wording.
 
 Confirmed shipped and therefore locked beyond argument: DIN 5008 unit spacing
