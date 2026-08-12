@@ -464,7 +464,9 @@ also verified working — do not make that change unilaterally.
 | connection | connexion (f.) | — | — |
 | single cable / one cable | câble unique / un seul câble | — | — |
 | standby mode | mode veille (m.) | — | — |
-| interference | interférences (f.pl.) | usually plural in French | — |
+| interference *(electromagnetic)* | interférences (f.pl.) | usually plural in French. **Only for the EM sense** — the safety chapter's "strong magnetic fields or transmitting equipment" line. | — |
+| interference *(two power sources fighting)* | conflit d'alimentation (m.) | **round-4 correction.** `panorama/installation.mdx` used `interférences` for EN "may cause interference" about a charger plugged in while the Panorama also supplies power. French `interférences` reads as EMI and points the customer at the wrong phenomenon; the intended sense is a power-negotiation conflict. | — |
+| receive power *(a port)* | recevoir du courant | **round-4 addition** (`onecable/controls.mdx`). `recevoir de l'alimentation` is not a French collocation — `alimentation` is the supply, `courant` is what flows through the port. `sert à l'alimentation` is also correct where the port is described by purpose rather than by what it receives. | — |
 
 ### 5.3 Software, drivers & OS
 
@@ -684,7 +686,7 @@ Three values do change: `Grey` → `Gris`, `1820 grams` → `1820 grammes`, and
 | Click 'Open' | `Cliquez 'Ouvrir'` | `Cliquez sur «&nbsp;Ouvrir&nbsp;»` |
 | Restart your laptop | `Restartez votre laptop` | `Redémarrez votre ordinateur portable` |
 | After successful installation, … | `Après installation réussie…` | `Une fois l'installation terminée, …` |
-| Then proceed to step 5 | `Alors procédez à l'étape 5` | `Passez alors directement à l'étape&nbsp;5` |
+| Then proceed to step 5 | `Passez alors directement à l'étape&nbsp;5` | `Passez directement à l'étape&nbsp;5` *(round-4: `alors` dropped — see §6.1)* |
 | It's now ready for use | `Il est maintenant prêt pour l'usage` | `Il est maintenant prêt à l'emploi` |
 | If it doesn't work right away | `Si ça ne marche pas tout de suite` | `Si cela ne fonctionne pas immédiatement` |
 | provided that … | `fourni que…` | `à condition que…` (+ subjunctive) |
@@ -705,6 +707,41 @@ Three values do change: `Grey` → `Gris`, `1820 grams` → `1820 grammes`, and
 
 **Question headings:** the FAQ headings are full questions. Use inversion or `est-ce que`-free
 phrasing with `&nbsp;?` — see §9.4. Never leave an English-style bare `?` with no space.
+
+### 6.1 The `…&nbsp;? … alors …` question rhythm — **banned** (round-4 ruling)
+
+The EN corpus (via the Dutch source) repeatedly answers a rhetorical question with `Then …`:
+*"Is the output power lower than 10W? **Then** additional power supply is needed."* Two independent
+native French reviewers named the resulting `…&nbsp;? … **alors** …` the single loudest translationese
+tell in the FR corpus (9 occurrences, corrected 2026-08-12).
+
+> **Rule: keep the question, drop `alors`.** The bare question followed by a plain imperative or
+> declarative is idiomatic French consumer copy; the `alors` is what marks it as translated.
+
+| ✗ Wrong | ✓ Locked French |
+|---|---|
+| `Besoin d'une alimentation supplémentaire&nbsp;? Utilisez **alors** le câble…` | `Besoin d'une alimentation supplémentaire&nbsp;? Utilisez le câble…` |
+| `…figure déjà dans la liste&nbsp;? Passez **alors** directement à l'étape&nbsp;5.` | `…figure déjà dans la liste&nbsp;? Passez directement à l'étape&nbsp;5.` |
+| `…&nbsp;? Une alimentation supplémentaire est **alors** nécessaire…` | `…&nbsp;? Une alimentation supplémentaire est nécessaire…` |
+| `…&nbsp;? Suivez **alors** ces étapes&nbsp;:` | `…&nbsp;? Suivez ces étapes&nbsp;:` |
+
+The pre-existing `Pas de chargeur USB-C&nbsp;? Utilisez un adaptateur secteur approprié.`
+(`onecable/installation.mdx`) is the model. Do **not** restructure the question itself into
+`Si …, …` — that changes the sentence type the EN source uses. Only `alors` goes.
+
+Defect grep (want zero hits; `alors que` as a conjunction is fine):
+
+```
+grep -rnE '\?\*{0,2}&nbsp;\? [^.]*\balors\b|&nbsp;\?[^|]*\balors\b' fr/
+```
+
+### 6.2 Three more banned constructions (round-4 ruling)
+
+| ✗ Wrong | ✓ Locked French | Why |
+|---|---|---|
+| `Vérifiez si le voyant est allumé.` | `Vérifiez que le voyant est allumé.` / `Assurez-vous que…` | `vérifier si` = *find out whether* (open question). An instruction takes `que`. Calque of NL `controleer of`. |
+| `rétablir tous les réglages **à** leurs valeurs d'usine` | `réinitialiser tous les réglages **aux** valeurs d'usine` | `rétablir X à Y` is the EN *restore X to Y* pattern; French has no such preposition. `rétablir les réglages d'usine` (§5.4) is also correct. |
+| `basculez **le format d'image** entre 4:3 et WIDE` | `basculez **entre les formats** 4:3 et WIDE` | `basculer` in the *switch between modes* sense is intransitive; transitive `basculer qqch` means to tip it over. |
 
 ---
 
@@ -1529,3 +1566,20 @@ Reason: {file:line where it appears} + {why this French rendering}
    NL pages if anyone diffs them side by side. Confirm with the client if they compare languages.
 3. **`100 000:1` uses a wrappable plain space** per the R5 ruling. Accepted tradeoff, documented in
    §4.1; the `100&nbsp;000:1` fallback is verified working if a wrap is ever reported.
+
+**Round-4 proposals — §10-locked strings, NOT applied, awaiting client sign-off (2026-08-12).**
+Both round-4 fluency reviewers independently flagged these as calques. Each sits on a §10 locked
+boilerplate string reused across 3–5 products (and, for the `Évitez … afin d'éviter` items, inside a
+**frozen** `safety.mdx` body), so per the §10 lock and the `safety-align-fr.md` precedent none was
+changed unilaterally. Applying any of them means editing the glossary row **and** re-propagating to
+every affected file in one commit.
+
+| # | Locked FR string | Proposed | Where | Flagged by |
+|---|---|---|---|---|
+| R4-P1 | `Pour une utilisation économe en énergie, nous vous recommandons de débrancher le câble d'alimentation lorsque le moniteur n'est pas utilisé.` | `Pour limiter la consommation, débranchez le câble d'alimentation lorsque vous n'utilisez pas le moniteur.` | `index.mdx` ×4 (onecable, flip, dual-flip, expand) | fluency-fr-a **Major**, fluency-fr-b **Major** — nominal calque + `utilisation … utilisé` |
+| R4-P2 | `Votre QR code devrait vous avoir mené directement au manuel de votre produit.` | `En principe, votre QR code vous a conduit directement au manuel de votre produit.` | `fr/manuals-index.mdx` ×1 | fluency-fr-a **Major** — conditional-past calque |
+| R4-P3 | `écran portable triple` | `triple écran portable` | §5.1 term + §9.2 descriptions; `expand/index.mdx`, `panorama/index.mdx` | fluency-fr-a **Major**, fluency-fr-b **Major** — adjective order; the range already ships `double écran portable` for the dual product |
+| R4-P4 | `Lumière bleue faible (LOW BLUE LIGHT)` | `Réduction de la lumière bleue (LOW BLUE LIGHT)` | §7 CAPS table, §7.2; `flip/osd.mdx`, `expand/osd.mdx` | fluency-fr-a **Major** — no French product labels the feature this way |
+| R4-P5 | `Évitez toute exposition à l'humidité … afin d'éviter tout dommage…` / `Évitez les espaces humides … afin d'éviter…` | `… afin de ne pas endommager les composants électroniques` / `Évitez les environnements humides …` | **frozen** `safety.mdx` bodies (Group A ×7, infinity group ×3) | fluency-fr-a **Major**, fluency-fr-b **Major** — same verb twice; `espaces humides` |
+| R4-P6 | `Utilisez uniquement l'adaptateur CA/CC fourni comme alimentation.` | `Utilisez uniquement l'adaptateur secteur (CA/CC) fourni.` | **frozen** `safety.mdx` bodies | fluency-fr-a **Major**, fluency-fr-b **Major** — `comme alimentation` calque of *as power supply* |
+| R4-P7 | `Elles garantissent une utilisation sûre…` / `…adaptée à l'ampérage requis` | `Elles assurent un fonctionnement sûr…` / `…adaptée à l'intensité requise` | **frozen** `safety.mdx` bodies | `safety-align-fr.md` findings 1.1 / 1.2 (Minor) — carried forward unchanged |
