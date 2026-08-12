@@ -1204,19 +1204,28 @@ add a parenthetical the EN line does not have.
 | Need extra power? | Brauchst du mehr Strom? |
 | No USB-C port on your laptop? | Dein Laptop hat keinen USB-C-Anschluss? |
 | Screen upside down? | Bildschirm steht auf dem Kopf? |
-| Need more room? / Want more on-screen space? | Brauchst du mehr Platz? |
+| Need more room? | Brauchst du mehr Platz? *(panorama/osd only)* |
+| Want more on-screen space? | Brauchst du mehr Platz? *(infinity/display-settings only)* |
 | Need more overview? | Brauchst du mehr Übersicht? *(amended round 4 — see note)* |
 | Want to extend your workspace? | Möchtest du deine Arbeitsfläche erweitern? |
 
-**Note on `Need more overview?` — amended round 4.** The two EN variants were previously
-collapsed onto one German target, `Brauchst du mehr Platz?`. That target inverts the
-meaning of the `overview` variant: the instruction under it sets scaling to 150 %, which
-enlarges text and UI elements and therefore *reduces* usable desktop area. A German
-reader was being promised the opposite of what the setting delivers. The variants are now
-kept apart — `mehr Übersicht` for `Need more overview?` (6 occurrences: onecable,
-dual-flip, flip, expand `display-settings`, infinity-lite `display-settings` ×2) and
-`mehr Platz` for `Need more room?` / `Want more on-screen space?` (2 occurrences:
-panorama `osd`, infinity `display-settings`). Check the EN line before touching either.
+**Note on `Need more overview?` — amended round 4.** The EN corpus has **three** distinct
+run-in labels here, and this glossary previously collapsed all three onto one German
+target, `Brauchst du mehr Platz?`. That target inverts the meaning of the `overview`
+variant: the instruction under it sets scaling to 150 %, which enlarges text and UI
+elements and therefore *reduces* usable desktop area — the German reader was being
+promised the opposite of what the setting delivers. The three prompts now get one row
+each. **Grep the EN line before touching any occurrence**; two of the three are faithful
+as `mehr Platz` and must not be changed.
+
+| EN prompt | German | Occurrences (verified round 4) |
+|---|---|---|
+| `Need more overview?` | `Brauchst du mehr Übersicht?` | **6** — `{onecable,dual-flip,flip,expand}/display-settings` (shared body) + `infinity-lite/display-settings` ×2 |
+| `Want more on-screen space?` | `Brauchst du mehr Platz?` | **1** — `infinity/display-settings` |
+| `Need more room?` | `Brauchst du mehr Platz?` | **1** — `panorama/osd` |
+
+Unrelated and not part of this family: `Need extra power?` → `Brauchst du mehr Strom?`
+(lite, lite-144hz, one-4k, one-4k-oled `installation`), already correct.
 
 ### 10.2 Literal-translation traps
 
