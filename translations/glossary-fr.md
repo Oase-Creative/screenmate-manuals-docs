@@ -686,7 +686,7 @@ Three values do change: `Grey` → `Gris`, `1820 grams` → `1820 grammes`, and
 | Click 'Open' | `Cliquez 'Ouvrir'` | `Cliquez sur «&nbsp;Ouvrir&nbsp;»` |
 | Restart your laptop | `Restartez votre laptop` | `Redémarrez votre ordinateur portable` |
 | After successful installation, … | `Après installation réussie…` | `Une fois l'installation terminée, …` |
-| Then proceed to step 5 | `Passez alors directement à l'étape&nbsp;5` | `Passez directement à l'étape&nbsp;5` *(round-4: `alors` dropped — see §6.1)* |
+| Then proceed to step 5 | `Passez alors directement à l'étape&nbsp;5` *(the pre-round-4 lock, superseded — **not** a wrong-from-the-start example)* | `Passez directement à l'étape&nbsp;5` *(round-4: `alors` dropped — see §6.1; the original ✗ example `Alors procédez à l'étape 5` remains wrong too)* |
 | It's now ready for use | `Il est maintenant prêt pour l'usage` | `Il est maintenant prêt à l'emploi` |
 | If it doesn't work right away | `Si ça ne marche pas tout de suite` | `Si cela ne fonctionne pas immédiatement` |
 | provided that … | `fourni que…` | `à condition que…` (+ subjunctive) |
@@ -729,11 +729,45 @@ The pre-existing `Pas de chargeur USB-C&nbsp;? Utilisez un adaptateur secteur ap
 (`onecable/installation.mdx`) is the model. Do **not** restructure the question itself into
 `Si …, …` — that changes the sentence type the EN source uses. Only `alors` goes.
 
-Defect grep (want zero hits; `alors que` as a conjunction is fine):
+#### The carve-out: **the rule applies inside a sentence only**
+
+> **Across a paragraph break, replace `alors` with `Dans ce cas` — do not delete it.**
+
+When the question and its answer are **separate paragraphs**, adjacency no longer carries the
+condition and deleting the connector turns a conditional instruction into an unconditional one.
+That is a change in instruction semantics, not in style. Both source languages keep an explicit
+connector across the break, so the French must too:
+
+| | |
+|---|---|
+| EN `onecable/installation.mdx:44` | *"**Then** connect the other USB cable to a power outlet."* |
+| NL `onecable/installation.mdx:44` | *"Sluit **dan** de andere USB-kabel aan op het netstroom."* |
+| ✗ Wrong (deletes the condition) | `Vous n'avez qu'un seul port USB&nbsp;?` ¶ `Branchez l'autre câble USB sur une prise de courant.` |
+| ✓ Locked French | `Vous n'avez qu'un seul port USB&nbsp;?` ¶ `**Dans ce cas**, branchez l'autre câble USB sur une prise de courant.` |
+
+`Dans ce cas, …` is idiomatic French, is not the `alors` calque, and is the standard French device
+for exactly this cross-paragraph question-answer pattern. Merging the two paragraphs into one would
+also restore the condition, but it changes the block structure and breaks parity with `en/`.
+
+Of the nine sites corrected on 2026-08-12, **eight are intra-sentence** (`alors` deleted) and
+**one is cross-paragraph** (`onecable/installation.mdx:44`, `Dans ce cas` added).
+
+#### Defect greps — two passes, both must return nothing
+
+`alors que` as a conjunction is fine and neither pattern reaches it.
 
 ```
-grep -rnE '\?\*{0,2}&nbsp;\? [^.]*\balors\b|&nbsp;\?[^|]*\balors\b' fr/
+# 1. same-sentence form
+grep -rnE '&nbsp;\?[^|]*\balors\b' fr/
+
+# 2. cross-paragraph form (the carve-out shape) — needs PCRE: POSIX ERE reads \n literally
+LC_ALL=C.UTF-8 grep -rlzP '&nbsp;\?\s*\n\s*\n[^\n]*\balors\b' fr/
 ```
+
+**Both passes were validated against `ebbda95` (the pre-fix tree):** pass 1 finds the 8
+intra-sentence sites, pass 2 finds `fr/manuals/onecable/installation.mdx`. A single-line `-E`
+expression **cannot** guard the carve-out — GNU grep's ERE treats `\n` as a literal `n`, so a
+`\n\n` alternative silently matches nothing. Do not "simplify" these two passes back into one.
 
 ### 6.2 Three more banned constructions (round-4 ruling)
 

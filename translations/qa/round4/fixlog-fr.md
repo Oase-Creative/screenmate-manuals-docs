@@ -4,16 +4,24 @@
 
 **Inputs:** `fluency-fr-a.md` (1 Critical, 30 Major, 15 Minor) · `fluency-fr-b.md` (3 Critical, 38 Major, 27 Minor) · `safety-align-fr.md` (PASS — 0 Critical, 0 Major, 5 Minor)
 
-| Outcome | Count |
-|---|---|
-| **Fixed** (distinct findings) | **33**, applied as **60 string replacements across 31 files** |
-| **Rejected** (locked convention / faithful to EN) | **31** |
-| **Source-flagged** (EN/NL defect, French left faithful) | **39** — see `source-flags-fr.md` |
-| **Deferred** (taste, or unfixable without drift) | **11** |
-| **Glossary changes** | 5 (2 rulings added, 1 row corrected, 2 rows added) + 7 §12 proposals logged |
+> **This file has two rounds.** §1–§6 record the first fix wave (commits `aea5af3`, `6c3cf8c`).
+> **§7 records the second wave**, answering the independent review in `review-fr.md`
+> (0 Critical, 1 Important, 8 Minor). Where the two disagree, **§7 wins** — the counts below are
+> round-1 counts, superseded by §7.8. Three round-1 renderings were revised in §7
+> (`onecable/installation.mdx:44`, the USB-A Note in flip/dual-flip, `panorama/controls.mdx:27`)
+> and one round-1 log row was corrected (§1.3 #18).
 
-Every finding in the three reports was triaged against its `en/` counterpart before any edit.
-Nothing was changed on the strength of the French reading alone.
+| Outcome | Round 1 | Final (§7.8) |
+|---|---|---|
+| **Fixed** (distinct findings) | 33, as 60 replacements across 31 files | **36**, as **64 replacements across 31 files** |
+| **Rejected** (locked convention / faithful to EN) | 31 | **31** |
+| **Source-flagged** (EN/NL defect, French left faithful) | 39 | **41** — see `source-flags-fr.md` |
+| **Deferred / recorded-only** | 11 | **14** |
+| **Glossary changes** | 5 | **6** + 7 §12 proposals logged |
+
+Every finding in the three reports was triaged against its `en/` counterpart before any edit, and
+against `nl/` wherever the two sources could disagree. Nothing was changed on the strength of the
+French reading alone.
 
 ---
 
@@ -77,7 +85,7 @@ now reads `Vérifiez que … Assurez-vous que … Vérifiez que …` — varied,
 | 15 | `one-4k/installation.mdx`, `one-4k-oled/installation.mdx` | Si votre appareil **prend en charge la charge** via USB-C… | Si votre appareil **est compatible avec la recharge par** USB-C… | Cacophonous repeated root; EN *"supports charging"* has no such problem. *(The `l'écran se recharge` referent was **not** touched — it is faithful to EN and source-flagged as P9.)* |
 | 16 | `one-4k/installation.mdx`, `one-4k-oled/installation.mdx` | **Avec la prise en charge de** Power Delivery (PD), le Screenmate passe… | **Lorsque Power Delivery (PD) est pris en charge**, le Screenmate passe… | Word-for-word calque of an English absolute phrase. The passive keeps EN's deliberate vagueness about *whose* PD support — the reviewer's suggested `Si votre appareil prend en charge…` would have added a fact EN withholds. |
 | 17 | `infinity/index.mdx` | …pour vous offrir deux écrans supplémentaires **à la fois**. | …pour vous offrir **simultanément** deux écrans supplémentaires. | `à la fois` in final position reads as *at a time* (alternately), inverting EN's *at once*. `simultanément` keeps the meaning without dropping it. |
-| 18 | `infinity-lite/controls.mdx` ×2 | **Basculement vers la gauche – règle** le rétroéclairage… | **Basculez vers la gauche pour régler** le rétroéclairage… | Nominal-style calque of *"Toggle left – adjusts…"*; every other bullet on the page is a `vous`-imperative. The `–` was left as U+2013 because EN uses U+2013 here. |
+| 18 | `infinity-lite/controls.mdx` ×2 | **Basculement vers la gauche – règle** le rétroéclairage… | **Basculez vers la gauche pour régler** le rétroéclairage… | Nominal-style calque of *"Toggle left – adjusts…"*; every other bullet on the page is a `vous`-imperative. **Corrected 2026-08-12 (review M-7):** an earlier draft of this row claimed the U+2013 dash "was left as-is". It was not — the rewrite into a `pour`-infinitive **removes the dash entirely**, which is faithful to `en/manuals/infinity-lite/controls.mdx:51,55`. No U+2013 survives at these two lines. |
 | 19 | `infinity-lite/installation.mdx` | Ouvrez le cadre **jusqu'au clic** pour le déployer. | Ouvrez le cadre **jusqu'au déclic** pour le déployer. | In French `clic` is a mouse click; the sound a mechanism makes when it latches is a `déclic`. Controller-verified. |
 
 ### 1.4 Wrong or unusable French words
@@ -268,4 +276,175 @@ $ grep -rn "transfert vidéo" fr/  → 0 hits
 $ grep -rn "rétablir tous les réglages" fr/ → 0 hits
 $ grep -rn "Cela se fait" fr/     → 0 hits
 $ grep -rn "prend en charge la charge" fr/ → 0 hits
+```
+
+---
+
+# 7 · Fix round 2 — responses to `review-fr.md`
+
+**Date:** 2026-08-12 · Review verdict: **NEEDS FIXES** — 0 Critical, 1 Important, 8 Minor.
+All 9 findings addressed below: **4 page/glossary fixes applied, 2 documentation corrections,
+3 recorded-only (no change warranted).**
+
+## 7.1 · I-1 (REQUIRED) — the cross-paragraph conditional
+
+`fr/manuals/onecable/installation.mdx:44`. The review is right and this was a real regression:
+sites #1 and #2 of the `alors` class are **not** the same shape. Site #2's question and answer are
+separate paragraphs, so `alors` was the only thing scoping the imperative to the one-USB-port case.
+Verified independently — both sources carry an explicit connector across the break:
+
+| | |
+|---|---|
+| `en/manuals/onecable/installation.mdx:44` | *"**Then** connect the other USB cable to a power outlet."* |
+| `nl/manuals/onecable/installation.mdx:44` | *"Sluit **dan** de andere USB-kabel aan op het netstroom."* |
+
+| Before (shipped in `aea5af3`) | After |
+|---|---|
+| `Branchez l'autre câble USB sur une prise de courant.` | `Dans ce cas, branchez l'autre câble USB sur une prise de courant.` |
+
+`Dans ce cas` restores the condition without reintroducing the banned `alors` rhythm, and keeps the
+two paragraphs separate so the block structure still matches `en/`.
+
+**Glossary §6.1 gained the carve-out** in the same commit: *the rule applies inside a sentence; across
+a paragraph break, replace `alors` with `Dans ce cas`, do not delete it* — with the EN/NL evidence, a
+wrong/right pair, and the note that of the nine corrected sites eight are intra-sentence and one is
+cross-paragraph. Re-audited the other eight: **all confirmed intra-sentence, all still correct.**
+
+## 7.2 · M-2 — the §6.1 defect grep repaired
+
+The published guard was doubly broken and is replaced by **two passes**:
+
+```
+# 1. same-sentence form
+grep -rnE '&nbsp;\?[^|]*\balors\b' fr/
+
+# 2. cross-paragraph form — needs PCRE
+LC_ALL=C.UTF-8 grep -rlzP '&nbsp;\?\s*\n\s*\n[^\n]*\balors\b' fr/
+```
+
+Two defects confirmed by reproduction against `ebbda95`:
+
+1. **Dead alternative.** The old first alternative `\?\*{0,2}&nbsp;\? [^.]*\balors\b` finds **0**
+   lines on its own (it needs a literal `?` before optional asterisks before `&nbsp;?`, which never
+   occurs). The full old expression found 8 — all from the second alternative. Removed.
+2. **The carve-out was unguardable.** The review's suggested `-E` replacement still misses it:
+   GNU grep's **POSIX ERE reads `\n` as a literal `n`**, so the `&nbsp;\?\n\n…` alternative matches
+   nothing. It appeared to work only because the same file also contains site #1. Verified:
+   `grep -czE '&nbsp;\?\n\n[^\n]*\balors\b' fr/manuals/onecable/installation.mdx` → **0**;
+   the PCRE form → **matches**. Hence PCRE, and hence two passes rather than one.
+
+Validation on the pre-fix tree: pass 1 → the 8 intra-sentence sites; pass 2 → exactly
+`fr/manuals/onecable/installation.mdx`. Post-fix, both return nothing. A "do not simplify these
+back into one expression" warning is now in the glossary.
+
+## 7.3 · M-3 — the USB-A Note follows the Dutch, not EN-expand
+
+The review is right that the null-variance justification was wrong, and the **NL tiebreaker settles
+it in the opposite direction** from the collapse target chosen in round 1:
+
+| | |
+|---|---|
+| `nl/…/flip:76`, `nl/…/dual-flip:50`, `nl/…/expand:63` | *"Dit kan **gemakkelijk** via de USB-A-poort van je laptop."* — **all three** |
+| `en/…/flip:76`, `en/…/dual-flip:50` | *"This can **easily** be done via your laptop's USB-A port."* |
+| `en/…/expand:63` | *"The USB-A port on your laptop works well for this."* — **the drifted side** |
+
+So `convient parfaitement` was modelled on the one English sentence that had already lost the Dutch
+`gemakkelijk`. Fixed at the two sites the round-1 pass touched:
+
+| File | Before | After |
+|---|---|---|
+| `flip/installation.mdx:76` | Le port USB-A de votre ordinateur portable **convient parfaitement pour cela**. | Le port USB-A de votre ordinateur portable **permet de le faire facilement**. |
+| `dual-flip/installation.mdx:50` | *(identical)* | *(identical)* |
+
+`expand/installation.mdx:63` is **deliberately left** at `convient parfaitement pour cela` — that
+line predates this round and is faithful to its own EN. French now mirrors the real EN per-file
+split instead of flattening it. The EN-expand drift is logged as **source-flag D19**, with the note
+that if EN-expand is repaired the three should collapse onto the `facilement` sentence.
+
+## 7.4 · M-4 — `conflit d'alimentation` stands, with a client flag
+
+Kept: `interférences` genuinely read as EMI and misdirected the reader, so the change is a net
+improvement whichever way the client rules. But the review is right that the replacement is more
+specific than either source (EN *"interference"*, NL *"storingen"* — both generic). Logged as
+**source-flag F1** in a new section *"French is more specific than both sources — for the native
+reviewer to confirm"*, with the two ways to close the gap: fix EN/NL to say what they mean, or
+soften the French to `des perturbations` / `des dysfonctionnements`. No page or glossary change.
+
+## 7.5 · M-6 — `écran précis` → `l'un des écrans`
+
+Accepted. `précis` means *specific*, where EN:27 says *"an **individual** screen"* and NL:27 says
+*"een **los** beeldscherm"* (= *a separate screen*) — both meaning **one of the three panels**.
+
+| Before | After |
+|---|---|
+| …pour connecter votre ordinateur portable à un **écran précis**. | …pour connecter votre ordinateur portable à **l'un des écrans**. |
+
+(The original `écran individuel` remains correctly rejected: in French it reads *personal/private*.)
+
+## 7.6 · M-7 — stale dash claim corrected
+
+Fixlog §1.3 row #18 claimed the U+2013 dash "was left as-is". It was not: rewriting
+`Basculement vers la gauche – règle…` into `Basculez vers la gauche pour régler…` removes the dash
+entirely, which is faithful to `en/manuals/infinity-lite/controls.mdx:51,55`. The row now says so.
+**Documentation-only correction — the shipped edit was and remains correct.**
+
+## 7.7 · Recorded only — no change warranted
+
+| # | Item | Disposition |
+|---|---|---|
+| **M-5** | `angle d'appui` → `angle d'inclinaison` renames *support angle* to *tilt angle* | The review's own conclusion: `angle d'appui` is a non-collocation, no French phrasing of "support angle" is idiomatic, and the stand's adjustable property *is* its inclination. Recorded, not reversed. |
+| **M-8** | Two intentional harmonisations: the `RESET` bullet (3 files — EN alternates *their factory defaults* / *factory defaults*) and `transmission vidéo` (6 hunks — EN alternates *video transfer* / *video transmission*) | Both are null EN variance with no French distinction available, collapsed per the E2/E3 precedent in `safety-align-fr.md`. Flagged here for whoever maintains EN↔FR parity: these are harmonisations, not mirrors. |
+| **M-9** | `onecable/index.mdx:19` drops the *connection* node (EN *"one cable connection"*, NL *"één kabelaansluiting"*) | `connexion par câble` was a genuine calque; the dropped noun carries no information the sentence needs and `à l'aide d'un seul câble` is the right register for a product one-liner. Recorded. |
+
+## 7.8 · Revised counts
+
+| Outcome | Round 1 | After fix round 2 |
+|---|---|---|
+| Fixed (distinct findings) | 33 | **36** (+I-1, +M-3, +M-6) |
+| Replacements / files touched | 60 / 31 | **64 / 31** (4 further replacements, all in files already in scope) |
+| Rejected | 31 | 31 |
+| Source-flagged | 39 | **41** (+D19, +F1) |
+| Deferred / recorded-only | 11 | **14** (+M-5, +M-8, +M-9) |
+| Glossary changes | 5 | **6** (+§6.1 carve-out; §6.1 grep replaced; §6 row annotated) |
+
+## 7.9 · Verification after fix round 2
+
+```
+$ python scripts/verify_translation.py --base en --targets fr --include-nl
+0 FAIL, 0 WARN
+
+$ python -m pytest tests/test_verify_translation.py -q
+....................                                                     [100%]
+20 passed
+```
+
+Unchanged from baseline — **no new WARN class**.
+
+**Frozen `safety.mdx`, against the pre-round-4 merge base:**
+
+```
+$ git diff --stat a0525eb..HEAD -- 'fr/manuals/*/safety.mdx'
+(empty)
+```
+
+**`display-settings` 4-group body md5** (frontmatter stripped):
+
+| Product | FR body | EN body |
+|---|---|---|
+| `onecable` / `flip` / `dual-flip` / `expand` | `ec24415c0551ca0628b4f8b22c7a6bdc` ×4 | `467551f5a59279929d98a427fcdce9d0` ×4 |
+
+Unchanged; the FR sharing group is still congruent with the EN sharing group.
+
+**Structural parity:** heading counts identical to `en/` in all 62 files; `git diff --numstat` for
+this round shows **4 added / 4 deleted**, balanced 1:1 in each of the 4 files — replacements only,
+no line added or removed.
+
+**Defect greps, current tree:**
+
+```
+$ grep -rnE '&nbsp;\?[^|]*\balors\b' fr/                              → 0
+$ LC_ALL=C.UTF-8 grep -rlzP '&nbsp;\?\s*\n\s*\n[^\n]*\balors\b' fr/   → 0
+$ grep -rn 'alors' fr/        → 1 (panorama/installation.mdx:66, the conjunction 'alors que')
+$ grep -rn 'écran précis' fr/ → 0
+$ grep -rn 'convient parfaitement pour cela' fr/ → 1 (expand/installation.mdx:63, deliberate — D19)
 ```
