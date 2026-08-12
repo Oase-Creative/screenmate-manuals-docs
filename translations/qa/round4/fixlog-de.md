@@ -1,53 +1,69 @@
 # Round 4 — German fix log
 
 **Branch:** `round4-fixes`
-**Commits:** `fd77217` (glossary + display-settings OS-label pass), `1cf7bbf` (fluency wave)
-**Inputs triaged:** `fluency-de-a.md`, `fluency-de-b.md`, `safety-align-de.md`
+**Commits:** `fd77217` (glossary + display-settings OS-label pass), `1cf7bbf` (fluency wave),
+`bd2b490` (docs), plus the review follow-up commit — see **§F**.
+**Inputs triaged:** `fluency-de-a.md`, `fluency-de-b.md`, `safety-align-de.md`, then
+`review-de.md` (independent review of this round — §F).
 **Files touched:** 41 under `de/**` + `translations/glossary-de.md`. **No `safety.mdx` body was
-edited** (`git diff --stat HEAD~2 -- 'de/**/safety.mdx'` is empty).
+edited** (`git diff --stat a0525eb..HEAD -- 'de/manuals/*/safety.mdx'` is empty).
 
-**Triage totals**
+**Triage totals** *(including the §F follow-up)*
 
 | Outcome | Count |
 |---|---|
-| Fixed (real German defects) | **58** distinct edits across 41 files |
-| Rejected (locked convention / faithful to source / taste) | **34** |
-| Source-flagged (EN/NL defect, German faithful) | **45** rows, logged in `source-flags-de.md` |
-| Deferred (worth a native reviewer's eye, not fixed here) | **6** |
+| Fixed (real German defects) | **69** distinct edits across 42 files |
+| Rejected (locked convention / faithful to source / taste) | **42** |
+| Source-flagged (EN/NL defect, German faithful) | **46** rows, logged in `source-flags-de.md` |
+| Deferred (worth a native reviewer's eye, not fixed here) | **7** |
 
-Every finding was checked against the aligned `en/` line before a verdict; `nl/` was consulted
-wherever the EN wording was itself ambiguous (the `Need more overview?` / `Display orientation`
-rows in particular).
+Every finding was checked against the aligned `en/` line before a verdict.
+
+> **Correction (§F1).** An earlier version of this paragraph claimed `nl/` was consulted "wherever
+> the EN wording was itself ambiguous (the `Need more overview?` … rows in particular)". That claim
+> was **overstated**: the NL grep behind it was case-sensitive and silently missed
+> `nl/manuals/panorama/osd.mdx:49` `**Meer overzicht nodig?**`, which is why two sites were wrongly
+> classified as source-inherited. NL has now been checked case-insensitively at all eight sites and
+> the classification corrected — see §F1.
 
 ---
 
 ## A. Glossary amendments — locked strings that carried meaning errors
 
-Four locked strings were fixed **together with every affected page in the same commit**, as the
-brief requires. These are the highest-consequence changes in this round.
+Five locked strings were fixed **together with every affected page in the same commit**, as the
+brief requires. These are the highest-consequence changes in this round. Three of the five were
+corrected again in the review follow-up (§F) — the **Now** column shows the final state.
 
 | § | Was | Now | Why it is a meaning error, not a preference |
 |---|---|---|---|
 | §9 | `Display orientation → Anzeigeausrichtung` | **`Bildschirmausrichtung`** | `Anzeigeausrichtung` is a coined string. German Windows labels the field **`Bildschirmausrichtung`** under *Skalierung und Layout*. The reader is sent looking for something that is not on their screen. 8 body occurrences + 1 `alt` text updated. |
-| §10.1 | `Need more room? / Need more overview? → Brauchst du mehr Platz?` — a **three-way collapse**: the EN corpus has three distinct run-in labels here | split into **one row per EN prompt** (see table below) | The single target inverted the meaning of the `overview` variant: the instruction under it sets scaling to 150 %, which *reduces* usable desktop area. 6 occurrences fixed; the 2 genuine `room`/`space` occurrences were checked against EN and **left alone** — `mehr Platz` is faithful there. |
-
-**The three-way split (§10.1), verified occurrence by occurrence against the aligned EN line:**
-
-| EN prompt | German | Occurrences | Action |
-|---|---|---|---|
-| `Need more overview?` | **`Brauchst du mehr Übersicht?`** | 6 — `{onecable,dual-flip,flip,expand}/display-settings` (shared body) + `infinity-lite/display-settings` ×2 | **fixed** (meaning inversion) |
-| `Want more on-screen space?` | `Brauchst du mehr Platz?` | 1 — `infinity/display-settings` L30 | **left alone** — faithful |
-| `Need more room?` | `Brauchst du mehr Platz?` | 1 — `panorama/osd` L49 | **left alone** — faithful |
-
-This matches the split the Italian fixer made on the same glossary defect. Not part of this
-family and already correct: `Need extra power?` → `Brauchst du mehr Strom?` (4 installation pages).
-| §9 note | English OS label first, German gloss in parentheses | **German label leads**; English goes in the parentheses *only where the EN line carries a gloss at all* | The analogy to the NL pages does not hold: the screenshots in this chapter are **Dutch**, so on a German page the English string is on neither the screenshot nor the reader's OS. Where EN has no gloss (`infinity`, `infinity-lite`, `installation-mac`), the German now has none either — parity restored. |
-| §7.5 | `Browse all Screenmate products → Alle Screenmate-Produkte durchsuchen` | **`… entdecken`** | `durchsuchen` = to search through / rummage (the police *durchsuchen* a flat). It also contradicted its own card title `Produkte ansehen` directly above it. |
+| §10.1 | `Need more room? / Need more overview? → Brauchst du mehr Platz?` | **`Brauchst du mehr Übersicht?`** at **all 8 sites** *(first split three ways keyed to EN — corrected in §F)* | The single target inverted the meaning: the instruction under it sets scaling to 150 %, which *reduces* usable desktop area. See the superseded-note below and §F1. |
+| §9 note | English OS label first, German gloss in parentheses | **German label only, no gloss** *(first "German leads + English gloss" — corrected in §F3)* | The analogy to the NL pages does not hold: the screenshots in this chapter are **Dutch**, so on a German page the English string is on neither the screenshot nor the reader's OS. NL itself carries no gloss. |
+| §7.5 | `Browse all Screenmate products → Alle Screenmate-Produkte durchsuchen` | **`… durchstöbern`** *(first `entdecken` — corrected in §F4/M7)* | `durchsuchen` = to search through / rummage (the police *durchsuchen* a flat). It also contradicted its own card title `Produkte ansehen` directly above it. |
 | §7.4 | `Power & Return Button → Power- und Zurück-Taste` | **`Power-/Zurück-Taste`** | EN says "Button" (singular) and "Press the … button" — it is **one** button. The suspended-hyphen + `und` form reads as two, so `Drücke die Power- und Zurück-Taste` instructed the reader to press both. §3.5 already establishes slash-suspension (`Menü-/Auswahl-/Bestätigungstaste`) as the house form for a multi-function single button. 4 occurrences (lite, lite-144hz × controls, osd). |
 
-§11.0 was updated to record that the **display-settings** chapter is no longer byte-frozen at
-`4792819`; its new canonical body is `de/manuals/onecable/display-settings.mdx` on this branch.
-The **safety** chapter remains frozen.
+> ### ⚠ Superseded — the three-way split below was wrong. See §F1.
+>
+> This round first split §10.1 into one row per EN prompt and fixed only the 6 `overview` sites,
+> leaving `Brauchst du mehr Platz?` at `infinity/display-settings:30` and `panorama/osd:49`:
+>
+> | EN prompt | German (as first shipped) | Occurrences | Action then |
+> |---|---|---|---|
+> | `Need more overview?` | `Brauchst du mehr Übersicht?` | 6 | fixed |
+> | `Want more on-screen space?` | `Brauchst du mehr Platz?` | 1 — `infinity/display-settings` | left alone |
+> | `Need more room?` | `Brauchst du mehr Platz?` | 1 — `panorama/osd` | left alone |
+>
+> **That reasoning was keyed to the English and it was wrong.** NL — the ultimate source — says
+> `overzicht` at **all eight** sites, so the three EN strings are EN-side drift, not a meaning
+> distinction. All eight German sites now read `Brauchst du mehr Übersicht?`, the glossary row is
+> folded back into one NL-anchored row with a standing "resolve against the Dutch" ruling, and the
+> EN drift is filed in `source-flags-de.md` §8. Full account in **§F1**.
+
+Not part of this family and already correct: `Need extra power?` → `Brauchst du mehr Strom?` —
+**3** installation pages (`lite`, `lite-144hz`, `one-4k`; `one-4k-oled` carries no such prompt).
+
+§11.0 was rewritten (see §F2) to state the two chapters' different regimes: **safety** is frozen;
+**display-settings** is editable but must stay checksum-identical across its four products.
 
 ---
 
@@ -57,7 +73,7 @@ The **safety** chapter remains frozen.
 
 | File(s) | Before | After |
 |---|---|---|
-| `{onecable,dual-flip,flip,expand}/display-settings.mdx` | `wähle **Display settings** („Anzeigeeinstellungen“)` | `wähle **Anzeigeeinstellungen** („Display settings“)` |
+| `{onecable,dual-flip,flip,expand}/display-settings.mdx` | `wähle **Display settings** („Anzeigeeinstellungen“)` | `wähle **Anzeigeeinstellungen**` *(final state after §F3; this round first shipped it with an English gloss)* |
 | idem | `gehe zu „Anzeigeausrichtung“` | `gehe zu „Bildschirmausrichtung“` |
 | idem | `**Brauchst du mehr Platz?**` | `**Brauchst du mehr Übersicht?**` |
 | `infinity/display-settings.mdx` | `Öffne die **Display settings** („Anzeigeeinstellungen“) und wähle …` | `Öffne die **Anzeigeeinstellungen** und wähle …` *(EN carries no gloss here)* |
@@ -76,8 +92,8 @@ The **safety** chapter remains frozen.
 | `lite-144hz/index.mdx` | `Er ist dafür gemacht, Gamern … einen **flüssigen** zweiten Bildschirm … zu bieten.` | `Damit bietet er Gamern und Power-Usern einen zweiten Bildschirm **mit flüssiger Darstellung** …` (a screen is not *flüssig*; its rendering is) |
 | `one-4k/index.mdx`, `one-4k-oled/index.mdx` *(twins, edited identically)* | `Er wird über USB-C oder HDMI angeschlossen **und überträgt** auf kompatiblen Geräten Video und Strom …` | `Du schließt ihn über USB-C oder HDMI an. Auf kompatiblen Geräten laufen Video und Strom über ein einziges USB-C-Kabel.` (zeugma: passive + active on one subject, and it made the monitor transmit power) |
 | `one-4k/index.mdx` | `Er **gibt** dir einen hochauflösenden zweiten Bildschirm` | `Er **bietet** dir …` |
-| `onecable/controls.mdx` | `Dieser Anschluss empfängt Daten und Video von deinem Laptop und kann auch Strom aufnehmen.` | `Über diesen Anschluss empfängt der Monitor Daten und Video von deinem Laptop und kann darüber auch mit Strom versorgt werden.` |
-| `onecable/controls.mdx` | `Das ist der Hauptanschluss, **um** deinen Laptop über USB-C **anzuschließen**.` | `An diesem Hauptanschluss schließt du deinen Laptop über USB-C an.` (German does not hang a purpose-infinitive off a bare predicate noun) |
+| `onecable/controls.mdx` | `Dieser Anschluss empfängt Daten und Video von deinem Laptop und kann auch Strom aufnehmen.` | ~~`Über diesen Anschluss empfängt der Monitor …`~~ → **reverted in §F4/M4**; the original was idiomatic (`Strom aufnehmen` is standard German) and port-as-subject matches `:34` and the EN |
+| `onecable/controls.mdx` | `Das ist der Hauptanschluss, **um** deinen Laptop über USB-C **anzuschließen**.` | `Das ist der Hauptanschluss **für die Verbindung zu** deinem Laptop über USB-C.` *(final state after §F4/M4 — drops the purpose-infinitive hanging off a copula **and** keeps the "this is the main port" assertion that `en/…:53` later depends on)* |
 | `onecable/controls.mdx` | `… und **wird verwendet für:**` | `… und wird **für Folgendes** verwendet:` (stranded preposition before a bullet list is English) |
 | `expand/index.mdx` | `… den du an deinen Laptop klemmst und **zu zwei Full-HD-Bildschirmen aufklappst – einer auf jeder Seite**.` | `… den du an deinen Laptop klemmst und aufklappst: Du bekommst zwei Full-HD-Bildschirme, **je einen** auf jeder Seite.` |
 | `dual-flip/index.mdx` | `… aufklappst – **einer** auf jeder Seite.` | `… aufklappst – **je einer** auf jeder Seite.` |
@@ -232,3 +248,145 @@ expand       23c155f4861fc970c03a1d1f0838886a
 after it. The four display-settings bodies remain byte-identical after propagation. The twin
 products (`lite` / `lite-144hz` and `one-4k` / `one-4k-oled`) received identical edits wherever
 their EN pages are identical apart from product name and specs.
+
+---
+
+# F. Review follow-up — `review-de.md` (0 Critical, 3 Important, 16 Minor)
+
+Second pass on `round4-fixes` addressing the independent review. All three Importants fixed, plus
+9 of the 16 Minors; the remaining 8 are logged below with reasons. **The review's §0 finding is
+recorded: zero target defects were wrongly classified as source-inherited (13 confirmed, 2 partial,
+0 wrong).** The two partials were wording errors in the claim documents, both corrected here.
+
+## F1 — Important 3: the scaling prompt, resolved against the Dutch *(the significant one)*
+
+**I was wrong, and the review caught a verification error, not just a judgement call.** §E of this
+log claimed `nl/` had been consulted on these rows. It had not been, effectively: the NL grep I ran
+was **case-sensitive** and `nl/manuals/panorama/osd.mdx:49` reads `**Meer overzicht nodig?**` with a
+capital *M*, so it never appeared in my results. I then reasoned from EN alone and concluded the two
+remaining sites were source-inherited.
+
+Re-run case-insensitively, the picture inverts: **NL says `overzicht` at all eight sites.** The
+three EN strings are EN-side drift from one Dutch string, and a drifted witness does not outvote the
+source.
+
+| Site | NL | EN | Was | Now |
+|---|---|---|---|---|
+| `infinity/display-settings.mdx:30` | `Heb je behoefte aan meer **overzicht**?` | `Want more on-screen space?` | `Brauchst du mehr Platz?` | **`Brauchst du mehr Übersicht?`** |
+| `panorama/osd.mdx:49` | `Meer **overzicht** nodig?` | `Need more room?` | `Brauchst du mehr Platz?` | **`Brauchst du mehr Übersicht?`** |
+
+`grep -rn "mehr Platz" de/` → **0 hits**. All 8 sites now carry `mehr Übersicht`, matching the
+Italian resolution in `f66e287` — DE and IT now resolve the same source line on the same principle.
+
+Glossary: the three per-EN-variant rows are **folded back into one NL-anchored row** with a standing
+ruling — *this family resolves against the Dutch; do not re-split per EN variant* — plus the full
+site table and the NL evidence. Filed as an EN defect in `source-flags-de.md` §8, split into **8a**
+(EN drift: 3 strings for 1) and **8b** (the prompt does not match its instruction in *any* language
+— 150 % scaling shows *less* at once, so "more overview" is a source-side non-sequitur too).
+
+**The review is also right that §A of this log overstated the win.** `mehr Übersicht` restores
+fidelity to the Dutch. It does **not** make the passage logical. That claim has been corrected here
+and in the glossary note.
+
+## F2 — Important 1: the glossary contradicted itself about the display-settings freeze
+
+`§11.0` said the chapter was "no longer byte-frozen" and, three lines later, still listed it under
+`Frozen chapters (shipped 4792819): safety and display-settings`. Replaced both with one
+**freeze-status table** that states the true, different regimes:
+
+- **safety** — FROZEN, 17 files, body not editable; verify `git diff a0525eb..HEAD -- 'de/manuals/*/safety.mdx'` is empty.
+- **display-settings** — **not frozen**, editable under the propagation rule; the invariant is
+  **byte-identity across the four shared products, enforced by checksum**, not by a freeze. The
+  `awk … | md5sum` command is written out in the table so the next round can run it.
+
+## F3 — Important 2: one OS-label gloss pattern, swept
+
+The round-4 note argued the English gloss "helps nobody" on a German page and then kept exactly that
+gloss on the one line it rewrote — while making every other page German-only. Resolved to the NL
+precedent the note itself cites: **German label only, no gloss, any language, any mention.**
+
+| Site | Was | Now |
+|---|---|---|
+| `{onecable,dual-flip,flip,expand}/display-settings.mdx:13` | `wähle **Anzeigeeinstellungen** („Display settings“)` | `wähle **Anzeigeeinstellungen**` |
+| same file `:31` | already gloss-free (EN has two Dutch glosses) | unchanged — now consistent with `:13` |
+
+Evidence for the ruling: `nl/manuals/onecable/display-settings.mdx:13` is `kies
+**Beeldscherminstellingen**` — no gloss, because for a Dutch reader the leading label is already
+their own. A German reader is in the same position. Glossary §9 now states the single rule with a
+grep check; `grep -rn "Display settings|System Settings|Privacy & Security" de/` → **0 hits**.
+
+## F4 — Minors fixed
+
+| # | File | Was | Now |
+|---|---|---|---|
+| M4 | `onecable/controls.mdx:17,19` | `Über diesen Anschluss empfängt der Monitor … und kann **darüber** auch mit Strom versorgt werden.` / `An diesem Hauptanschluss schließt du deinen Laptop über USB-C an.` | `Dieser Anschluss empfängt Daten und Video von deinem Laptop und kann auch Strom aufnehmen.` / `Das ist der Hauptanschluss für die Verbindung zu deinem Laptop über USB-C.` — the assertion `en/…:53` depends on is restored, the duplicated connection statement is gone, `darüber` is gone, and port-as-subject is consistent with `:34` again |
+| M2 | `infinity-lite/index.mdx:19` | `und **funktioniert** per Plug-and-Play mit …` | `und **ist für den Plug-and-Play-Betrieb** mit … **ausgelegt**` — EN says "is designed for"; the German was promising it works |
+| M3 | `panorama/index.mdx:19` | `… erforderlich: **Er steuert** drei unabhängige Bildschirme … **an**.` | `… erforderlich: **Erst er macht es möglich**, drei unabhängige Bildschirme … **anzusteuern**.` — restores EN's `allows … to be driven` |
+| M7 | `manuals-index.mdx:101` | `Alle Screenmate-Produkte **entdecken**` | `… **durchstöbern**` — `entdecken` (discover) is a marketing register EN `Browse` / NL `Bekijk` do not have; `durchstöbern` is the exact German for "browse" |
+| M8a | `dual-flip/controls.mdx:35,39` | `Im OSD-Menü **navigierst du** damit und **erhöhst** Werte.` | `Im OSD-Menü **dient die Taste zum Navigieren und zum Erhöhen** von Werten.` — keeps one voice inside the entry |
+| M8b | `panorama/osd.mdx:41` | `**Vielleicht** möchtest du … **daher** …` | `**Daher** möchtest du … **vielleicht** …` |
+| M10 | `lite/index.mdx:19`, `lite-144hz/index.mdx:19` | `ein leichter**,** tragbarer …-Monitor` | comma **reverted** — the pair is hierarchical, not coordinate (`tragbarer …-Monitor` is the Gesamtbegriff, amtl. Regelwerk §71 E1). The sibling `ein faltbarer, tragbarer Doppelmonitor` passes the und-Probe and stays. |
+| M13a | `infinity/installation.mdx:174` | `muss sauber in die Aussparung … **greifen**` | `muss genau in die Aussparung … **passen**` — EN `drop neatly into … for a snug fit` is passive seating; `greifen` claimed active engagement |
+| M13b | `panorama/installation.mdx:23` | `**Greife** die Bildschirme` | `**Fasse** die Bildschirme **an**` — **reverted**. My stated reason (`anfassen` = "to touch") was wrong: Duden gives *mit der Hand berühren, **ergreifen***, so the original was already correct for EN `Grip`. Reverting also removes the third sense `greifen` had acquired across `de/`. |
+| M14 | `lite/osd.mdx:51`, `lite-144hz/osd.mdx:51` | `Wähle die **Sprache** des OSD-Menüs aus 12 verfügbaren **Sprachen**.` | `Wähle eine von 12 verfügbaren Sprachen für das OSD-Menü.` |
+| M6 | `glossary-de.md` §10.1 | three round-4 harmonisations applied but unrecorded | rows added for `connection scenarios → Anschlussvarianten` (6 sites, with the scoping note), `a small amount of power → etwas Strom` (4 sites), `Simplified Chinese → Chinesisch (vereinfacht)` (3 sites), **plus** an explicit do-not-normalise row for the EN strings that only *look* similar (`connection methods`, `can be connected in the following ways`) |
+| M9 | claim documents | three inaccuracies | (a) `Need extra power?` corrected 4 → **3** sites; (b) `source-flags` §2 rewritten — only `flip/index` is a true same-value split, `expand` differs in value and `onecable`/`lite`/`dual-flip` have no in-file split at all; (c) `source-flags` §7 reworded — the infinity-lite `'Mirrored'` line **is** collapsed onto the `Flipped` target and that is correct and glossary-locked; the old flag text misdescribed the file |
+
+## F5 — Minors rejected, one line each
+
+1. **M1** (`designed to / built to` asserted as fact on 5 product intros) — kept. German product copy
+   asserts; confined to non-procedural marketing prose; the review calls it defensible. The one
+   member that crossed into a capability promise (M2) *was* fixed. Flagged for client sign-off.
+2. **M5a** (`for a better user experience` dropped at `infinity-lite/installation:58`) — kept.
+   `so ein, wie es für dich am angenehmsten ist` carries the adjunct; restoring it literally
+   reinstates the `Nutzungserlebnis` anglicism the fix removed.
+3. **M5b** (`mit zwei USB-A-Steckern` explicitates EN `dual`) — kept. `das doppelte Kabel` was not a
+   German noun phrase and the detail is stated two lines later in EN; the reader must be able to
+   identify the accessory in a troubleshooting answer.
+4. **M5c** (`umschalten` → `einschalten` for EN `switches to fast-charge mode`) — kept, **but the
+   stated reason in §B5 was wrong**: EN does say *mode*. The rendering stands only because
+   `Schnellladefunktion` is glossary-locked, which rules out `in den Schnelllademodus um`. Reason
+   corrected here.
+5. **M11** (`von`-stacking at `panorama/installation:43`) — rejected. The stacking *was* removed:
+   `von der Download-Seite **von** Silicon Motion` (two adjacent `von`-phrases) is now
+   `auf der Download-Seite **von** Silicon Motion` (one). The suggested
+   `Silicon-Motion-Downloadseite` would collide with §3.4, which forbids coupling a multi-token
+   brand into a German compound.
+6. **M12** (passive/active split across four sibling index pages) — rejected. The One 4K rewrite was
+   driven by a *meaning* defect (the coordination made the monitor the thing that transmits power),
+   not by the diathesis alone. `Er wird über USB-C oder HDMI angeschlossen und wiegt nur 609 Gramm`
+   coordinates a passive with a harmless stative and reads fine; changing it would be churn.
+7. **M15** (commas around `falls nötig`) — kept. The review itself notes both forms are correct
+   (amtl. Regelwerk §77 E1) and that there is "no defect either way". Logged so it is not re-flagged.
+8. **M16** (`Bildschirmausrichtung` is the Windows 11 label while `Desktop auf diese Anzeige
+   erweitern` is Windows 10-era) — no change; the fix is an improvement regardless. Added to the
+   deferred list for verification against a live German Windows 11 install before ship.
+
+## F6 — Verification (re-run after the follow-up)
+
+```
+$ python scripts/verify_translation.py --base en --targets de --include-nl
+0 FAIL, 0 WARN
+
+$ python -m pytest tests/test_verify_translation.py -q
+....................                                                     [100%]
+20 passed in 0.18s
+
+$ git diff --stat a0525eb..HEAD -- 'de/manuals/*/safety.mdx'
+(no output — safety bodies untouched since a0525eb)
+
+$ for f in onecable dual-flip flip expand; do
+    awk 'BEGIN{c=0} /^---$/{c++; next} c>=2{print}' de/manuals/$f/display-settings.mdx | md5sum
+  done
+onecable     77cfed71bc3e4b0b63e9ea963e4c44aa
+dual-flip    77cfed71bc3e4b0b63e9ea963e4c44aa
+flip         77cfed71bc3e4b0b63e9ea963e4c44aa
+expand       77cfed71bc3e4b0b63e9ea963e4c44aa
+
+$ grep -rn "mehr Platz" de/                                              -> 0 hits
+$ grep -rn "Display settings|System Settings|Privacy & Security" de/     -> 0 hits
+```
+
+The shared body checksum changed from `23c155f4…` to `77cfed71…` because the I2 gloss sweep edits
+that body; all four products moved together and remain byte-identical, which is the invariant that
+matters. 0 FAIL, 0 WARN with no new warn classes.

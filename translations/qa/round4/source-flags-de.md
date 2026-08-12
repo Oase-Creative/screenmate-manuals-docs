@@ -31,10 +31,21 @@ propagate.
 **Files:** `flip/index.mdx`, `expand/index.mdx` (two tabs of one table), plus `onecable/index.mdx`,
 `lite/index.mdx`, `dual-flip/index.mdx`.
 
-EN uses `Color Gamut` in one tab and `Color Accuracy` in the other for the *same* row
-(`45% NTSC`, `72% NTSC`, `100% sRGB`). German follows the glossary (§8): `Farbraum` /
-`Farbgenauigkeit`. `Color Accuracy` is additionally the wrong term for a gamut-coverage figure —
-accuracy is a ΔE quantity. Do **not** harmonise in German only; that would hide the EN defect.
+*(Corrected after review — the original wording of this section overstated the scope.)*
+
+There are **two distinct EN defects** here, not one:
+
+1. **A true same-value split inside one table — `flip/index.mdx` only.** `:47` labels `45% NTSC`
+   as `Color Gamut`, `:66` labels the *identical* value `45% NTSC` as `Color Accuracy`, in two
+   tabs of one table. `expand/index.mdx` has the same two labels but on **different** values
+   (`72%` vs `45%`), so it is a labelling inconsistency, not a self-contradiction.
+2. **`Color Accuracy` is the wrong term for gamut coverage** wherever it is used — accuracy is a
+   ΔE quantity, coverage is not. This affects `onecable`, `lite` and `dual-flip` too, which use
+   `Color Accuracy` alone with no in-file split.
+
+German follows the glossary (§8) in every case: `Color Gamut` → `Farbraum`,
+`Color Accuracy` → `Farbgenauigkeit`. Do **not** harmonise in German only; that would hide the
+EN defect from the other four languages.
 
 ## 3. Box contents that do not match the box
 
@@ -100,7 +111,7 @@ accuracy is a ΔE quantity. Do **not** harmonise in German only; that would hide
 | `flip/installation.mdx` | `first check which ports are involved` → `First check which ports the Screenmate has` → `First check which ports your laptop has` | Three "first check" in twelve lines, the last two contradicting each other about what to check first. |
 | `infinity/installation.mdx` | `Each screen rotates a maximum of 90°.` … six lines later … `Each screen has a maximum rotation of 90°.` | Same fact, twice, on one page. |
 | `infinity-lite/installation.mdx` | `Follow the correct sequence … to avoid damage to the device. Store your Screenmate carefully to prevent damage to the equipment.` | Same purpose clause twice in consecutive sentences. |
-| `infinity-lite/display-settings.mdx` | Windows + macOS instruction set appears twice (`## Display Configuration`, then `## Arrange Your Displays (Video)`), with slightly different wording and a bold-vs-quotes split for the same UI strings | Reads as an editing accident. Structural parity forbids collapsing it in German only. |
+| `infinity-lite/display-settings.mdx` | Windows + macOS instruction set appears twice (`## Display Configuration`, then `## Arrange Your Displays (Video)`), with slightly different wording and a bold-vs-quotes split for the same UI strings | Reads as an editing accident. The duplicated *blocks* must stay — removing one would break structural parity. *(Corrected after review: an earlier version of this row said parity "forbids collapsing it in German only", which misdescribed the file. The one substantive EN divergence inside the duplicate — `:57` `'Mirrored'`, the only such occurrence in the whole EN corpus against eight `Flipped` — **is** collapsed onto the `Querformat (gedreht)` target in German, and that is correct and locked: `glossary-de.md` §9 carries the row `Mirrored (superseded — EN now says "Flipped") → Querformat (gedreht)`. No page change needed; only this description was wrong.)* |
 | `infinity-lite/installation.mdx` | three `<Warning>` callouts containing neutral assembly instructions | Component choice is structural; changing it in German only would break parity. Worth raising with the EN owner — repeated non-warnings devalue the real ones. |
 | `lite` + `lite-144hz` `/osd.mdx` | `Adjust the brightness of the red RGB value.` (and green, blue) | A *value* has no brightness. `expand/osd.mdx` gets it right in EN (`Adjust the red channel`), so EN already contains its own fix. |
 | `lite` + `lite-144hz` `/osd.mdx` | `Color Temperature: Choose User, Warm, or Cool to adjust the overall color intensity.` | Colour temperature shifts the white point, not intensity. |
@@ -108,3 +119,43 @@ accuracy is a ΔE quantity. Do **not** harmonise in German only; that would hide
 | `panorama/controls.mdx` | `Use a Mini HDMI to HDMI cable to connect your laptop to an individual screen.` | The intended meaning (each of the three Mini-HDMI ports drives one panel) is not recoverable from the EN sentence. |
 | `panorama/osd.mdx` | `The Panorama drives three independent screens, so you may want to adjust the desktop layout…` | The causal link does not hold — arranging displays in the OS is true of any external display. (The German *modality* was repaired, see fixlog; the causal claim is the source's.) |
 | `en/manuals/**/display-settings.mdx` | Dutch parenthetical glosses (`'Beeldscherminstellingen'`, `'Identificeren'`, `'Beeldschermstand'`) in EN body copy and alt text | Intentional (the screenshots are Dutch), but it is why the German page previously led with an English label that appears neither on the screenshot nor in the reader's OS. See the §9 amendment in `glossary-de.md`. |
+
+---
+
+## 8. The scaling prompt — one Dutch string, three English strings *(added in review follow-up)*
+
+**Files:** `de/manuals/{onecable,dual-flip,flip,expand}/display-settings.mdx:34` (shared body),
+`infinity-lite/display-settings.mdx:23` and `:59`, `infinity/display-settings.mdx:30`,
+`panorama/osd.mdx:49` — **8 shipped sites**.
+
+All eight introduce the identical instruction: *set scaling to 150 % so text and elements are
+displayed larger*. The Dutch source says **`overzicht`** at every one of them. The English has
+drifted into three different strings:
+
+| Site | **NL — the source** | EN | DE (after this round) |
+|---|---|---|---|
+| `{onecable,dual-flip,flip,expand}/display-settings:34` | `Behoefte aan meer overzicht?` | `Need more overview?` | `Brauchst du mehr Übersicht?` |
+| `infinity-lite/display-settings:23` | `Heb je behoefte aan meer overzicht?` | `Need more overview?` | idem |
+| `infinity-lite/display-settings:59` | `Behoefte aan meer overzicht?` | `Need more overview?` | idem |
+| `infinity/display-settings:30` | `Heb je behoefte aan meer **overzicht**?` | `Want more on-screen space?` | idem |
+| `panorama/osd:49` | `Meer **overzicht** nodig?` | `Need more room?` | idem |
+
+**Two separate findings for the EN owner:**
+
+**8a — EN-side drift (3 strings for 1 source string).** `Want more on-screen space?` and
+`Need more room?` are not translations of `meer overzicht`; they are English rewrites that changed
+the meaning. Recommend harmonising the EN corpus to a single string so the other four languages
+stop having to adjudicate which witness to follow.
+
+**8b — the prompt does not match the instruction it introduces, in *any* language.** Raising
+scaling to 150 % enlarges text and UI elements and therefore shows **less** on screen at once —
+so neither "more overview" (NL, and now DE/IT) nor "more space" (the old DE/IT target) follows
+from it. `mehr Übersicht` restores **fidelity to the Dutch**; it does not make the passage
+logical. The underlying defect is in the source and is inherited by all five languages at all
+eight sites. Recommend rewording at source — something like *"Is everything too small?"* /
+*"Alles zu klein?"* — and propagating once.
+
+**Cross-language state.** Italian resolved this against the Dutch in `f66e287`; German now matches
+on all eight sites (this round). The rule is recorded as a standing ruling in `glossary-de.md`
+§10.1: *this family resolves against the Dutch; do not re-split the row per EN variant.* FR should
+be checked against the same principle before the branch ships.
