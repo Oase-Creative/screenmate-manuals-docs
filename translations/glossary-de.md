@@ -1105,7 +1105,7 @@ Quote them with German quotes: `Wähle „Desktop auf diese Anzeige erweitern“
 | Windows | Display settings / Display Settings | Anzeigeeinstellungen |
 | Windows | Extend desktop to this display | Desktop auf diese Anzeige erweitern |
 | Windows | Identify | Identifizieren |
-| Windows | Display orientation | Anzeigeausrichtung |
+| Windows | Display orientation | Bildschirmausrichtung — see note |
 | Windows | Flipped | Querformat (gedreht) — see note |
 | Windows | Mirrored *(superseded — EN now says "Flipped")* | Querformat (gedreht) |
 | Windows | Scale | Skalierung |
@@ -1136,10 +1136,30 @@ orientation dropdown; the options are `Querformat`, `Hochformat`,
 corresponds to the EN "Flipped" in this instruction. Do not invent `Gespiegelt` — that
 is the Dutch solution and it does not appear in German Windows.
 
-The NL pages carry parenthetical Dutch OS labels alongside the English
-(`'Display settings' ('Beeldscherminstellingen')`) because the screenshots are English.
-Do the same in German: `„Display settings“ („Anzeigeeinstellungen“)` on first mention in
-the display-settings chapter, then the German label alone.
+**Note on "Display orientation" — amended round 4.** This row previously read
+`Anzeigeausrichtung`. That string does not exist in the German Windows UI: under
+*Skalierung und Layout* the field is labelled **`Bildschirmausrichtung`**. A coined
+label the reader cannot find on their own screen is a meaning defect, not a style
+preference, so the lock was corrected and all eight body occurrences plus one `alt`
+text were updated in the same commit (`de/manuals/{onecable,dual-flip,flip,expand,
+infinity,infinity-lite}/display-settings.mdx`, `de/manuals/panorama/osd.mdx`).
+
+**Note on the OS-label gloss order — amended round 4.** This paragraph previously
+required the English label first with a German gloss
+(`„Display settings“ („Anzeigeeinstellungen“)`), by analogy with the NL pages. The
+analogy does not hold: the screenshots in this chapter are **Dutch**, so on a German
+page the English string is not on the screenshot *and* not in the reader's OS — it is
+the one label that is guaranteed to help nobody. The German label therefore **leads**,
+and the English label is what goes in the parentheses where the EN source carries a
+parenthetical gloss at all:
+
+| EN source line | German |
+|---|---|
+| `choose **Display settings** ('Beeldscherminstellingen')` | `wähle **Anzeigeeinstellungen** („Display settings“)` |
+| `Open **Display Settings** and choose …` *(no gloss in EN)* | `Öffne die **Anzeigeeinstellungen** und wähle …` *(no gloss — parity)* |
+
+Second and later mentions take the German label alone, unchanged from before. Never
+add a parenthetical the EN line does not have.
 
 ---
 
@@ -1184,8 +1204,19 @@ the display-settings chapter, then the German label alone.
 | Need extra power? | Brauchst du mehr Strom? |
 | No USB-C port on your laptop? | Dein Laptop hat keinen USB-C-Anschluss? |
 | Screen upside down? | Bildschirm steht auf dem Kopf? |
-| Need more room? / Need more overview? | Brauchst du mehr Platz? |
+| Need more room? / Want more on-screen space? | Brauchst du mehr Platz? |
+| Need more overview? | Brauchst du mehr Übersicht? *(amended round 4 — see note)* |
 | Want to extend your workspace? | Möchtest du deine Arbeitsfläche erweitern? |
+
+**Note on `Need more overview?` — amended round 4.** The two EN variants were previously
+collapsed onto one German target, `Brauchst du mehr Platz?`. That target inverts the
+meaning of the `overview` variant: the instruction under it sets scaling to 150 %, which
+enlarges text and UI elements and therefore *reduces* usable desktop area. A German
+reader was being promised the opposite of what the setting delivers. The variants are now
+kept apart — `mehr Übersicht` for `Need more overview?` (6 occurrences: onecable,
+dual-flip, flip, expand `display-settings`, infinity-lite `display-settings` ×2) and
+`mehr Platz` for `Need more room?` / `Want more on-screen space?` (2 occurrences:
+panorama `osd`, infinity `display-settings`). Check the EN line before touching either.
 
 ### 10.2 Literal-translation traps
 
@@ -1353,6 +1384,15 @@ heading `Rechte Taste „Plus“` and the §3.6 German quote rule.
 Where a locked row here disagrees with an already-shipped, QC'd DE page, **the shipped
 page wins** and this file is amended to match. Sections written after a chapter shipped
 were derived from the EN source, so they can carry a divergence the chapter never had.
+
+**Round-4 amendments to the display-settings chapter.** Two locked strings were shown to
+carry meaning errors, not stylistic ones, and were corrected together with every affected
+page: `Display orientation` → `Bildschirmausrichtung` (§9) and `Need more overview?` →
+`Brauchst du mehr Übersicht?` (§10.1), plus the OS-label gloss order (§9). The
+display-settings chapter is therefore **no longer byte-frozen at `4792819`**; its new
+canonical body is `de/manuals/onecable/display-settings.mdx` on `round4-fixes`, still
+checksum-identical across OneCable, Dual Flip, Flip and Expand (§7.3). The **safety**
+chapter remains frozen and was not touched in round 4.
 
 Frozen chapters (shipped `4792819`): **safety** and **display-settings**, all 17 files.
 `de/manuals/onecable/display-settings.mdx` and `de/manuals/onecable/safety.mdx` are
