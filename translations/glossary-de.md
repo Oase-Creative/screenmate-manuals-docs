@@ -837,7 +837,7 @@ it without editing all four.
 | Menu / Select / Confirm | Menü / Auswahl / Bestätigen |
 | Confirm / Exit Button | Bestätigen-/Beenden-Taste |
 | Power Button | Power-Taste |
-| Power & Return Button | Power- und Zurück-Taste |
+| Power & Return Button | Power-/Zurück-Taste *(amended round 4 — the `und` form reads as two buttons; §3.5 slash-suspension is the house form for one multi-function button)* |
 | Scroll Wheel | Scrollrad |
 | + and − Buttons | Tasten + und − |
 | + Button (Increase Brightness) | Taste + (Helligkeit erhöhen) |
@@ -945,7 +945,7 @@ not an instruction, so they take `ich`/`mein`, never `du`/`dein`.
 | Shop Products | Produkte ansehen |
 | Warranty Info | Garantieinformationen |
 | Get help from our support team | Hilfe von unserem Support-Team erhalten |
-| Browse all Screenmate products | Alle Screenmate-Produkte durchsuchen |
+| Browse all Screenmate products | Alle Screenmate-Produkte entdecken *(amended round 4 — `durchsuchen` means "search through/rummage", not "browse")* |
 | Learn about product warranties | Mehr über die Produktgarantie erfahren |
 | Scanning a QR code? | Du hast einen QR-Code gescannt? |
 
