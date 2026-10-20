@@ -82,6 +82,10 @@ def collect_pages(root: Path, lang: str) -> dict[str, Path]:
 
 
 def link_target(lang: str, page_key: str) -> str:
+    # Mintlify routes `<dir>/index.mdx` at `<dir>`; linking to `.../index`
+    # breaks the language selector and sidebar on client-side switches.
+    if page_key.endswith("/index"):
+        page_key = page_key[: -len("/index")]
     return f"/{lang}/{page_key}"
 
 
